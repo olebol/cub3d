@@ -10,6 +10,8 @@ OBJ_DIR			:= obj
 # Compiler flags
 CC				:= gcc
 CFLAGS			:= -Wall -Werror -Wextra
+MLX_FLAGS		:= -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
+# MLX_FLAGS		:= -framework Cocoa -framework OpenGL -framework IOKit -ldl -lglfw3 -pthread
 
 ifdef DEBUG
 	CFLAGS		+= -g -fsanitize=address
@@ -21,7 +23,11 @@ HDR_FILES :=									\
 
 # Libft
 LIBFT_DIR		:= $(LIB_DIR)/libft
-LIB				:= $(LIBFT_DIR)/libft.a
+LIBFT			:= $(LIBFT_DIR)/libft.a
+
+# MLX42
+MLX_DIR			:= $(LIB_DIR)/MLX
+MLX				:= $(MLX_DIR)/build/libmlx42.a
 
 # Files
 SRC_FILES :=									\
@@ -32,6 +38,7 @@ SRC_FILES :=									\
 SRC				:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ				:= ${addprefix ${OBJ_DIR}/, ${SRC_FILES:.c=.o}}
 HDR				:= $(addprefix $(HDR_DIR)/, $(HDR_FILES))
+INC				:= -I $(LIBFT_DIR)/include/ -I $(MLX_DIR)/include
 
 # Colours
 GREEN			:= \033[32;1m
@@ -43,40 +50,54 @@ RESET			:= \033[0m
 # Rules
 all: ${NAME}
 
-$(NAME): $(OBJ) $(LIB)
+$(NAME): $(LIBFT) $(MLX) $(OBJ)
 	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling $(NICKNAME)..." "$(RESET)"
-	@ gcc $(CFLAGS) $(OBJ) $(LIB) -o $(NAME) -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
+	@ gcc $(OBJ) $(LIBFT) $(MLX_FLAGS) $(MLX) $(INC) -o $(NAME)
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
 
-$(LIB):
-	@ make -C $(LIBFT_DIR)
+$(LIBFT):
+	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling LIBFT..." "$(RESET)"
+	@ make -C $(LIBFT_DIR)														> /dev/null
+	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
 
+$(MLX):
+	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling MLX42..." "$(RESET)"
+	@ cmake $(MLX_DIR) -B $(MLX_DIR)/build										> /dev/null
+	@ make -C $(MLX_DIR)/build -j4												> /dev/null
+	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
+	
 $(OBJ_DIR)/%.o: src/%.c $(HDR)
+	
 	@ mkdir -p obj
-	@ gcc $(CFLAGS) -I $(HDR_DIR) -c $< -o $@ -I /Users/$(USER)/.brew/opt/readline/include
+	@ gcc $(CFLAGS) -c $< -o $@ -I $(INC_DIR)
 
 open: $(NAME)
-	@ ./$(NAME)
+	@ ./$(NAME) maps/test
 
-log:
-	git log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%an%C(reset)%C(bold yellow)%d%C(reset) %C(dim white)- %s%C(reset)' --all
 
 norm:
 	@ norminette $(HDR_DIR) $(SRC)
 
 clean:
+	@ echo "$(RED)$(BOLD)Cleaning LIBFT...$(RESET)"
+	@ make clean -C $(LIBFT_DIR)
+
 	@ echo "$(RED)$(BOLD)Cleaning $(NICKNAME)...$(RESET)"
 	@ rm -rf $(OBJ)
 	@ rm -rf $(OBJ_DIR)
-	@ make clean -C $(LIBFT_DIR)
 
-fclean:
+fclean: 
+	@ echo "$(RED)$(BOLD)Fully cleaning LIBFT...$(RESET)"
+	@ make fclean -C $(LIBFT_DIR)
+
+	@ echo "$(RED)$(BOLD)Fully cleaning MLX42...$(RESET)"
+	@ make clean -C $(MLX_DIR)/build
+
 	@ echo "$(RED)$(BOLD)Fully cleaning $(NICKNAME)...$(RESET)"
 	@ rm -rf ${NAME}
 	@ rm -rf $(OBJ)
 	@ rm -rf $(OBJ_DIR)
-	@ make fclean -C $(LIBFT_DIR)
 
 re: fclean ${NAME}
 
-.PHONY: all norminette clean fclean re
+.PHONY: all norm clean fclean re libft libmlx cleanmlx

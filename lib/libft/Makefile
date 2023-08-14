@@ -19,14 +19,10 @@ BOLD		:= \033[1m
 RESET		:= \033[0m
 
 # Rules
-all: startmsg ${NAME}
+all: ${NAME}
 
 $(NAME): $(PRINTF) $(GNL) $(LIBFT)
-	@ar rc ${NAME} $^
-	@printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
-
-startmsg:
-	@printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling $(NICKNAME)..." "$(RESET)"
+	@ ar rc ${NAME} $^
 
 $(PRINTF):
 	@make -C $(PRINTF_DIR)
@@ -38,13 +34,11 @@ $(LIBFT):
 	@make -C $(LIBFT_DIR)
 
 clean:
-	@echo "$(RED)$(BOLD)Cleaning $(NICKNAME)...$(RESET)"
 	@make clean -C $(PRINTF_DIR)
 	@make clean -C $(GNL_DIR)
 	@make clean -C $(LIBFT_DIR)
 
 fclean:
-	@echo "$(RED)$(BOLD)Fully cleaning $(NICKNAME)...$(RESET)"
 	@make fclean -C $(PRINTF_DIR)
 	@make fclean -C $(GNL_DIR)
 	@make fclean -C $(LIBFT_DIR)
@@ -52,4 +46,4 @@ fclean:
 
 re: fclean ${NAME}
 
-.PHONY: all startmsg norminette clean fclean re
+.PHONY: all startmsg clean fclean re
