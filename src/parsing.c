@@ -6,7 +6,7 @@
 /*   By: evan-der <evan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:25:25 by evan-der      #+#    #+#                 */
-/*   Updated: 2023/08/14 18:28:51 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/14 18:44:00 by evan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void	copy_map_to_array(t_map *map, char *line)
 			k = 0;
 		}
 		else
+		{
 			map->map[j][k] = line[i];
+			k++;
+		}
 		i++;
 	}
 }
@@ -44,7 +47,7 @@ int map_height(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[height] == '\n')
+		if (line[i] == '\n')
 			height++;
 		i++;
 	}
@@ -126,10 +129,9 @@ char	*copy_line(int fd) // get_next_line style
 		exit(1);
 	}
 	temp[1] = '\0';
-	ret = 1;
+	ret = read(fd, temp, 1);
 	while (ret > 0)
 	{
-		ret = read(fd, temp, 1);
 		if (ret == -1)
 		{
 			ft_putstr_fd("Error\n", 2);
@@ -137,6 +139,7 @@ char	*copy_line(int fd) // get_next_line style
 			exit(1);
 		}
 		line = ft_strjoin(line, temp);
+		ret = read(fd, temp, 1);
 	}
 	free(temp);
 	return (line);
@@ -157,27 +160,26 @@ void	parse_map(char *map_file, t_map *map)
 		exit(1);
 	}
 	line = copy_line(fd);
-	map->x = map_width(line);
-	map->y = map_height(line);
-	map->map = (char **)malloc((map->y + 1) * sizeof(char *));
+	map->width = map_width(line);
+	map->height = map_height(line);
+	map->map = (char **)malloc((map->height + 1) * sizeof(char *));
 	if (!map->map)
 	{
 		ft_putstr_fd("Error\n", 2);
 		ft_putstr_fd("Malloc failed\n", 2);
 		exit(1);
 	}
-	map->map[map->y] = NULL;
-	while (i < map->y)
+	map->map[map->height] = NULL;
+	while (i < map->height)
 	{
-		printf("debug\n");
-		map->map[i] = (char *)malloc((map->x + 1) * sizeof(char));
+		map->map[i] = (char *)malloc((map->width + 1) * sizeof(char));
 		if (!map->map[i])
 		{
 			ft_putstr_fd("Error\n", 2);
 			ft_putstr_fd("Malloc failed\n", 2);
 			exit(1);
 		}
-		map->map[i][map->x] = '\0';
+		map->map[i][map->width] = '\0';
 		i++;
 	}
 	copy_map_to_array(map, line);
