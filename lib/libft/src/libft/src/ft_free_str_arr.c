@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
+/*   ft_free_str_arr.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/14 18:14:30 by opelser       ########   odam.nl         */
+/*   Created: 2023/05/03 21:02:56 by opelser       #+#    #+#                 */
+/*   Updated: 2023/05/10 15:28:08 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "stdlib.h"
 
-#include "../lib/MLX/include/MLX42/MLX42.h"
+void	ft_free_str_arr(char **strings)
+{
+	int		i;
 
-
-
-#endif
+	i = 0;
+	if (!strings)
+		return ;
+	while (strings[i])
+	{
+		free(strings[i]);
+		i++;
+	}
+	free(strings);
+}

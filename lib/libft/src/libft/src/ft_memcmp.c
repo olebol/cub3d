@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
+/*   ft_memcmp.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/14 18:14:30 by opelser       ########   odam.nl         */
+/*   Created: 2022/10/20 18:14:03 by opelser       #+#    #+#                 */
+/*   Updated: 2022/11/14 18:22:50 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "libft.h"
 
-#include "../lib/MLX/include/MLX42/MLX42.h"
-
-
-
-#endif
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	while (n > 0)
+	{
+		if (*(unsigned char *) s1 != *(unsigned char *) s2)
+			return (*(unsigned char *) s1 - *(unsigned char *) s2);
+		n--;
+		s1++;
+		s2++;
+	}
+	return (0);
+}

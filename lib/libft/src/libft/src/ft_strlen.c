@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
+/*   ft_strlen.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/14 18:14:30 by opelser       ########   odam.nl         */
+/*   Created: 2022/10/03 16:43:43 by opelser       #+#    #+#                 */
+/*   Updated: 2022/11/08 22:29:41 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "libft.h"
 
-#include "../lib/MLX/include/MLX42/MLX42.h"
+size_t	ft_strlen(const char *str)
+{
+	size_t		i;
 
-
-
-#endif
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}

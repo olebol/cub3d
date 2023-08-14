@@ -1,20 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
+/*   ft_strchr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/14 18:14:30 by opelser       ########   odam.nl         */
+/*   Created: 2022/10/19 19:33:52 by opelser       #+#    #+#                 */
+/*   Updated: 2023/08/02 16:11:57 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "stddef.h"
 
-#include "../lib/MLX/include/MLX42/MLX42.h"
+char	*ft_strchr(const char *s, int c)
+{
+	int		i;
 
+	i = 0;
+	while (s[i - 1])
+	{
+		if (s[i] == (char) c)
+			return ((char *) s + i);
+		i++;
+	}
+	return (NULL);
+}
 
+int	ft_strchr_index(char *str, char c)
+{
+	int		i;
 
-#endif
+	i = 0;
+	if (!str)
+		return (-1);
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (i);
+		i++;
+	}
+	if (str[i] == c)
+		return (i);
+	return (-1);
+}

@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
+/*   ft_memcpy.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/14 18:14:30 by opelser       ########   odam.nl         */
+/*   Created: 2022/10/05 21:00:35 by opelser       #+#    #+#                 */
+/*   Updated: 2022/11/14 18:21:23 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include <stddef.h>
 
-#include "../lib/MLX/include/MLX42/MLX42.h"
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	void		*org;
+	size_t		i;
 
-
-
-#endif
+	org = dst;
+	i = 0;
+	if (!dst && !src)
+		return (NULL);
+	while (n > i)
+	{
+		((unsigned char *) dst)[i] = ((unsigned char *) src)[i];
+		i++;
+	}
+	return (org);
+}

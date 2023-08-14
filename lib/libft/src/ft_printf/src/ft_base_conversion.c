@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
+/*   ft_printf_conversions.c                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/14 18:14:30 by opelser       ########   odam.nl         */
+/*   Created: 2023/01/08 19:56:28 by opelser       #+#    #+#                 */
+/*   Updated: 2023/01/10 16:52:25 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include <unistd.h>
 
-#include "../lib/MLX/include/MLX42/MLX42.h"
+int	ft_conversion(unsigned long num, int base, char *characters)
+{
+	static int	count;
+	int			org;
 
-
-
-#endif
+	org = count;
+	if (num / base != 0)
+	{
+		if (ft_conversion((num / base), base, characters) == -1)
+			return (-1);
+	}
+	if (write(1, &characters[num % base], 1) == -1)
+		return (-1);
+	else
+		count++;
+	return (count - org);
+}

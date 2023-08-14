@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
+/*   ft_strmapi.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/14 18:14:30 by opelser       ########   odam.nl         */
+/*   Created: 2022/11/01 22:13:18 by opelser       #+#    #+#                 */
+/*   Updated: 2022/11/14 21:47:31 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "libft.h"
 
-#include "../lib/MLX/include/MLX42/MLX42.h"
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	char			*s2;
+	unsigned int	i;
+	const size_t	len = ft_strlen(s);
 
-
-
-#endif
+	i = 0;
+	if (!s || !f)
+		return (NULL);
+	s2 = malloc(len + 1);
+	if (!s || !s2)
+		return (NULL);
+	while (i < (unsigned int)len)
+	{
+		s2[i] = (*f)(i, s[i]);
+		i++;
+	}
+	s2[i] = 0;
+	return (s2);
+}

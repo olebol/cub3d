@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
+/*   ft_memset.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/14 18:14:30 by opelser       ########   odam.nl         */
+/*   Created: 2022/10/04 13:54:06 by opelser       #+#    #+#                 */
+/*   Updated: 2022/11/14 18:40:20 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include <stddef.h>
 
-#include "../lib/MLX/include/MLX42/MLX42.h"
+void	*ft_memset(void *b, int c, size_t len)
+{
+	size_t			i;
+	unsigned char	*temp;
 
-
-
-#endif
+	temp = b;
+	i = 0;
+	while (len > i)
+	{
+		temp[i] = (unsigned char)c;
+		i++;
+	}
+	return (b);
+}
