@@ -26,6 +26,7 @@ LIB				:= $(LIBFT_DIR)/libft.a
 # Files
 SRC_FILES :=									\
 				main.c							\
+				parsing.c						\
 
 
 SRC				:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
