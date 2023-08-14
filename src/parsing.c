@@ -6,7 +6,7 @@
 /*   By: evan-der <evan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:25:25 by evan-der      #+#    #+#                 */
-/*   Updated: 2023/08/14 18:44:00 by evan-der      ########   odam.nl         */
+/*   Updated: 2023/08/14 21:05:21 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,54 +66,13 @@ int	map_width(char *line)
 	return (width);
 }
 
-// size_t	ft_strlen(char *str)
-// {
-// 	size_t len;
-
-// 	len = 0;
-// 	while (str[len])
-// 		len++;
-// 	return (len);
-// }
-
-// char	*ft_strjoin(char *s1, char *s2)
-// {
-// 	char	*str;
-// 	size_t	i;
-// 	size_t	j;
-// 	size_t	len;
-
-// 	if (!s1 || !s2)
-// 		return (NULL);
-// 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
-// 	str = (char *)malloc(len * sizeof(char));
-// 	if (!str)
-// 		return (NULL);
-// 	i = 0;
-// 	j = 0;
-// 	while (s1[i] != '\0' && i < len)
-// 	{
-// 		str[i] = s1[i];
-// 		i++;
-// 	}
-// 	while (s2[j] != '\0' && i < len)
-// 	{
-// 		str[i] = s2[j];
-// 		i++;
-// 		j++;
-// 	}
-// 	str[i] = '\0';
-// 	free(s1);
-// 	return (str);
-// }
-
 char	*copy_line(int fd) // get_next_line style
 {
 	char	*line;
 	char	*temp;
 	int		ret;
 
-	line = (char *)malloc(1 * sizeof(char));
+	line = (char *) malloc(1 * sizeof(char));
 	if (!line)
 	{
 		ft_putstr_fd("Error\n", 2);
@@ -121,7 +80,7 @@ char	*copy_line(int fd) // get_next_line style
 		exit(1);
 	}
 	line[0] = '\0';
-	temp = (char *)malloc(2 * sizeof(char));
+	temp = (char *) malloc(2 * sizeof(char));
 	if (!temp)
 	{
 		ft_putstr_fd("Error\n", 2);
@@ -162,7 +121,7 @@ void	parse_map(char *map_file, t_map *map)
 	line = copy_line(fd);
 	map->width = map_width(line);
 	map->height = map_height(line);
-	map->map = (char **)malloc((map->height + 1) * sizeof(char *));
+	map->map = (char **) malloc((map->height + 1) * sizeof(char *));
 	if (!map->map)
 	{
 		ft_putstr_fd("Error\n", 2);
@@ -172,7 +131,7 @@ void	parse_map(char *map_file, t_map *map)
 	map->map[map->height] = NULL;
 	while (i < map->height)
 	{
-		map->map[i] = (char *)malloc((map->width + 1) * sizeof(char));
+		map->map[i] = (char *) malloc((map->width + 1) * sizeof(char));
 		if (!map->map[i])
 		{
 			ft_putstr_fd("Error\n", 2);

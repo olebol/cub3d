@@ -20,6 +20,8 @@ endif
 # Includes
 HDR_FILES :=									\
 				cub3d.h							\
+				declarations.h					\
+				colors.h						\
 
 # Libft
 LIBFT_DIR		:= $(LIB_DIR)/libft
@@ -33,6 +35,7 @@ MLX				:= $(MLX_DIR)/build/libmlx42.a
 SRC_FILES :=									\
 				main.c							\
 				parsing.c						\
+				minimap.c						\
 
 
 SRC				:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
