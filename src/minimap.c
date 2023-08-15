@@ -12,19 +12,21 @@
 
 #include "../include/cub3d.h"
 
-void	draw_square(mlx_image_t *minimap, int x, int y, int color)
+void	draw_square(t_data *data, int x, int y, unsigned int color)
 {
-	int			i = 0;
-	int			j = 0;
+	int				i = 0;
+	int				j = 0;
+	const t_map		*map = &data->map;
+	const int		tileSize = map->tileSize;
 
-	x *= TILE_SIZE;
-	y *= TILE_SIZE;
-	while (i < TILE_SIZE - 1)
+	x *= tileSize;
+	y *= tileSize;
+	while (i < tileSize - 1 && (x + i < (map->width * tileSize)))
 	{
 		j = 0;
-		while (j < TILE_SIZE - 1)
+		while (j < tileSize - 1 && (y + j < (map->height * tileSize)))
 		{
-			mlx_put_pixel(minimap, x + i, y + j, color);
+			mlx_put_pixel(map->minimap, x + i, y + j, color);
 			j++;
 		}
 		i++;
@@ -43,12 +45,18 @@ void	draw_map(t_data *data)
 		while (map[y][x])
 		{
 			if (map[y][x] == '1')
-				draw_square(data->map.minimap, x, y, 0xC6E2E9FF);
+				draw_square(data, x, y, 0xC6E2E9FF);
 			else if (map[y][x] == '0')
-				draw_square(data->map.minimap, x, y, 0xF8DF81FF);
+				draw_square(data, x, y, 0xF8DF81FF);
 			x++;
 		}
 		y++;
 	}
+
+	// Draw minimap
 	mlx_image_to_window(data->mlx, data->map.minimap, 0, 0);
+
+	// Draw player
+	mlx_image_to_window(data->mlx, data->player.img, \
+						data->player.posX - 3, data->player.posY - 3);
 }

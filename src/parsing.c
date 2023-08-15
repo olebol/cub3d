@@ -6,7 +6,7 @@
 /*   By: evan-der <evan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:25:25 by evan-der      #+#    #+#                 */
-/*   Updated: 2023/08/14 21:05:21 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/15 18:03:17 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,11 @@ void	parse_map(char *map_file, t_map *map)
 		exit(1);
 	}
 	line = copy_line(fd);
+
 	map->width = map_width(line);
 	map->height = map_height(line);
+	map->tileSize = 64;
+
 	map->map = (char **) malloc((map->height + 1) * sizeof(char *));
 	if (!map->map)
 	{
@@ -128,6 +131,7 @@ void	parse_map(char *map_file, t_map *map)
 		ft_putstr_fd("Malloc failed\n", 2);
 		exit(1);
 	}
+
 	map->map[map->height] = NULL;
 	while (i < map->height)
 	{

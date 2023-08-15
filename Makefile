@@ -34,14 +34,16 @@ MLX				:= $(MLX_DIR)/build/libmlx42.a
 # Files
 SRC_FILES :=									\
 				main.c							\
+				init.c							\
 				parsing.c						\
+				loop.c							\
 				minimap.c						\
 
 
 SRC				:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ				:= ${addprefix ${OBJ_DIR}/, ${SRC_FILES:.c=.o}}
 HDR				:= $(addprefix $(HDR_DIR)/, $(HDR_FILES))
-INC				:= -I $(LIBFT_DIR)/include/ -I $(MLX_DIR)/include
+INC				:= -I include/ -I $(LIBFT_DIR)/include/ -I $(MLX_DIR)/include
 
 # Colours
 GREEN			:= \033[32;1m
@@ -70,9 +72,8 @@ $(MLX):
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
 	
 $(OBJ_DIR)/%.o: src/%.c $(HDR)
-	
 	@ mkdir -p obj
-	@ gcc $(CFLAGS) -c $< -o $@ -I $(INC_DIR)
+	@ gcc $(CFLAGS) -c $< -o $@ $(INC)
 
 open: $(NAME)
 	@ ./$(NAME) maps/test

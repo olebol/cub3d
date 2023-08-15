@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/14 21:01:50 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/15 18:06:17 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,17 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <math.h>
 
 
 void		parse_map(char *map_file, t_map *map);
 
 void		draw_map(t_data *data);
+
+int			init_mlx_data(t_data *data);
+int			init_player(t_data *data);
+
+void		captainhook(mlx_key_data_t keydata, void *data);
 
 
 #endif
