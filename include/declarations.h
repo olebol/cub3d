@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 20:59:57 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/14 21:17:17 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/15 14:29:26 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include "cub3d.h"
 
-# define TILE_SIZE 128
-# define WIN_WIDTH 1080
-# define WIN_HEIGHT 720
+# define TILE_SIZE 64
+# define WIN_WIDTH 1024
+# define WIN_HEIGHT 512
 
 typedef struct	s_map
 {

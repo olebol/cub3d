@@ -19,10 +19,10 @@ void	draw_square(mlx_image_t *minimap, int x, int y, int color)
 
 	x *= TILE_SIZE;
 	y *= TILE_SIZE;
-	while (i < TILE_SIZE)
+	while (i < TILE_SIZE - 1)
 	{
 		j = 0;
-		while (j < TILE_SIZE)
+		while (j < TILE_SIZE - 1)
 		{
 			mlx_put_pixel(minimap, x + i, y + j, color);
 			j++;
@@ -37,18 +37,18 @@ void	draw_map(t_data *data)
 	int			y = 0;
 	char		**map = data->map.map;
 
-	while (map[x])
+	while (map[y])
 	{
-		y = 0;
-		while (map[x][y])
+		x = 0;
+		while (map[y][x])
 		{
-			if (map[x][y] == '1')
+			if (map[y][x] == '1')
 				draw_square(data->map.minimap, x, y, 0xC6E2E9FF);
-			else if (map[x][y] == '0')
+			else if (map[y][x] == '0')
 				draw_square(data->map.minimap, x, y, 0xF8DF81FF);
-			y++;
+			x++;
 		}
-		x++;
+		y++;
 	}
 	mlx_image_to_window(data->mlx, data->map.minimap, 0, 0);
 }
