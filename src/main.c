@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:46 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/15 17:47:39 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/15 19:50:59 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,11 @@ int	main(int argc, char *argv[])
 		ft_error("Failed to initialize player");
 	}
 
+
+	// Draw minimap
 	draw_map(&data);
+	mlx_image_to_window(data.mlx, data.map.minimap, 0, 0);
+	mlx_image_to_window(data.mlx, data.player.img, data.player.posX, data.player.posY);
 
 	mlx_key_hook(data.mlx, &captainhook, (void *) &data);
 	mlx_loop(data.mlx);

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/15 14:58:39 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/15 18:32:37 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/15 20:08:55 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,36 @@ static void		move_hook(t_data *data)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W) == true)
 	{
-		if (isWall(data, 0, -5 + PLAYER_MAP_OFFSET) == false)
+		if (isWall(data, 0, -2) == false)
+		{
+			data->player.img->instances[0].y -= 2;
 			data->player.posY -= 2;
+		}
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) == true)
 	{
-		if (isWall(data, 0, 5 - PLAYER_MAP_OFFSET) == false)
+		if (isWall(data, 0, 2 + data->player.img->height) == false)
+		{
+			data->player.img->instances[0].y += 2;
 			data->player.posY += 2;
+		}
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A) == true)
 	{
-		if (isWall(data, -5 + PLAYER_MAP_OFFSET, 0) == false)
+		if (isWall(data, -2, 0) == false)
+		{
+			data->player.img->instances[0].x -= 2;
 			data->player.posX -= 2;
+		}
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D) == true)
 	{
-		if (isWall(data, 5 - PLAYER_MAP_OFFSET, 0) == false)
+		if (isWall(data, 2 + data->player.img->width, 0) == false)
+		{
+			data->player.img->instances[0].x += 2;
 			data->player.posX += 2;
+		}
 	}
-	printf("playerX: %f playerY: %f\n", data->player.posX, data->player.posY);
 }
 
 void		captainhook(mlx_key_data_t keydata, void *dataPointer)
@@ -62,10 +73,8 @@ void		captainhook(mlx_key_data_t keydata, void *dataPointer)
 	(void) keydata;
 	data = (t_data *) dataPointer;
 
-
 	move_hook(data);
 	exit_hook(data);
 
-	mlx_image_to_window(data->mlx, data->screen, 0, 0);
 	draw_map(data);
 }

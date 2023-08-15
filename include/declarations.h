@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 20:59:57 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/15 18:18:39 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/15 20:08:34 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # define WIN_WIDTH 1024
 # define WIN_HEIGHT 512
 
-# define PLAYER_MAP_OFFSET 2
 
 typedef struct		s_map
 {
@@ -28,8 +27,6 @@ typedef struct		s_map
 	int				height;			// height of map
 
 	mlx_image_t		*minimap;		// image of minimap
-	int				minimapWidth;	// width of minimap
-	int				minimapHeight;	// height of minimap
 	int				tileSize;		// size of tile for minimap
 }					t_map;
 

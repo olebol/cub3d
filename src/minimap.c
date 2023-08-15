@@ -52,11 +52,4 @@ void	draw_map(t_data *data)
 		}
 		y++;
 	}
-
-	// Draw minimap
-	mlx_image_to_window(data->mlx, data->map.minimap, 0, 0);
-
-	// Draw player
-	mlx_image_to_window(data->mlx, data->player.img, \
-						data->player.posX - 3, data->player.posY - 3);
 }
