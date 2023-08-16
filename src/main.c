@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:46 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/16 16:36:31 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/16 18:10:42 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,39 @@ void	print_map(char **map)
 	}
 }
 
+static void	draw_player(t_data *data)
+{
+	// Draw player dot to image
+	int		start_pos = data->map.minimapSize / 2 - 2;
+
+	for (int i = 0; i < 5; i++)
+		for (int j = 0; j < 5; j++)
+			mlx_put_pixel(data->screen, i + start_pos, j + start_pos, 0xFF6961FF);
+}
+
+static void	draw_guidelines(t_data *data)
+{
+	// Draw map guidelines
+	for (int i = 0; i <= data->map.minimapSize; i++)
+	{
+		if (i % data->map.tileSize == 0)
+		{
+			for (int j = 0; j < data->map.minimapSize; j++)
+				mlx_put_pixel(data->screen, i, j, 0x00FF00FF);
+		}
+	}
+
+	for (int i = 0; i <= data->map.minimapSize; i++)
+	{
+		if (i % data->map.tileSize == 0)
+		{
+			for (int j = 0; j < data->map.minimapSize; j++)
+				mlx_put_pixel(data->screen, j, i, 0x00FF00FF);
+		}
+	}
+}
+
+
 int	main(int argc, char *argv[])
 {
 	t_data		data;
@@ -41,28 +74,13 @@ int	main(int argc, char *argv[])
 		ft_error("Failed to initialize MLX data");
 
 
-
 	parse_map(argv[1], &data.map);
-
-	// Draw minimap
-	draw_map(&data);
+	init_player(&data);
 	print_map(data.map.map);
 
-	if (init_player(&data))
-	{
-		mlx_terminate(data.mlx);
-		ft_error("Failed to initialize player");
-	}
-
-	// Move image to center player position
-	data.map.minimap->instances[0].x = 0 - data.player.x + data.map.minimapSize / 2;
-	data.map.minimap->instances[0].y = 0 - data.player.y + data.map.minimapSize / 2;
-
-	for (int i = 0; i < data.map.minimapSize; i++)
-		mlx_put_pixel(data.screen, data.map.minimapSize, i, 0x00FF00FF);
-	
-	for (int i = 0; i < data.map.minimapSize; i++)
-		mlx_put_pixel(data.screen, i, data.map.minimapSize, 0x00FF00FF);
+	draw_guidelines(&data);
+	draw_map(&data);
+	draw_player(&data);
 
 	mlx_key_hook(data.mlx, &captainhook, (void *) &data);
 	mlx_loop(data.mlx);

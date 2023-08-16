@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/15 14:32:27 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/16 16:44:46 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/16 18:10:34 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,13 @@
 
 int		init_player(t_data *data)
 {
-	t_player		*player;
-
-	player = &data->player;
 	const int		tileSize = data->map.tileSize;
-	player->img = mlx_new_image(data->mlx, 5, 5);
-	if (!player->img)
-		return (1);
-
-	// Draw player dot to image
-	for (int i = 0; i < 5; i++)
-		for (int j = 0; j < 5; j++)
-			mlx_put_pixel(player->img, i, j, 0xFF6961FF);
 
 	// Set player pos to middle of the screen
-	player->x = (data->map.width / 2) * tileSize + tileSize / 2;
-	player->y = (data->map.height / 2) * tileSize - tileSize / 2;
+	data->player.x = ((data->map.width / 2) * tileSize) + tileSize / 2;
+	data->player.y = ((data->map.height / 2) * tileSize) - tileSize / 2;
 
-	// Draw player to screen
-	mlx_image_to_window(data->mlx, data->player.img, \
-						data->map.minimapSize / 2 - 3, \
-						data->map.minimapSize / 2 - 3);
-
-	player->fov = 90; // idk what this does
+	printf("x: %f, y: %f\n", (float) data->player.x / 32, (float) data->player.y / 32);
 	return (0);
 }
 

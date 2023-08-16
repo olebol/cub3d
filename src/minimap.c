@@ -12,50 +12,29 @@
 
 #include "../include/cub3d.h"
 
-static void	draw_square(t_map *map, int x, int y, unsigned int color)
-{
-	int				i = 0;
-	int				j = 0;
-	const int		tileSize = map->tileSize;
-
-	x *= tileSize;
-	y *= tileSize;
-	while (i < tileSize - 1)
-	{
-		j = 0;
-		while (j < tileSize - 1)
-		{
-			mlx_put_pixel(map->minimap, x + i, y + j, color);
-			j++;
-		}
-		i++;
-	}
-}
-
 void	draw_map(t_data *data)
 {
-	int			x = 0;
-	int			y = 0;
 	t_map		*map = &data->map;
+	t_player	*player = &data->player;
+	int			screenX = player->x - map->minimapSize / 2;
+	int			screenY = player->y - map->minimapSize / 2;
 
-	data->map.minimap = mlx_new_image(data->mlx, \
-				data->map.width * data->map.tileSize, \
-				data->map.height * data->map.tileSize);
-	if (!data->map.minimap)
-		ft_error("Error\nFailed to create minimap image\n");
-
-	while (map->map[y])
+	// Draw the map surrounding the player
+	for (int i = 0; i < map->minimapSize; i++)
 	{
-		x = 0;
-		while (map->map[y][x])
+		int		mapX = (screenX + i) / map->tileSize;
+		for (int j = 0; j < map->minimapSize; j++)
 		{
-			if (map->map[y][x] == '1')
-				draw_square(&data->map, x, y, 0xC6E2E9FF);
-			else if (map->map[y][x] == '0')
-				draw_square(&data->map, x, y, 0xF8DF81FF);
-			x++;
+			int		mapY = (screenY + j) / map->tileSize;
+			if (mapX >= 0 && mapX < map->width && mapY >= 0 && mapY < map->height)
+			{
+				if (map->map[mapY][mapX] == '1')
+					mlx_put_pixel(data->screen, i, j, 0x00FF00FF);
+				else if (map->map[mapY][mapX] == '0')
+					mlx_put_pixel(data->screen, i, j, 0x0000FFFF);
+				else
+					mlx_put_pixel(data->screen, i, j, 0x000000FF);
+			}
 		}
-		y++;
 	}
-	mlx_image_to_window(data->mlx, map->minimap, 0, 0);
 }

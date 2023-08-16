@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/15 14:58:39 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/16 16:45:19 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/16 18:08:39 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,36 +35,23 @@ static void		move_hook(t_data *data)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W) == true)
 	{
 		if (isWall(data, 0, -2) == false)
-		{
-			data->map.minimap->instances[0].y += 2;
 			data->player.y -= 2;
-		}
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) == true)
 	{
 		if (isWall(data, 0, 2) == false)
-		{
-			data->map.minimap->instances[0].y -= 2;
 			data->player.y += 2;
-		}
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A) == true)
 	{
 		if (isWall(data, -2, 0) == false)
-		{
-			data->map.minimap->instances[0].x += 2;
 			data->player.x -= 2;
-		}
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D) == true)
 	{
 		if (isWall(data, 2, 0) == false)
-		{
-			data->map.minimap->instances[0].x -= 2;
 			data->player.x += 2;
-		}
 	}
-	printf("x: %f, y: %f\n", (float) data->player.x / 32, (float) data->player.y / 32);
 }
 
 void		captainhook(mlx_key_data_t keydata, void *dataPointer)
