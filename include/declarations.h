@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 20:59:57 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/16 17:42:46 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/16 21:46:24 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 /**
  * @brief struct for map
  * 
- * @param map char array of map
+ * @param **map char array of map
+ * 
  * @param width width of map
  * @param height height of map
  * 
@@ -54,9 +55,9 @@ typedef struct		s_player
 /**
  * @brief struct for mlx
  * 
- * @param mlx		pointer to mlx struct
+ * @param *mlx		pointer to mlx struct
  * 
- * @param screen	pointer to image covering whole screen
+ * @param *screen	pointer to image covering whole screen
  * @param map		map struct
  * @param player	player struct
  */

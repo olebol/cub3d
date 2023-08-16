@@ -64,9 +64,11 @@ void	draw_map(t_data *data)
 		{
 			array_x = (minimap_x + j) / tile_size;
 
-			// if the screen pixel is outside of map on the top or left
-			// 		it should draw a black pixel
-			draw_map_tile(data, j, i, array_x, array_y);
+			if (minimap_y + i < 0 || minimap_y + i >= data->map.height * tile_size
+				|| minimap_x + j < 0 || minimap_x + j >= data->map.width * tile_size)
+				mlx_put_pixel(data->screen, j, i, 0x000000FF); // black
+			else
+				draw_map_tile(data, j, i, array_x, array_y);
 		}
 	}
 	draw_player(data);

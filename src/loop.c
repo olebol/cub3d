@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/15 14:58:39 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/16 18:59:34 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/16 21:40:39 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,22 @@ static void		move_hook(t_data *data)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W) == true)
 	{
-		if (isWall(data, 0, -2) == false)
+		if (isWall(data, 0, -2 - 2) == false)
 			data->player.y -= 2;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) == true)
 	{
-		if (isWall(data, 0, 2) == false)
+		if (isWall(data, 0, 2 + 2) == false)
 			data->player.y += 2;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A) == true)
 	{
-		if (isWall(data, -2, 0) == false)
+		if (isWall(data, -2 - 2, 0) == false)
 			data->player.x -= 2;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D) == true)
 	{
-		if (isWall(data, 2, 0) == false)
+		if (isWall(data, 2 + 2, 0) == false)
 			data->player.x += 2;
 	}
 }
