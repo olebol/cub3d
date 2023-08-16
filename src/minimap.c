@@ -37,8 +37,9 @@ void	draw_map(t_data *data)
 		for (int j = 0; j < map->minimapSize; j++)
 		{
 			int		mapX = (screenX + j) / map->tileSize;
-	
-			if (mapX >= 0 && mapX < map->width && mapY >= 0 && mapY < map->height)
+
+			if ((mapX >= 0 && mapX < map->width && mapY >= 0 && mapY < map->height)
+				&& (screenX + j >= 0 && screenY + i >= 0))
 			{
 				if (map->map[mapY][mapX] == '1')
 					mlx_put_pixel(data->screen, j, i, 0x00FF00FF);
@@ -47,6 +48,8 @@ void	draw_map(t_data *data)
 				else
 					mlx_put_pixel(data->screen, j, i, 0x000000FF);
 			}
+			else
+				mlx_put_pixel(data->screen, j, i, 0x000000FF);
 		}
 	}
 	draw_player(data);
