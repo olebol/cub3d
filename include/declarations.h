@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 20:59:57 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/16 16:48:02 by evan-der      ########   odam.nl         */
+/*   Updated: 2023/08/16 19:56:48 by evan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 # define EXTENSION_LEN 4
 # define EXTENSION ".cub"
+# define MAX_ID 6
 
 typedef struct	s_map
 {

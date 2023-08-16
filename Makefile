@@ -36,6 +36,7 @@ SRC_FILES :=									\
 				main.c							\
 				parsing.c						\
 				minimap.c						\
+				errors.c
 
 
 SRC				:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
