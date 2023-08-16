@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/15 14:58:39 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/16 18:08:39 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/16 18:59:34 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,5 @@ void		captainhook(mlx_key_data_t keydata, void *dataPointer)
 
 	move_hook(data);
 	exit_hook(data);
+	draw_map(data);
 }

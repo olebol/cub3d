@@ -80,7 +80,7 @@ $(OBJ_DIR)/%.o: src/%.c $(HDR)
 	@ gcc $(CFLAGS) -c $< -o $@ $(INC)
 
 open: $(NAME)
-	@ ./$(NAME) maps/test
+	@ ./$(NAME) maps/s.map
 
 
 norm:

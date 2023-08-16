@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:46 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/16 18:10:42 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/16 18:48:31 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,6 @@ void	print_map(char **map)
 		j = 0;
 		i++;
 	}
-}
-
-static void	draw_player(t_data *data)
-{
-	// Draw player dot to image
-	int		start_pos = data->map.minimapSize / 2 - 2;
-
-	for (int i = 0; i < 5; i++)
-		for (int j = 0; j < 5; j++)
-			mlx_put_pixel(data->screen, i + start_pos, j + start_pos, 0xFF6961FF);
 }
 
 static void	draw_guidelines(t_data *data)
@@ -80,7 +70,6 @@ int	main(int argc, char *argv[])
 
 	draw_guidelines(&data);
 	draw_map(&data);
-	draw_player(&data);
 
 	mlx_key_hook(data.mlx, &captainhook, (void *) &data);
 	mlx_loop(data.mlx);
