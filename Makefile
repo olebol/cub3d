@@ -42,6 +42,7 @@ SRC_FILES :=									\
 				parsing.c						\
 \
 				minimap.c						\
+				casting.c						\
 
 
 SRC				:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
