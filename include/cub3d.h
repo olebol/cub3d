@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/14 21:01:50 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/16 15:16:13 by evan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <fcntl.h>
+# include <stdbool.h>
 
+// PARSER UTILS
+bool	parse_infile(char *infile, t_map *map, t_textures *textures);
 
-void		parse_map(char *map_file, t_map *map);
-
+// VISUALIZATION UTILS
 void		draw_map(t_data *data);
-
 
 #endif

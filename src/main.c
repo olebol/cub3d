@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:46 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/14 21:08:08 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/16 16:47:06 by evan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int	main(int argc, char *argv[])
 
 	if (init_mlx_data(&data))
 		ft_error("Failed to initialize MLX data");
-
-	parse_map(argv[1], &data.map);
+		
+	parse_infile(argv[1], &data.map, &data.textures);
 	print_map(data.map.map);
 
 	draw_map(&data);
