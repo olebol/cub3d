@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/15 14:32:27 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/16 18:10:34 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/16 23:21:01 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ int		init_player(t_data *data)
 	data->player.x = ((data->map.width / 2) * tileSize) + tileSize / 2;
 	data->player.y = ((data->map.height / 2) * tileSize) - tileSize / 2;
 
-	printf("x: %f, y: %f\n", (float) data->player.x / 32, (float) data->player.y / 32);
+	data->player.angle = 0;
+
+	data->player.delta_x = cos(data->player.angle);
+	data->player.delta_y = sin(data->player.angle);
+
 	return (0);
 }
 

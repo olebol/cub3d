@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:46 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/16 18:48:31 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/16 21:47:04 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	main(int argc, char *argv[])
 
 	if (init_mlx_data(&data))
 		ft_error("Failed to initialize MLX data");
-
 
 	parse_map(argv[1], &data.map);
 	init_player(&data);

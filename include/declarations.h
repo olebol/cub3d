@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 20:59:57 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/16 21:46:24 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/16 23:37:45 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,13 @@ typedef struct		s_map
  */
 typedef struct		s_player
 {
-	int				x;
-	int				y;
+	float				x;
+	float				y;
+
+	float			delta_x;
+	float			delta_y;
+
+	float			angle;
 }					t_player;
 
 /**
