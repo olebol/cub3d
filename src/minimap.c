@@ -26,23 +26,22 @@ static void	draw_player(t_data *data)
 void	draw_map_tile(t_data *data, int screenX, int screenY, \
 									int arrayX, int arrayY)
 {
+	int			color;
+	char		tile;
+
+	color = 0x000000FF; // black
+
 	if (arrayX >= 0 && arrayX < data->map.width
 		&& arrayY >= 0 && arrayY < data->map.height)
 	{
-		char tile = data->map.map[arrayY][arrayX];
-		int color;
+		tile = data->map.map[arrayY][arrayX];
 
 		if (tile == '1')
-			color = 0x00FF00FF;
+			color = 0x00FF00FF; // green
 		else if (tile == '0')
-			color = 0x0000FFFF;
-		else
-			color = 0x000000FF;
-
-		mlx_put_pixel(data->screen, screenX, screenY, color);
+			color = 0x0000FFFF; // blue
 	}
-	else
-		mlx_put_pixel(data->screen, screenX, screenY, 0x000000FF);
+	mlx_put_pixel(data->screen, screenX, screenY, color);
 }
 
 // Draw the map surrounding the player
