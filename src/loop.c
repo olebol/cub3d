@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/15 14:58:39 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/15 20:08:55 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/16 16:45:19 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static bool		isWall(t_data *data, int offsetX, int offsetY)
 	int		mapX;
 	int		mapY;
 
-	mapX = (data->player.posX + offsetX) / data->map.tileSize;
-	mapY = (data->player.posY + offsetY) / data->map.tileSize;
+	mapX = (data->player.x + offsetX) / data->map.tileSize;
+	mapY = (data->player.y + offsetY) / data->map.tileSize;
 	if (data->map.map[mapY][mapX] == '1')
 		return (true);
 	return (false);
@@ -36,34 +36,35 @@ static void		move_hook(t_data *data)
 	{
 		if (isWall(data, 0, -2) == false)
 		{
-			data->player.img->instances[0].y -= 2;
-			data->player.posY -= 2;
+			data->map.minimap->instances[0].y += 2;
+			data->player.y -= 2;
 		}
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) == true)
 	{
-		if (isWall(data, 0, 2 + data->player.img->height) == false)
+		if (isWall(data, 0, 2) == false)
 		{
-			data->player.img->instances[0].y += 2;
-			data->player.posY += 2;
+			data->map.minimap->instances[0].y -= 2;
+			data->player.y += 2;
 		}
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A) == true)
 	{
 		if (isWall(data, -2, 0) == false)
 		{
-			data->player.img->instances[0].x -= 2;
-			data->player.posX -= 2;
+			data->map.minimap->instances[0].x += 2;
+			data->player.x -= 2;
 		}
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D) == true)
 	{
-		if (isWall(data, 2 + data->player.img->width, 0) == false)
+		if (isWall(data, 2, 0) == false)
 		{
-			data->player.img->instances[0].x += 2;
-			data->player.posX += 2;
+			data->map.minimap->instances[0].x -= 2;
+			data->player.x += 2;
 		}
 	}
+	printf("x: %f, y: %f\n", (float) data->player.x / 32, (float) data->player.y / 32);
 }
 
 void		captainhook(mlx_key_data_t keydata, void *dataPointer)
@@ -75,6 +76,4 @@ void		captainhook(mlx_key_data_t keydata, void *dataPointer)
 
 	move_hook(data);
 	exit_hook(data);
-
-	draw_map(data);
 }

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/15 18:06:17 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/16 14:43:20 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ int			init_player(t_data *data);
 
 void		captainhook(mlx_key_data_t keydata, void *data);
 
+void		ft_error(char *message);
 
 #endif

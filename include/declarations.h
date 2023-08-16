@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 20:59:57 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/15 20:08:34 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/16 15:05:24 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ typedef struct		s_map
 
 	mlx_image_t		*minimap;		// image of minimap
 	int				tileSize;		// size of tile for minimap
+	int				minimapSize;		// width of minimap
 }					t_map;
 
 typedef struct		s_player
 {
 	mlx_image_t		*img;			// image of player for minimap
 
-	float			posX;			// player position X
-	float			posY;			// player position Y
+	int				x;			// player position X
+	int				y;			// player position Y
+	int				fov;			// field of view
 }					t_player;
 
 typedef struct		s_data
