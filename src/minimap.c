@@ -22,34 +22,52 @@ static void	draw_player(t_data *data)
 			mlx_put_pixel(data->screen, i + start_pos, j + start_pos, 0xFF6961FF);
 }
 
+// Draw a single map tile
+void	draw_map_tile(t_data *data, int screenX, int screenY, \
+									int arrayX, int arrayY)
+{
+	if (arrayX >= 0 && arrayX < data->map.width
+		&& arrayY >= 0 && arrayY < data->map.height)
+	{
+		char tile = data->map.map[arrayY][arrayX];
+		int color;
+
+		if (tile == '1')
+			color = 0x00FF00FF;
+		else if (tile == '0')
+			color = 0x0000FFFF;
+		else
+			color = 0x000000FF;
+
+		mlx_put_pixel(data->screen, screenX, screenY, color);
+	}
+	else
+		mlx_put_pixel(data->screen, screenX, screenY, 0x000000FF);
+}
+
+// Draw the map surrounding the player
 void	draw_map(t_data *data)
 {
-	t_map		*map = &data->map;
-	t_player	*player = &data->player;
-	int			screenX = player->x - map->minimapSize / 2;
-	int			screenY = player->y - map->minimapSize / 2;
+	const int	minimap_size = data->map.minimapSize;
+	const int	tile_size = data->map.tileSize;
 
-	// Draw the map surrounding the player
-	for (int i = 0; i < map->minimapSize; i++)
+	const int	minimap_x = data->player.x - minimap_size / 2;
+	const int	minimap_y = data->player.y - minimap_size / 2;
+
+	int			array_x;
+	int			array_y;
+
+	for (int i = 0; i < minimap_size; i++)
 	{
-		int		mapY = (screenY + i) / map->tileSize;
+		array_y = (minimap_y + i) / tile_size;
 
-		for (int j = 0; j < map->minimapSize; j++)
+		for (int j = 0; j < minimap_size; j++)
 		{
-			int		mapX = (screenX + j) / map->tileSize;
+			array_x = (minimap_x + j) / tile_size;
 
-			if ((mapX >= 0 && mapX < map->width && mapY >= 0 && mapY < map->height)
-				&& (screenX + j >= 0 && screenY + i >= 0))
-			{
-				if (map->map[mapY][mapX] == '1')
-					mlx_put_pixel(data->screen, j, i, 0x00FF00FF);
-				else if (map->map[mapY][mapX] == '0')
-					mlx_put_pixel(data->screen, j, i, 0x0000FFFF);
-				else
-					mlx_put_pixel(data->screen, j, i, 0x000000FF);
-			}
-			else
-				mlx_put_pixel(data->screen, j, i, 0x000000FF);
+			// if the screen pixel is outside of map on the top or left
+			// 		it should draw a black pixel
+			draw_map_tile(data, j, i, array_x, array_y);
 		}
 	}
 	draw_player(data);
