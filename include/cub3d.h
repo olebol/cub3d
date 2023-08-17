@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/17 00:00:53 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/17 15:11:31 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ void		draw_map(t_data *data);
 int			init_mlx_data(t_data *data);
 int			init_player(t_data *data);
 
-void		captainhook(mlx_key_data_t keydata, void *data);
+void		captainhook(void *data);
 
 void		ft_error(char *message);
 
-void		cast_ray(t_data *data, float angle);
+// void		cast_ray(t_data *data, float angle);
+void		cast_all_rays(t_data *data);
 
 #endif

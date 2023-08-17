@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:46 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/16 21:47:04 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/17 14:19:35 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int	main(int argc, char *argv[])
 	draw_guidelines(&data);
 	draw_map(&data);
 
-	mlx_key_hook(data.mlx, &captainhook, (void *) &data);
+	// mlx_key_hook(data.mlx, &captainhook, (void *) &data);
+	mlx_loop_hook(data.mlx, &captainhook, (void *) &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
 	return (0);
