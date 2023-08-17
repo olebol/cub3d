@@ -16,18 +16,18 @@ static void	draw_player(t_data *data)
 {
 	// Draw player dot to image
 	int		start_pos = data->map.minimapSize / 2 - 2;
-	int 	colour = 0xFFFFFFFF; // white
-
-	if (data->player.angle >= 0 && data->player.angle < M_PI) // draw middle pixel red for north
-		colour = 0xFF0000FF;
-	if (data->player.angle >= M_PI && data->player.angle < M_PI * 2) // draw middle pixel blue for south
-		colour = 0x00FFFFFF;
+	int 	colour = 0xFF0000FF; // red
 
 	for (int i = 0; i < 5; i++)
 		for (int j = 0; j < 5; j++)
 			mlx_put_pixel(data->screen, i + start_pos, j + start_pos, colour);
 
-
+	// Draw player direction line
+	for (int i = 0; i < 10; i++)
+		mlx_put_pixel(data->screen, \
+					start_pos + 2 + (data->player.delta_x * i), \
+					start_pos + 2 + (data->player.delta_y * i), \
+					colour);
 }
 
 // Draw a single map tile
