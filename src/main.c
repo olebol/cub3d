@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:46 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/17 14:19:35 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/17 16:57:07 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,6 @@ void	print_map(char **map)
 	}
 }
 
-static void	draw_guidelines(t_data *data)
-{
-	// Draw map guidelines
-	for (int i = 0; i <= data->map.minimapSize; i++)
-	{
-		if (i % data->map.tileSize == 0)
-		{
-			for (int j = 0; j < data->map.minimapSize; j++)
-				mlx_put_pixel(data->screen, i, j, 0x00FF00FF);
-		}
-	}
-
-	for (int i = 0; i <= data->map.minimapSize; i++)
-	{
-		if (i % data->map.tileSize == 0)
-		{
-			for (int j = 0; j < data->map.minimapSize; j++)
-				mlx_put_pixel(data->screen, j, i, 0x00FF00FF);
-		}
-	}
-}
-
-
 int	main(int argc, char *argv[])
 {
 	t_data		data;
@@ -66,9 +43,6 @@ int	main(int argc, char *argv[])
 	parse_map(argv[1], &data.map);
 	init_player(&data);
 	print_map(data.map.map);
-
-	draw_guidelines(&data);
-	draw_map(&data);
 
 	// mlx_key_hook(data.mlx, &captainhook, (void *) &data);
 	mlx_loop_hook(data.mlx, &captainhook, (void *) &data);

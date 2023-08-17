@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/15 14:32:27 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/16 23:21:01 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/17 16:58:12 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int		init_player(t_data *data)
 {
 	const int		tileSize = data->map.tileSize;
 
-	// Set player pos to middle of the screen
-	data->player.x = ((data->map.width / 2) * tileSize) + tileSize / 2;
-	data->player.y = ((data->map.height / 2) * tileSize) - tileSize / 2;
+	// Set player pos to middle of top left tile (excl. wall layer)
+	data->player.x = tileSize * 1.5;
+	data->player.y = tileSize * 1.5;
 
 	data->player.angle = 0;
 

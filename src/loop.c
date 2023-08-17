@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/15 14:58:39 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/17 16:16:23 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/17 18:56:55 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void		captainhook(void *dataPointer)
 	rotation_hook(data);
 	move_hook(data);
 	exit_hook(data);
-	draw_map(data);
 	cast_all_rays(data);
-	// cast_ray(data, data->player.angle);
+	draw_map(data);
 }

@@ -9,7 +9,7 @@ OBJ_DIR			:= obj
 
 # Compiler flags
 CC				:= gcc
-CFLAGS			:= -Wall -Werror -Wextra
+CFLAGS			:= -Wall -Werror -Wextra 
 MLX_FLAGS		:= -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
 # MLX_FLAGS		:= -framework Cocoa -framework OpenGL -framework IOKit -ldl -lglfw3 -pthread
 
@@ -62,7 +62,7 @@ all: ${NAME}
 
 $(NAME): $(LIBFT) $(MLX) $(OBJ)
 	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling $(NICKNAME)..." "$(RESET)"
-	@ gcc $(OBJ) $(LIBFT) $(MLX_FLAGS) $(MLX) $(INC) -o $(NAME)
+	@ gcc $(CFLAGS) $(OBJ) $(LIBFT) $(MLX_FLAGS) $(MLX) $(INC) -o $(NAME)
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
 
 $(LIBFT):
@@ -81,7 +81,7 @@ $(OBJ_DIR)/%.o: src/%.c $(HDR)
 	@ gcc $(CFLAGS) -c $< -o $@ $(INC)
 
 open: $(NAME)
-	@ ./$(NAME) maps/s.map
+	@ ./$(NAME) maps/s.cub
 
 
 norm:
