@@ -6,11 +6,13 @@
 /*   By: evan-der <evan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:25:25 by evan-der      #+#    #+#                 */
-/*   Updated: 2023/08/16 20:18:27 by evan-der      ########   odam.nl         */
+/*   Updated: 2023/08/17 18:47:40 by evan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+// ERROR MESSAGES WITH THE LINE IN WHICH THE INCORRECT INPUT WAS FOUND (!!!)
 
 // void	check_valid_chars(char *map) // dit kan pas wanneer map in een eigen string staat
 // {
@@ -31,16 +33,16 @@
 // 		fatal("Invalid number of players\n", 2);
 // }
 
-void	copy_map_to_array(t_map *map, char *line)
+void	copy_map_to_array(t_map *map, char *line, int len)
 {
-	size_t	i;
+	int	i;
 	size_t	j;
 	size_t	k;
 
 	i = 0;
 	j = 0;
 	k = 0;
-	while (line[i])
+	while (line[i] && i < len)
 	{
 		if (line[i] == '\n')
 		{
@@ -119,8 +121,13 @@ int	len_path(char *line)
 	while (line[line_len] && line[line_len] != '\n')
 		line_len++;
 	path_len = line_len;
-	while (path_len > 0 && line[path_len] == ' ')
+	// printf("line[path_len]: %s\n", &line[path_len]);
+	while (path_len > 0 && (line[path_len] == ' ' || line[path_len] == '\t'))
+	{ // >= 0? 
 		path_len--;
+	}
+	// printf("path_len: %d\n", path_len);
+	// printf(">>>%c<<<\n", line[path_len]);
 	return (path_len);
 }
 
@@ -134,18 +141,37 @@ bool	is_valid_rgb(int value)
 	return (value >= 0 && value <= 255);
 }
 
+int	skip_empty(char *line, int i)
+{
+	int nl;
 
+	nl = 0;
+	while (line[i] && (line[i] == ' ' || line[i] == '\t' || line[i] == '\n'))
+	{
+		if (line[i] == '\n')
+			nl = i + 1;
+		i++;
+	}
+	if (nl != 0)
+		return (nl);
+	return (i);
+}
 
-char	*strip_path(char *line, int path_len)
+char	*strip_path(char *line, int path_len) // hier probeer ik de spaties op het eind te verwijderen maar so far not so good
 {
 	char	*path;
+	int		end_len;
 	int		i;
 
 	i = 0;
-	path = (char *) malloc((path_len + 1) * sizeof(char));
+	end_len = path_len;
+	while (end_len > 0 && (line[end_len] == ' ' || line[end_len] == '\t'))
+		end_len--;
+		printf("end_len: %d, path_len: %d\n", end_len, path_len);
+	path = (char *) malloc((end_len + 1) * sizeof(char));
 	if (!path)
 		fatal_perror("Malloc failed\n");
-	while (i < path_len)
+	while (i < end_len)
 	{
 		path[i] = line[i];
 		i++;
@@ -192,6 +218,20 @@ unsigned int	get_rgb_color(char *rgb) // miss even andere naam bedenken
 	return (r << 16 | g << 8 | b);
 }
 
+bool	all_elements_found(int *tracker) // bool?
+{
+	int	i;
+
+	i = 0;
+	while (i < MAX_ID)
+	{
+		if (tracker[i] == 0)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 int path_textures_to_struct(char *line, char *surface, t_textures *textures)
 {
 	int	i;
@@ -200,37 +240,46 @@ int path_textures_to_struct(char *line, char *surface, t_textures *textures)
 	
 	i = 0;
 	rgb = NULL;
-	while (line[i] && line[i] == ' ')
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
 	path_len = len_path(&line[i]);
 	// printf("path_len: %d, surface: %s\n", path_len, surface);
 	// printf("WE = %d\n", ft_strncmp(surface, "WE", 2));
 	if (ft_strncmp(surface, "NO", 2) == 0)
+	{
 		textures->no = strip_path(&line[i], path_len);
+		printf("textures->no: [%s]\n", textures->no);
+	}
 	else if (ft_strncmp(surface, "SO", 2) == 0)
+	{
 		textures->so = strip_path(&line[i], path_len);
+		printf("textures->so: [%s]\n", textures->so);
+	}	
 	else if (ft_strncmp(surface, "WE", 2) == 0)
 	{
-		// printf("hij hoort hier gewoon te komen\n");
 		textures->we = strip_path(&line[i], path_len);
+		printf("textures->we: [%s]\n", textures->we);
 	}
 	else if (ft_strncmp(surface, "EA", 2) == 0)
+	{
 		textures->ea = strip_path(&line[i], path_len);
+		printf("textures->ea: [%s]\n", textures->ea);
+	}
 	else if (ft_strncmp(surface, "F ", 2) == 0)
 	{
 		rgb = strip_path(&line[i], path_len);
 		textures->f = get_rgb_color(rgb);
+		printf("textures->f: [%d]\n", textures->f);
 	}
 	else if (ft_strncmp(surface, "C ", 2) == 0)
 	{
 		rgb = strip_path(&line[i], path_len);
 		textures->c = get_rgb_color(rgb);
+		printf("textures->c: [%d]\n", textures->c);
 	}
 	else 
 		fatal("dit hoort nooit te gebeuren\n"); // dit hoort nooit te gebeuren dus weghalen later maar is als check
-	return (i + path_len);
-	// else
-	// 	fatal("Multiple paths for the same identification\n");
+	return (i + path_len); //+ 1); // + 1 voor de \n
 }
 
 // paths naar alle elementen in de struct textures en hexadecimalen voor de kleuren van c en f
@@ -238,11 +287,10 @@ int path_textures_to_struct(char *line, char *surface, t_textures *textures)
 
 // elements en map in andere string want anders werkt deze functie niet
 
-void	get_path_to_textures(char *line, t_textures *textures)
+int	get_elements(char *line, t_textures *textures) // ff kijken naar als j = 6, want dat heb ik nu veranderd
 {
 	int	i;
 	size_t	j;
-	// char	*ptr;
 	char	*id[] = {"NO", "SO", "WE", "EA", "F ", "C "};
 	int		tracker[] = {0, 0, 0, 0, 0, 0};
 
@@ -250,15 +298,13 @@ void	get_path_to_textures(char *line, t_textures *textures)
 	j = 0;
 	while (line[i] && line[i + 1] && j < MAX_ID)
 	{
+		// i = skip_empty(line, i);
 		while (line[i] == ' ' || line[i] == '\n' || line[i] == '\t')
 			i++;
-		printf("line[i]: %s\n", &line[i]);
 		while (line[i] && j < MAX_ID)
 		{
-			printf("1:	line[i]: %c, id[j]: %s, j: %zu\n", line[i], id[j], j);
 			if (ft_strncmp(&line[i], id[j], 2) == 0)
 			{
-				printf("2:	line[i]: %c, id[j]: %s, j: %zu\n", line[i], id[j], j);
 				i += 2; // skip de id en geef de rest van de line mee aan de functie (points naar path/hexa of spaties bij correcte input)
 				if (tracker[j] == 1)
 					fatal("Multiple paths for the same identification\n");
@@ -267,23 +313,95 @@ void	get_path_to_textures(char *line, t_textures *textures)
 				j = 0;
 				break ;
 			}
-			printf("3:	line[i]: %c, id[j]: %s, j: %zu\n", line[i], id[j], j);
 			j++;
 		}
-		if (j == MAX_ID)
-			fatal("Invalid identification\n");
-		// printf("kom je hier ook?\n");
 	}
-	while (j < MAX_ID)
+	if (!all_elements_found(tracker))
+		fatal("Missing texture element\n"); // miss functie schrijven die checkt welk element er mist voor een specifiekere error message
+	return (i); // vanaf i moet de map beginnen
+}
+	
+bool	end_of_map(char *map, int i) // same als skip_empty, maar dan voor de map :((
+{
+	// printf("map = %s\n", map);
+	while (map[i])
 	{
-		printf("j: %zu, tracker[j] = %d\n", j, tracker[j]);
-		if (tracker[j] == 0)
-			fatal("Missing texture element\n"); // miss functie schrijven die checkt welk element er mist voor een specifiekere error message
-		j++;
+		// printf("map[i]: %c\n", map[i]);
+		if (map[i] != '\n' && map[i] != ' ' && map[i] != '\t')
+			return (false);
+		i++;
 	}
-	// if (textures->no == NULL || textures->so == NULL || textures->we == NULL || textures->ea == NULL || \
-	// 		textures->f == -1 || textures->c == -1)
-		// fatal("Missing texture element\n"); // miss functie schrijven die checkt welk element er mist voor een specifiekere error message
+	return (true);
+}
+
+int	check_map(char *line, t_map *map)
+{
+	int	i;
+	int	player;
+	int	width;
+
+	i = 0;
+	player = 0;
+	width = 0;
+	// printf("line: %s\n", line);
+	while (line[i])
+	{
+		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+			player++;
+		else if (line[i] == '\n')
+		{
+			if (width == 0 && end_of_map(line, i) == false)
+				fatal("Invalid map\n"); // line of zo
+			else if (width == 0 && end_of_map(line, i) == true)
+				break ;
+			map->height++;
+			if (width > map->width)
+				map->width = width;
+			width = 0;
+		}
+		else if (line[i] != '0' && line[i] != '1' && line[i] != '2' && line[i] != ' ')
+		{
+			if (i == 0)
+				fatal("Garbage before map\n"); // line of zo
+			fatal("Invalid character in map\n"); // line of zo
+		}
+		i++;
+		width++;
+	}
+	if (player != 1)
+		fatal("Invalid number of players\n"); // line of zo
+	return (i);
+}
+
+void	split_elements_and_map(char *line, t_textures *textures, t_map *map)
+{
+	int		start_map;
+	int		end_map;
+	int		i;
+
+	i = 0;
+	start_map = get_elements(line, textures);
+	// check_valid_chars(line, start_map);
+	start_map = skip_empty(line, start_map);
+	if (line[start_map] == '\0')
+		fatal("No map found\n");
+	end_map = check_map(&line[start_map], map) + start_map;
+	printf("end_map: %d && %s\n", end_map, &line[end_map]);
+	if (end_of_map(&line[end_map], 0) == false)
+		fatal("Garbage after map\n");
+	map->map = (char **) malloc((map->height + 1) * sizeof(char *));
+	if (!map)
+		fatal_perror("Malloc failed\n");
+	map->map[map->height] = NULL;
+	while (i < map->height)
+	{
+		map->map[i] = (char *) malloc((map->width + 1) * sizeof(char));
+		if (!map->map[i])
+			fatal_perror("Malloc failed\n");
+		map->map[i][map->width] = '\0';
+		i++;
+	}
+	copy_map_to_array(map, &line[start_map], end_map - start_map);	
 }
 
 bool	extension_check(char *infile) // bool?
@@ -292,7 +410,7 @@ bool	extension_check(char *infile) // bool?
 
 	len = ft_strlen(infile);
 	if (len >= EXTENSION_LEN)
-		if (ft_strncmp(&infile[len - EXTENSION_LEN], EXTENSION, EXTENSION_LEN) == 0)
+		if (ft_strncmp(&infile[len - EXTENSION_LEN], EXTENSION, EXTENSION_LEN) == 0) // return  :)??
 			return (true);
 	return (false);
 }
@@ -312,6 +430,8 @@ int	parse_infile(char *infile, t_map *map, t_textures *textures)
 	int		i;
 	int		fd;
 	char	*line;
+	// char	*map;
+	// char	*elements;
 
 
 	i = 0;
@@ -321,12 +441,12 @@ int	parse_infile(char *infile, t_map *map, t_textures *textures)
 	if (fd == -1)
 		fatal_perror("Invalid file\n");
 	line = file_to_str(fd);
-
+	// map = get_map(line);
 	// check_valid_chars(line); // check of er geen rare chars in de map staan (alleen 0, 1, 2, N, S, E, W, \n, spatie (kan pas wann map in een eigen string staat)
 	// set_paths_to_null(textures);
-	get_path_to_textures(line, textures);
+	split_elements_and_map(line, textures, map);
 	
-	(void)map;
+	// (void)map;
 
 	// // height moet het aantal lines zijn van de map, dus alle \n moeten geteld worden (maar miss ook new lines na de map zelf, die moeten niet meegeteld worden)
 	// map->height = map_height(line);
