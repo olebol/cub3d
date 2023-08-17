@@ -6,13 +6,13 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/15 14:58:39 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/17 18:56:55 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/17 22:56:48 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool		is_wall(t_data *data, float x, float y)
+bool		is_wall(t_data *data, double x, double y)
 {
 	const int		tile_size = data->map.tileSize;
 	
@@ -23,7 +23,7 @@ bool		is_wall(t_data *data, float x, float y)
 
 static void	rotation_hook(t_data *data)
 {
-	float	angle = data->player.angle;
+	double	angle = data->player.angle;
 
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT) == true)
 	{
@@ -54,8 +54,8 @@ static void		exit_hook(t_data *data)
 
 static void		move_hook(t_data *data)
 {
-	float		move_x;
-	float		move_y;
+	double		move_x;
+	double		move_y;
 
 	move_x = 0;
 	move_y = 0;
