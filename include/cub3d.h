@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/17 16:50:23 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/18 16:18:12 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,26 @@
 # include <stdio.h>
 # include <math.h>
 
-
-void		parse_map(char *map_file, t_map *map);
-
-void		draw_map(t_data *data);
-
+// Init
 int			init_mlx_data(t_data *data);
 int			init_player(t_data *data);
 
-void		captainhook(void *data);
-
+// Errors
 void		ft_error(char *message);
 
+// Parsing
+void		parse_map(char *map_file, t_map *map);
+
+// Minimap
+void		draw_map(t_data *data);
+
+// Loop
+void		captainhook(void *data);
+
+// Casting
 void		cast_all_rays(t_data *data);
+
+// Utils
+bool		is_wall(t_data *data, double x, double y);
 
 #endif

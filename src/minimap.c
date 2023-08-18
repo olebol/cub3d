@@ -12,12 +12,13 @@
 
 #include "../include/cub3d.h"
 
+// Draw the player on the minimap
 static void	draw_player(t_data *data)
 {
-	// Draw player dot to image
-	int		start_pos = data->map.minimapSize / 2 - 2;
+	int		start_pos = (data->map.minimapSize / 2 - 2);
 	int 	colour = 0xFF0000FF; // red
 
+	// Draw player dot
 	for (int i = 0; i < 5; i++)
 		for (int j = 0; j < 5; j++)
 			mlx_put_pixel(data->screen, i + start_pos, j + start_pos, colour);
@@ -31,52 +32,49 @@ static void	draw_player(t_data *data)
 }
 
 // Draw a single map tile
-void	draw_map_tile(t_data *data, int screenX, int screenY, \
-									int arrayX, int arrayY)
+void	draw_map_tile(t_data *data, double x, double y, int screen_x, int screen_y)
 {
-	int			color;
-	char		tile;
+	unsigned int			color;
 
-	color = 0x000000FF; // black
+	if (is_wall(data, x, y) == true)
+		color = 0x00FF00FF; // green
+	else
+		color = 0x0000FFFF; // blue
+	mlx_put_pixel(data->screen, screen_x, screen_y, color);
+}
 
-	if (arrayX >= 0 && arrayX < data->map.width
-		&& arrayY >= 0 && arrayY < data->map.height)
-	{
-		tile = data->map.map[arrayY][arrayX];
-
-		if (tile == '1')
-			color = 0x00FF00FF; // green
-		else if (tile == '0')
-			color = 0x0000FFFF; // blue
-	}
-	mlx_put_pixel(data->screen, screenX, screenY, color);
+// Check if a given coordinate is within the map limits
+bool	is_within_map(t_data *data, double x, double y)
+{	if (x >= 0 && x < (double) data->map.width
+		&& y >= 0 && y < (double) data->map.height)
+		return (true);
+	return (false);
 }
 
 // Draw the map surrounding the player
 void	draw_map(t_data *data)
 {
-	const int	minimap_size = data->map.minimapSize;
-	const int	tile_size = data->map.tileSize;
+	// Minimap size in pixels
+	const int		minimap_size = data->map.minimapSize;
 
-	const int	minimap_x = data->player.x - minimap_size / 2;
-	const int	minimap_y = data->player.y - minimap_size / 2;
+	// Minimap tile size in pixels
+	const int		tile_size = data->map.tileSize;
 
-	int			array_x;
-	int			array_y;
+	// Minimap top left corner position
+	const double	offset_x = data->player.x - (minimap_size / tile_size / 2);
+	const double	offset_y = data->player.y - (minimap_size / tile_size / 2);
 
-	for (int i = 0; i < minimap_size; i++)
+	// Draw map tiles
+	for (int x = 0; x < minimap_size; x++)
 	{
-		array_y = (minimap_y + i) / tile_size;
-
-		for (int j = 0; j < minimap_size; j++)
+		for (int y = 0; y < minimap_size; y++)
 		{
-			array_x = (minimap_x + j) / tile_size;
-
-			if (minimap_y + i < 0 || minimap_y + i >= data->map.height * tile_size
-				|| minimap_x + j < 0 || minimap_x + j >= data->map.width * tile_size)
-				mlx_put_pixel(data->screen, j, i, 0x000000FF); // black
+			if (is_within_map(data, offset_x + ((double) x / tile_size), \
+									offset_y + ((double) y / tile_size)) == false)
+				mlx_put_pixel(data->screen, x, y, 0x000000FF); // black
 			else
-				draw_map_tile(data, j, i, array_x, array_y);
+				draw_map_tile(data, offset_x + ((double) x / tile_size), \
+									offset_y + ((double) y / tile_size), x, y);
 		}
 	}
 	draw_player(data);

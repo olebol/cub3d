@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/15 14:32:27 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/17 16:58:12 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/18 16:24:17 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int		init_player(t_data *data)
 {
-	const int		tileSize = data->map.tileSize;
-
 	// Set player pos to middle of top left tile (excl. wall layer)
-	data->player.x = tileSize * 1.5;
-	data->player.y = tileSize * 1.5;
+	data->player.x = 1.5;
+	data->player.y = 1.5;
 
+	// Set player vector direction to 0 degrees (right)
 	data->player.angle = 0;
 
+	// Set player vector magnitude values
 	data->player.delta_x = cos(data->player.angle);
 	data->player.delta_y = sin(data->player.angle);
 
@@ -46,6 +46,6 @@ int		init_mlx_data(t_data *data)
 	}
 
 	data->map.tileSize = 32;
-	data->map.minimapSize = data->screen->width / 8;
+	data->map.minimapSize = WIN_WIDTH / 8;
 	return (0);
 }

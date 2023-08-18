@@ -35,6 +35,7 @@ MLX				:= $(MLX_DIR)/build/libmlx42.a
 SRC_FILES :=									\
 				main.c							\
 				init.c							\
+				utils.c 						\
 				errors.c						\
 \
 				loop.c							\
