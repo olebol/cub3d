@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/16 20:14:38 by evan-der      ########   odam.nl         */
+/*   Updated: 2023/08/18 18:29:45 by evan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	parse_infile(char *infile, t_map *map, t_textures *textures);
 char	*file_to_str(int fd);
 int	len_path(char *line);
 // bool	is_valid_rgb(int value);
-char	*strip_path(char *line, int path_len);
-int	parse_rgb_component(char *str);
+char	*strip_path(char *line);
+int parse_rgb_component(char *str, int *comp);
 unsigned int	get_rgb_color(char *rgb); // miss even andere naam bedenken
 int	path_textures_to_struct(char *line, char *surface, t_textures *textures);
 void	get_path_to_textures(char *line, t_textures *textures);

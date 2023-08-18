@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 20:59:57 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/17 16:20:15 by evan-der      ########   odam.nl         */
+/*   Updated: 2023/08/18 15:46:12 by evan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define EXTENSION_LEN 4
 # define EXTENSION ".cub"
 # define MAX_ID 6
+# define LEN_ID 2
 
 typedef struct	s_map
 {
@@ -30,6 +31,10 @@ typedef struct	s_map
 
 	int			width;			// width of map
 	int			height;			// height of map
+	
+	int			x;				// player x position
+	int			y;				// player y
+	char		dir;			// player direction
 }				t_map;
 
 typedef struct	s_textures
