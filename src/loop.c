@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/15 14:58:39 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/18 23:37:57 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/19 00:08:00 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,7 @@ static void		move_hook(t_data *data)
 		data->player.y += move_y;
 }
 
-void		clear_screen(mlx_image_t *img)
-{
-	for (int i = 0; i < WIN_WIDTH; i++)
-	{
-		// for (int j = 0; j < WIN_HEIGHT / 2; j++) // make dark green
-		// 	mlx_put_pixel(img, i, j, 0x023020FF);
-		// for (int j = WIN_HEIGHT / 2; j < WIN_HEIGHT; j++)
-		// 	mlx_put_pixel(img, i, j, 0xDAF7A6FF);
-		for (int j = 0; j < WIN_HEIGHT; j++)
-			mlx_put_pixel(img, i, j, 0x000000FF);
-	}
-}
+
 
 void		captainhook(void *dataPointer)
 {
@@ -97,7 +86,6 @@ void		captainhook(void *dataPointer)
 
 	data = (t_data *) dataPointer;
 
-	// clear_screen(data->screen);
 	rotation_hook(data);
 	move_hook(data);
 	exit_hook(data);

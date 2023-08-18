@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/15 14:32:27 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/18 16:24:17 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/18 23:58:18 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int		init_player(t_data *data)
 	data->player.angle = 0;
 
 	// Set player vector magnitude values
-	data->player.delta_x = cos(data->player.angle);
-	data->player.delta_y = sin(data->player.angle);
+	data->player.delta_x = cos(data->player.angle) / data->map.tileSize;
+	data->player.delta_y = sin(data->player.angle) / data->map.tileSize;
 
 	return (0);
 }

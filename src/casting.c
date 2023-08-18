@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/16 22:12:24 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/17 22:56:47 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/19 00:05:10 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,28 @@
 
 double	cast_ray(t_data *data, double angle)
 {
-	double		delta_x;
-	double		delta_y;
+	const double		delta_x = cos(angle) / data->map.tileSize;
+	const double		delta_y = sin(angle) / data->map.tileSize;
 
-	double		ray_x = data->player.x;
-	double		ray_y = data->player.y;
+	double				ray_x = data->player.x;
+	double				ray_y = data->player.y;
 
-	delta_x = cos(angle);
-	delta_y = sin(angle);
-
-	double		distance = 0;
-
-	
+	double				distance = 0;
 
 	while (distance < 255) // depth of field
 	{
 		ray_x += delta_x;
 		ray_y += delta_y;
 
+		// printf("ray_x: %f\n", ray_x);
+
 		// check if wall
-		if (data->map.map[(int) ray_y / data->map.tileSize][(int) ray_x / data->map.tileSize] == '1')
+		if (is_wall(data, ray_x, ray_y) == true)
 			break ;
 
 		// add step to distance
 		distance += sqrt(pow(delta_x, 2) + pow(delta_y, 2));
+		mlx_put_pixel(data->screen, ray_x, ray_y, 0x00FF00FF);
 	}
 	return (distance);
 }
@@ -56,17 +54,28 @@ void	draw_line(t_data *data, int x, double distance)
 	if (distance <= 0)
 			distance = 1;
 
-	colour = get_colour(255, 255, 255, 255 - distance);
+	colour = get_colour(255, 255, 255, 255 - distance / 3);
 
-	lineheight = (data->map.tileSize / distance) * data->map.tileSize * 10;
+	lineheight = (data->map.tileSize / distance) * data->map.tileSize * 64;
 	if (lineheight > WIN_HEIGHT)
 		lineheight = WIN_HEIGHT;
-
 
 	int		start = WIN_HEIGHT / 2 - lineheight / 2;
 
 	for (int j = 0; j < lineheight; j++)
 		mlx_put_pixel(data->screen, x, start + j, colour);
+}
+void		clear_screen(mlx_image_t *img)
+{
+	for (int i = 0; i < WIN_WIDTH; i++)
+	{
+		// for (int j = 0; j < WIN_HEIGHT / 2; j++) // make dark green
+		// 	mlx_put_pixel(img, i, j, 0x023020FF);
+		// for (int j = WIN_HEIGHT / 2; j < WIN_HEIGHT; j++)
+		// 	mlx_put_pixel(img, i, j, 0xDAF7A6FF);
+		for (int j = 0; j < WIN_HEIGHT; j++)
+			mlx_put_pixel(img, i, j, 0x000000FF);
+	}
 }
 
 void	cast_all_rays(t_data *data)
@@ -78,9 +87,10 @@ void	cast_all_rays(t_data *data)
 
 	double 		distance;
 
+	clear_screen(data->screen);
 	for (int i = 0; i < WIN_WIDTH; i++)
 	{
-		distance = cast_ray(data, ray_angle);
+		distance = cast_ray(data, ray_angle) * data->map.tileSize;
 
 		ray_angle += increment;
 
