@@ -10,12 +10,11 @@ OBJ_DIR			:= obj
 # Compiler flags
 CC				:= gcc
 CFLAGS			:= -Wall -Werror -Wextra 
-# MLX_FLAGS		:= -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
-# MLX_FLAGS		:= -framework Cocoa -framework OpenGL -framework IOKit -ldl -lglfw3 -pthread
 
 ifdef DEBUG
 	CFLAGS		+= -g -fsanitize=address
 endif
+
 
 # Includes
 HDR_FILES :=									\
@@ -30,7 +29,11 @@ LIBFT			:= $(LIBFT_DIR)/libft.a
 # MLX42
 MLX_DIR			:= $(LIB_DIR)/MLX
 MLX				:= $(MLX_DIR)/build/libmlx42.a
-MLX_FLAGS		:= -L$(MLX_DIR)/build -lmlx42 -lglfw -lm
+MLX_FLAGS		:= -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
+
+if (shell(uname) = "Linux")
+	MLX_FLAGS	  = -L$(MLX_DIR)/build -lmlx42 -lglfw -lm
+endif
 
 # Files
 SRC_FILES :=									\
