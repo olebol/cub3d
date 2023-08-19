@@ -31,7 +31,7 @@ MLX_DIR			:= $(LIB_DIR)/MLX
 MLX				:= $(MLX_DIR)/build/libmlx42.a
 MLX_FLAGS		:= -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
 
-if (shell(uname) = "Linux")
+ifeq (shell(uname), "Linux")
 	MLX_FLAGS	  = -L$(MLX_DIR)/build -lmlx42 -lglfw -lm
 endif
 

@@ -6,64 +6,95 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/16 22:12:24 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/19 22:47:49 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/19 23:55:45 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
 
-double	cast_ray(t_data *data, double angle)
+typedef struct		s_vector
 {
-	const double		ray_dir_x = cos(angle);
-	const double		ray_dir_y = sin(angle);
-	
-	const double		delta_x = ray_dir_x == 0 ? 1e30 : fabs(1 / ray_dir_x);
-	const double		delta_y = ray_dir_y == 0 ? 1e30 : fabs(1 / ray_dir_y);
+	double			x;
+	double			y;
+	double			direction;
+}					t_vector;
 
-	double				map_x = data->player.x;
-	double				map_y = data->player.y;
 
-	int					stepX;
-	int					stepY;
 
-	double				side_x;
-	double				side_y;
 
-	if (ray_dir_x < 0) // left
+t_vector	set_vector(double angle)
+{
+	t_vector	vector;
+
+	vector.direction = angle;
+	vector.x = cos(angle);
+	vector.y = sin(angle);
+	return (vector);
+}
+
+double	cast_ray(t_data *data, t_vector ray)
+{
+	int			map_x;
+	int			map_y;
+
+	int			step_x;
+	int			step_y;
+
+	double		side_x;
+	double		side_y;
+
+	double		delta_x;
+	double		delta_y;
+
+	map_x = (int) data->player.x;
+	map_y = (int) data->player.y;
+
+	if (ray.x == 0)
+		delta_x = 1e30;
+	else
+		delta_x = fabs(1 / ray.x);
+
+	if (ray.y == 0)
+		delta_y = 1e30;
+	else
+		delta_y = fabs(1 / ray.y);
+
+	if (ray.x < 0) // left
 	{
-		stepX = -1;
-		side_x = (map_x - (int) map_x) * delta_x;
+		step_x = -1;
+		side_x = delta_x * (data->player.x - map_x);
 	}
 	else // right
 	{
-		stepX = 1;
-		side_x = ((int) map_x + 1.0 - map_x) * delta_x;
+		step_x = 1;
+		side_x = delta_x * (map_x + 1 - data->player.x);
 	}
-	if (ray_dir_y < 0) // up
+
+	if (ray.y < 0) // up
 	{
-		stepY = -1;
-		side_y = (map_y - (int) map_y) * delta_y;
+		step_y = -1;
+		side_y = delta_y * (data->player.y - map_y);
 	}
 	else // down
 	{
-		stepY = 1;
-		side_y = ((int) map_y + 1.0 - map_y) * delta_y;
+		step_y = 1;
+		side_y = delta_y * (map_y + 1 - data->player.y);
 	}
 
 	int side;
-	while (is_wall(data, map_x, map_y) == false) // depth of field
+	while (is_wall(data, map_x, map_y) == false)
 	{
 		if (side_x < side_y)
 		{
 			side_x += delta_x;
-			map_x += stepX;
+			map_x += step_x;
 			side = 0; // horizontal
 		}
 		else
 		{
 			side_y += delta_y;
-			map_y += stepY;
+			map_y += step_y;
 			side = 1; // vertical
 		}
 	}
@@ -73,58 +104,64 @@ double	cast_ray(t_data *data, double angle)
 		return (side_y - delta_y);
 }
 
-unsigned int	get_colour(int r, int g, int b, int a)
+unsigned int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
 void	draw_line(t_data *data, int x, double distance)
 {
-	int		lineheight; 
-	int		colour;
+	const unsigned int		colour = get_rgba(255, 255, 255, 255 - distance);
+	size_t					lineheight; 
+	size_t					start_y;
+	size_t					y;
 
-	if (distance <= 0)
-			distance = 1;
-
-	colour = get_colour(255, 255, 255, 255 - distance / 3);
-
-	lineheight = (data->map.tileSize / distance) * data->map.tileSize * 64;
+	lineheight = (WIN_HEIGHT / distance);
 	if (lineheight > WIN_HEIGHT)
 		lineheight = WIN_HEIGHT;
 
-	int		start = WIN_HEIGHT / 2 - lineheight / 2;
+	start_y = WIN_HEIGHT / 2 - lineheight / 2;
 
-	for (int j = 0; j < lineheight; j++)
-		mlx_put_pixel(data->screen, x, start + j, colour);
-}
-void		clear_screen(mlx_image_t *img)
-{
-	for (int i = 0; i < WIN_WIDTH; i++)
+	y = 0;
+	while (y < lineheight)
 	{
-		for (int j = 0; j < WIN_HEIGHT / 2; j++) // make dark green
-			mlx_put_pixel(img, i, j, 0x023020FF);
-		for (int j = WIN_HEIGHT / 2; j < WIN_HEIGHT; j++)
-			mlx_put_pixel(img, i, j, 0xDAF7A6FF);
+		mlx_put_pixel(data->screen, x, start_y + y, colour);
+		y++;
+	}
+}
+
+void		clear_line(mlx_image_t *img, size_t x)
+{
+	size_t		y;
+
+	y = 0;
+	while (y < WIN_HEIGHT)
+	{
+		mlx_put_pixel(img, x, y, 0x00000000);
+		y++;
 	}
 }
 
 void	cast_all_rays(t_data *data)
 {
-	double		fov = 90;
-	double		ray_angle = data->player.angle - (fov * M_PI / 180) / 2;
+	const double		fov_in_radians = 90 * (M_PI / 180);
+	const double		increment = fov_in_radians / WIN_WIDTH;
+	double				ray_angle;
+	double 				distance;
+	size_t				x;
 
-	double		increment = (fov * M_PI / 180) / WIN_WIDTH;
 
-	double 		distance;
+	ray_angle = data->player.angle - fov_in_radians / 2;
 
-	clear_screen(data->screen);
-	for (int i = 0; i < WIN_WIDTH; i++)
+	x = 0;
+	while (x < WIN_WIDTH)
 	{
-		distance = cast_ray(data, ray_angle) * data->map.tileSize;
+		distance = cast_ray(data, set_vector(ray_angle));
+
+		clear_line(data->screen, x);
+		draw_line(data, x, distance);
 
 		ray_angle += increment;
-
-		draw_line(data, i, distance);
+		x++;
 	}
-	// printf("%f\n", cast_ray(data, data->player.angle));
 }
