@@ -15,29 +15,66 @@
 
 double	cast_ray(t_data *data, double angle)
 {
-	const double		delta_x = cos(angle) / data->map.tileSize;
-	const double		delta_y = sin(angle) / data->map.tileSize;
+	const double		delta_x = angle == 0 ? 1e30 : fabs(1 / cos(angle));
+	const double		delta_y = angle == 0 ? 1e30 : fabs(1 / sin(angle));
 
-	double				ray_x = data->player.x;
-	double				ray_y = data->player.y;
+	double				map_x = data->player.x;
+	double				map_y = data->player.y;
 
-	double				distance = 0;
+	int					stepX;
+	int					stepY;
 
-	while (distance < 255) // depth of field
+	double				side_x;
+	double				side_y;
+
+	if (cos(angle) < 0) // left
 	{
-		ray_x += delta_x;
-		ray_y += delta_y;
-
-		// printf("ray_x: %f\n", ray_x);
-
-		// check if wall
-		if (is_wall(data, ray_x, ray_y) == true)
-			break ;
-
-		// add step to distance
-		distance += sqrt(pow(delta_x, 2) + pow(delta_y, 2));
-		mlx_put_pixel(data->screen, ray_x, ray_y, 0x00FF00FF);
+		stepX = -1;
+		side_x = (map_x - (int) map_x) * delta_x;
 	}
+	else // right
+	{
+		stepX = 1;
+		side_x = ((int) map_x + 1.0 - map_x) * delta_x;
+	}
+	if (sin(angle) < 0) // up
+	{
+		stepY = -1;
+		side_y = (map_y - (int) map_y) * delta_y;
+	}
+	else // down
+	{
+		stepY = 1;
+		side_y = ((int) map_y + 1.0 - map_y) * delta_y;
+	}
+
+
+	while (is_wall(data, map_x, map_y) == false) // depth of field
+	{
+		if (side_x < side_y)
+		{
+			side_x += delta_x;
+			map_x += stepX;
+		}
+		else
+		{
+			side_y += delta_y;
+			map_y += stepY;
+		}
+	}
+
+	double				distance;
+	if (side_x > side_y)
+	{
+		distance = side_x - delta_x;
+		mlx_put_pixel(data->screen, ((int) map_x + 1) * 64 + 255, map_y * 64, 0x00FF00FF);
+	}
+	else
+	{
+		distance = side_y - delta_y;
+		mlx_put_pixel(data->screen, map_x * 64 + 255, ((int) map_y + 1) * 64, 0x00FF00FF);
+	}
+
 	return (distance);
 }
 
@@ -87,13 +124,14 @@ void	cast_all_rays(t_data *data)
 
 	double 		distance;
 
-	clear_screen(data->screen);
+	// clear_screen(data->screen);
 	for (int i = 0; i < WIN_WIDTH; i++)
 	{
 		distance = cast_ray(data, ray_angle) * data->map.tileSize;
 
 		ray_angle += increment;
+		printf("distance: %f\n", distance);
 
-		draw_line(data, i, distance);
+		// draw_line(data, i, distance);
 	}
 }
