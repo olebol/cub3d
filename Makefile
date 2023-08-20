@@ -11,6 +11,10 @@ OBJ_DIR			:= obj
 CC				:= gcc
 CFLAGS			:= -Wall -Werror -Wextra 
 
+ifdef FAST
+	CFLAGS		+= -Ofast -flto -march=native
+endif
+
 ifdef DEBUG
 	CFLAGS		+= -g -fsanitize=address
 endif

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/15 14:58:39 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/19 21:33:12 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/20 18:31:23 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static void	rotation_hook(t_data *data)
 {
-	double	angle = data->player.angle;
+	double			angle;
 
+	angle = data->player.angle;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT) == true)
 	{
 		angle -= 0.1;
@@ -91,4 +92,5 @@ void		captainhook(void *dataPointer)
 	exit_hook(data);
 	cast_all_rays(data);
 	draw_map(data);
+	printf("Fps: %f\n", 1 / data->mlx->delta_time);
 }

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/16 22:12:24 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/19 23:55:45 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/20 18:32:24 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,18 +130,6 @@ void	draw_line(t_data *data, int x, double distance)
 	}
 }
 
-void		clear_line(mlx_image_t *img, size_t x)
-{
-	size_t		y;
-
-	y = 0;
-	while (y < WIN_HEIGHT)
-	{
-		mlx_put_pixel(img, x, y, 0x00000000);
-		y++;
-	}
-}
-
 void	cast_all_rays(t_data *data)
 {
 	const double		fov_in_radians = 90 * (M_PI / 180);
@@ -150,7 +138,7 @@ void	cast_all_rays(t_data *data)
 	double 				distance;
 	size_t				x;
 
-
+	ft_bzero(data->screen->pixels, WIN_WIDTH * WIN_HEIGHT * sizeof(int));
 	ray_angle = data->player.angle - fov_in_radians / 2;
 
 	x = 0;
@@ -158,7 +146,6 @@ void	cast_all_rays(t_data *data)
 	{
 		distance = cast_ray(data, set_vector(ray_angle));
 
-		clear_line(data->screen, x);
 		draw_line(data, x, distance);
 
 		ray_angle += increment;
