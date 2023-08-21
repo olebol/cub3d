@@ -25,6 +25,8 @@ HDR_FILES :=									\
 				cub3d.h							\
 				declarations.h					\
 				colors.h						\
+				rays.h							\
+				vector.h						\
 
 # Libft
 LIBFT_DIR		:= $(LIB_DIR)/libft
@@ -52,6 +54,7 @@ SRC_FILES :=									\
 \
 				minimap.c						\
 				casting.c						\
+				rays.c							\
 
 
 SRC				:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
