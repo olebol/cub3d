@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/15 14:58:39 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/20 18:31:23 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/21 17:45:37 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void		move_hook(t_data *data)
 {
 	double				move_x;
 	double				move_y;
-	const double		scalar = 0.1;
+	const double		scalar = 3 * data->mlx->delta_time;
 
 	move_x = 0;
 	move_y = 0;
