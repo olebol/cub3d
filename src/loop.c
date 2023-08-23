@@ -6,13 +6,13 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/15 14:58:39 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/21 17:45:37 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/22 00:00:54 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	rotation_hook(t_data *data)
+static bool	rotation_hook(t_data *data)
 {
 	double			angle;
 
@@ -35,7 +35,10 @@ static void	rotation_hook(t_data *data)
 		data->player.delta_x = cos(angle);
 		data->player.delta_y = sin(angle);
 	}
+	if (angle == data->player.angle)
+		return (false);
 	data->player.angle = angle;
+	return (true);
 }
 
 static void		exit_hook(t_data *data)
@@ -44,7 +47,7 @@ static void		exit_hook(t_data *data)
 		mlx_close_window(data->mlx);
 }
 
-static void		move_hook(t_data *data)
+static bool		move_hook(t_data *data)
 {
 	double				move_x;
 	double				move_y;
@@ -73,10 +76,13 @@ static void		move_hook(t_data *data)
 		move_y += data->player.delta_x * scalar;
 	}
 
+	if (move_x == 0 && move_y == 0)
+		return (false);
 	if (is_wall(data, move_x + data->player.x, data->player.y) == false)
 		data->player.x += move_x;
 	if (is_wall(data, data->player.x, move_y + data->player.y) == false)
 		data->player.y += move_y;
+	return (true);
 }
 
 
@@ -84,13 +90,21 @@ static void		move_hook(t_data *data)
 void		captainhook(void *dataPointer)
 {
 	t_data				*data;
+	bool				redraw;
 
 	data = (t_data *) dataPointer;
 
-	rotation_hook(data);
-	move_hook(data);
+	redraw = false;
 	exit_hook(data);
-	cast_all_rays(data);
-	draw_map(data);
+	if (rotation_hook(data) == true)
+		redraw = true;
+	if (move_hook(data) == true)
+		redraw = true;
+	if (redraw == true)
+	{
+		ft_bzero(data->screen->pixels, WIN_WIDTH * WIN_HEIGHT * sizeof(int));
+		cast_all_rays(data);
+		draw_map(data);
+	}
 	printf("Fps: %f\n", 1 / data->mlx->delta_time);
 }

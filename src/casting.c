@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/16 22:12:24 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/21 16:03:54 by opelser       ########   odam.nl         */
+/*   Updated: 2023/08/23 14:03:07 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	draw_line(t_data *data, int x, t_ray_data *ray_data)
 	size_t					y;
 
 	colour = get_rgba(255, 255, 255, 255);
+	if (ray_data->side == VERTICAL)
+		colour = get_rgba(255, 255, 255, 220);
 	lineheight = (WIN_HEIGHT / distance);
 	if (lineheight > WIN_HEIGHT)
 		lineheight = WIN_HEIGHT;
@@ -79,7 +81,6 @@ void	cast_all_rays(t_data *data)
 	double				ray_angle;
 	size_t				x;
 
-	ft_bzero(data->screen->pixels, WIN_WIDTH * WIN_HEIGHT * sizeof(int));
 	ray_angle = data->player.angle - fov_in_radians / 2;
 
 	x = 0;
