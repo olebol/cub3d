@@ -6,11 +6,63 @@
 /*   By: evan-der <evan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/23 16:23:02 by evan-der      #+#    #+#                 */
-/*   Updated: 2023/08/23 16:26:30 by evan-der      ########   odam.nl         */
+/*   Updated: 2023/08/24 17:48:35 by evan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+void is_closed(char *temp_map[], int x, int y, t_map *map)
+{
+	if (temp_map[y][x] == 'x' || temp_map[y][x] == '1')
+		return ;
+	if (x == 0 || y == 0 || x == map->width || y == map->height || temp_map[y][x] == ' ')
+	{
+		printf("x: %d, y: %d, temp_map[y][x]: %c\n", x, y, temp_map[y][x]);
+		print_map(temp_map);
+		printf("\n");
+		fatal("Map is not closed\n");
+	}
+	temp_map[y][x] = 'x';
+	check_closed_walls(temp_map, x, y, map);
+}
+
+void	check_closed_walls(char *temp_map[], int x, int y, t_map *map) // temp_map
+{
+	is_closed(temp_map, x + 1, y, map);
+	is_closed(temp_map, x - 1, y, map);
+	is_closed(temp_map, x, y + 1, map);
+	is_closed(temp_map, x, y - 1, map);
+	is_closed(temp_map, x + 1, y + 1, map);
+	is_closed(temp_map, x - 1, y - 1, map);
+	is_closed(temp_map, x + 1, y - 1, map);
+	is_closed(temp_map, x - 1, y + 1, map);
+}
+
+void	start_wall_check(char *temp_map[], t_map *map)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (temp_map[y])
+	{
+		while (temp_map[y][x])
+		{
+			char orig = temp_map[y][x];
+			temp_map[y][x] = 'q';	
+			print_map(temp_map);
+			printf("\n");
+			temp_map[y][x] = orig;
+			if (temp_map[y][x] == '0')
+				is_closed(temp_map, x, y, map);
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+}
 
 void	copy_map_to_array(t_map *map, char *line, int len)
 {
@@ -48,23 +100,23 @@ void	copy_map_to_array(t_map *map, char *line, int len)
 }
 
 
-int map_height(char *line)
-{
-	size_t	height;
-	size_t	i;
+// int map_height(char *line)
+// {
+// 	size_t	height;
+// 	size_t	i;
 
-	height = 0;
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '\n')
-			height++;
-		i++;
-	}
-	if (line[height - 1] != '\n') // even nadenken over hoe de laatste line eruit kan zien en wel of niet meetellen icm input file
-		height++;
-	return (height);
-}
+// 	height = 0;
+// 	i = 0;
+// 	while (line[i])
+// 	{
+// 		if (line[i] == '\n')
+// 			height++;
+// 		i++;
+// 	}
+// 	if (line[height - 1] != '\n') // even nadenken over hoe de laatste line eruit kan zien en wel of niet meetellen icm input file
+// 		height++;
+// 	return (height);
+// }
 
 bool	end_of_map(char *map, int i) // same als skip_empty, maar dan voor de map :((
 {
@@ -95,6 +147,7 @@ int	check_map(char *line, t_map *map)
 			map->x = width; // wrm -1
 			map->y = map->height;
 			map->dir = line[i];
+			line[i] = '0';
 			player++; // ?? kan ook andere check hiervoor doen maar ok
 		}
 		else if (line[i] == '\n')

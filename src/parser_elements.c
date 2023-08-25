@@ -6,7 +6,7 @@
 /*   By: evan-der <evan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/23 16:23:04 by evan-der      #+#    #+#                 */
-/*   Updated: 2023/08/23 16:25:34 by evan-der      ########   odam.nl         */
+/*   Updated: 2023/08/25 16:19:31 by evan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ int path_textures_to_struct(char *line, char *surface, t_textures *textures)
 	return (i + path_len); //+ 1); // + 1 voor de \n
 }
 
-return (i); // vanaf i moet de map beginnen
-}
 
 int	get_elements(char *line, t_textures *textures) // ff kijken naar als j = 6, want dat heb ik nu veranderd
 {
@@ -100,7 +98,7 @@ int	get_elements(char *line, t_textures *textures) // ff kijken naar als j = 6, 
 			if (ft_strncmp(&line[i], id[j], LEN_ID) == 0)
 			{
 				printf("id: [%s]\n", id[j]);
-				i += 2; // skip de id en geef de rest van de line mee aan de functie (points naar path/hexa of spaties bij correcte input)
+				i += LEN_ID; // skip de id en geef de rest van de line mee aan de functie (points naar path/hexa of spaties bij correcte input)
 				if (tracker[j] == true)
 					fatal("Multiple paths for the same identification\n");
 				tracker[j] = true;
@@ -114,4 +112,5 @@ int	get_elements(char *line, t_textures *textures) // ff kijken naar als j = 6, 
 	if (!all_elements_found(tracker))
 		fatal("Invalid element formatting\n"); // line meegeven waar gevonden // KAN OF ELEMENTEN MISSENDE ZIJN OF TROEP TUSSEN DE ELEMENTEN
 		// fatal("Missing texture element\n"); // als er troep tussen de elementen staat, dan is het geeft hij deze error message en dit is incorrect 
-	
+	return (i); // vanaf i moet de map beginnen
+}

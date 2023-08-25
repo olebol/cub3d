@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/18 18:29:45 by evan-der      ########   odam.nl         */
+/*   Updated: 2023/08/24 17:27:45 by evan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,28 @@
 
 // PARSER UTILS
 int	parse_infile(char *infile, t_map *map, t_textures *textures);
+bool	extension_check(char *infile);
+void	split_elements_and_map(char *line, t_textures *textures, t_map *map);
 char	*file_to_str(int fd);
-int	len_path(char *line);
-// bool	is_valid_rgb(int value);
-char	*strip_path(char *line);
+bool	is_valid_rgb(int value);
 int parse_rgb_component(char *str, int *comp);
-unsigned int	get_rgb_color(char *rgb); // miss even andere naam bedenken
-int	path_textures_to_struct(char *line, char *surface, t_textures *textures);
-void	get_path_to_textures(char *line, t_textures *textures);
-bool	extension_check(char *infile); // bool?
-
+unsigned int	str_to_rgb(char *str);
+char	*strip_path(char *line);
+int	get_path_len(char *line);
+int	len_path(char *line);
+int	skip_empty(char *line, int i);
+int	skip_chars(char *line, int i, char *c);
+int	check_map(char *line, t_map *map);
+bool	end_of_map(char *map, int i);
+int map_height(char *line);
+void	copy_map_to_array(t_map *map, char *line, int len);
+int	get_elements(char *line, t_textures *textures);
+int path_textures_to_struct(char *line, char *surface, t_textures *textures);
+bool	all_elements_found(int *tracker);
+char **copy_map(t_map *map);
+void is_closed(char *temp_map[], int x, int y, t_map *map);
+void	check_closed_walls(char *temp_map[], int x, int y, t_map *map);
+void	start_wall_check(char *temp_map[], t_map *map);
 
 // VISUALIZATION UTILS
 void		draw_map(t_data *data);
@@ -44,4 +56,6 @@ void		draw_map(t_data *data);
 void	fatal(char *error);
 void	fatal_perror(char *error);
 
+
+void	print_map(char **map);
 #endif

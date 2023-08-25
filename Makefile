@@ -34,9 +34,10 @@ MLX				:= $(MLX_DIR)/build/libmlx42.a
 # Files
 SRC_FILES :=									\
 				main.c							\
+				parser_elements.c				\
+				parser_map.c					\
 				parsing_gen.c					\
-				parsing_map.c					\
-				parsing_elem.c					\
+				parser_utils.c					\
 				minimap.c						\
 				errors.c
 

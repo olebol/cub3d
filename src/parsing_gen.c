@@ -6,7 +6,7 @@
 /*   By: evan-der <evan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:25:25 by evan-der      #+#    #+#                 */
-/*   Updated: 2023/08/23 16:26:35 by evan-der      ########   odam.nl         */
+/*   Updated: 2023/08/24 17:36:51 by evan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	split_elements_and_map(char *line, t_textures *textures, t_map *map)
 	map->map = (char **) malloc((map->height + 1) * sizeof(char *));
 	if (!map)
 		fatal_perror("Malloc failed\n");
-	// map->map[map->height] = NULL;
+	map->map[map->height] = NULL;
 	printf("map->height: %d, map->width: %d\n", map->height, map->width);
 	while (i < map->height)
 	{
@@ -85,11 +85,46 @@ bool	extension_check(char *infile) // bool?
 	return (false);
 }
 
+char **copy_map(t_map *map)
+{
+	char	**temp_map;
+	int	i;
+	int j;
+
+	i = 0;
+	j = 0;
+	temp_map = (char **) malloc((map->height + 1) * sizeof(char *));
+	if (!temp_map)
+		fatal_perror("Malloc failed\n");
+	temp_map[map->height] = NULL;
+	while (i < map->height)
+	{
+		temp_map[i] = (char *) malloc((map->width + 1) * sizeof(char));
+		if (!temp_map[i])
+			fatal_perror("Malloc failed\n");
+		temp_map[i][map->width] = '\0';
+		i++;
+	}
+	i = 0;
+	while (i < map->height)
+	{
+		while (j < map->width)
+		{
+			temp_map[i][j] = map->map[i][j];
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	return (temp_map);
+}
+
 int	parse_infile(char *infile, t_map *map, t_textures *textures)
 {
 	int		i;
 	int		fd;
 	char	*line;
+	char	**temp_map;
 
 	i = 0;
 	if (!extension_check(infile))
@@ -101,5 +136,9 @@ int	parse_infile(char *infile, t_map *map, t_textures *textures)
 	split_elements_and_map(line, textures, map);
 	printf("map->x: %d, map->y: %d, map->dir: %c\n", map->x, map->y, map->dir);
 	close(fd);
-	return (0);
+	printf("1\n");
+	temp_map = copy_map(map);
+	printf("2\n");
+	start_wall_check(temp_map, map);
+	return (true);
 }
