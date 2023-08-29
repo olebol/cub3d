@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 20:59:57 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/18 15:46:12 by evan-der      ########   odam.nl         */
+/*   Updated: 2023/08/29 18:08:42 by evan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,39 @@
 
 # define EXTENSION_LEN 4
 # define EXTENSION ".cub"
-# define MAX_ID 6
 # define LEN_ID 2
+
+
+typedef enum	e_elem
+{
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST,
+	FLOOR,
+	CEILING,
+	ELEM_COUNT,
+}				t_elem;
+
+// typedef enum e_return
+// {
+// 	SUCCESS,
+// 	ERR_ARGC,
+// 	ERR_EXTENSION,
+// 	ERR_OPEN,
+// 	ERR_MALLOC,
+// 	ERR_READ,
+// 	ERR_MAP,
+// 	ERR_ID,
+// 	ERR_ELEM_FORMAT,
+// 	ERR_GARBAGE,
+// 	ERR_ELEMENTS,
+// 	ERR_TEXTURES,
+// 	ERR_COLOR,
+// 	ERR_RESOLUTION,
+// 	ERR_PLAYER,
+// }				t_return;
+
 
 typedef struct	s_map
 {

@@ -1,15 +1,14 @@
 
 
-WE ./path_we
+WE     
 
      EA      ./path_ea      
-SO ./path_so
-
-
+SO   ./path_so
 F     1,251,255
 
                    NO       ./path_no
-	C  0,0,0
+
+	C 0,0,0
 
 
 11111111111 1111111

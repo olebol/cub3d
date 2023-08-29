@@ -6,13 +6,28 @@
 /*   By: evan-der <evan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/23 16:24:58 by evan-der      #+#    #+#                 */
-/*   Updated: 2023/08/23 16:26:14 by evan-der      ########   odam.nl         */
+/*   Updated: 2023/08/29 18:24:18 by evan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	skip_chars(char *line, int i, char *c)
+const char	*elements(t_elem elem)
+{
+	const char	*element[] = {
+	[NORTH] = "NO",
+	[SOUTH] = "SO",
+	[WEST] = "WE",
+	[EAST] = "EA",
+	[FLOOR] = "F",
+	[CEILING] = "C",
+	};
+
+	return (element[elem]);
+}
+
+
+int	skip_chars(char *line, int i, char *c) // wrm niet gewoon line vanaf locatie meegegeven in plaats van i?
 {
 	int j;
 
@@ -71,6 +86,7 @@ int	get_path_len(char *line)
 	int	path_len;
 	int end;
 
+	// path_len = skip_chars(line, 0, " \t");
 	path_len = 0;
 	while (line[path_len] && line[path_len] != '\n')
 	{
@@ -85,6 +101,8 @@ int	get_path_len(char *line)
 			fatal("Multiple input for one element\n");
 		end++;
 	}
+	printf("path_len = %d\n", path_len);
+
 	return (path_len);
 }
 

@@ -6,7 +6,7 @@
 /*   By: evan-der <evan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:25:25 by evan-der      #+#    #+#                 */
-/*   Updated: 2023/08/24 17:36:51 by evan-der      ########   odam.nl         */
+/*   Updated: 2023/08/29 15:01:38 by evan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 // ERROR MESSAGES WITH THE LINE IN WHICH THE INCORRECT INPUT WAS FOUND (!!!)
 
 
-char	*file_to_str(int fd) // get_next_line style
+char	*copy_file_to_string(int fd) // get_next_line style
 {
 	char	*line;
+	char	*buff;
 	char	*temp;
 	int		ret;
 
@@ -25,19 +26,21 @@ char	*file_to_str(int fd) // get_next_line style
 	if (!line)
 		fatal_perror("Malloc failed\n");
 	line[0] = '\0';
-	temp = (char *) malloc(2 * sizeof(char));
-	if (!temp)
+	buff = (char *) malloc(2 * sizeof(char));
+	if (!buff)
 		fatal_perror("Malloc failed\n");
-	temp[1] = '\0';
-	ret = read(fd, temp, 1);
+	buff[1] = '\0';
+	ret = read(fd, buff, 1);
 	while (ret > 0)
 	{
-		line = ft_strjoin(line, temp);
-		ret = read(fd, temp, 1);
+		temp = ft_strjoin(line, buff);
+		free(line);
+		line = temp;
+		ret = read(fd, buff, 1);
 	}
-	if (ret == -1)
+	if (ret < 0)
 			fatal_perror("Read failed\n");
-	free(temp);
+	free(buff);
 	return (line);
 }
 
@@ -72,18 +75,7 @@ void	split_elements_and_map(char *line, t_textures *textures, t_map *map)
 	copy_map_to_array(map, &line[start_map], end_map - start_map);	
 }
 
-bool	extension_check(char *infile) // bool?
-{
-	int	len;
 
-	len = ft_strlen(infile);
-	// return (len >= EXTENSION_LEN && ft_strncmp(&infile[len - EXTENSION_LEN], EXTENSION, EXTENSION_LEN) == 0);
-
-	if (len >= EXTENSION_LEN)
-		if (ft_strncmp(&infile[len - EXTENSION_LEN], EXTENSION, EXTENSION_LEN) == 0) // return  :)??
-			return (true);
-	return (false);
-}
 
 char **copy_map(t_map *map)
 {
@@ -119,26 +111,35 @@ char **copy_map(t_map *map)
 	return (temp_map);
 }
 
+bool	extension_check(char *infile) // bool?
+{
+	int	len;
+
+	len = ft_strlen(infile);
+	// return (len >= EXTENSION_LEN && ft_strncmp(&infile[len - EXTENSION_LEN], EXTENSION, EXTENSION_LEN) == 0);
+
+	if (len >= EXTENSION_LEN)
+		if (ft_strncmp(&infile[len - EXTENSION_LEN], EXTENSION, EXTENSION_LEN) == 0) // return  :)??
+			return (true);
+	return (false);
+}
+
 int	parse_infile(char *infile, t_map *map, t_textures *textures)
 {
-	int		i;
 	int		fd;
-	char	*line;
+	char	*content;
 	char	**temp_map;
 
-	i = 0;
 	if (!extension_check(infile))
 		fatal("Invalid file extension\n");
 	fd = open(infile, O_RDONLY);
 	if (fd == -1)
 		fatal_perror("Invalid file\n");
-	line = file_to_str(fd);
-	split_elements_and_map(line, textures, map);
-	printf("map->x: %d, map->y: %d, map->dir: %c\n", map->x, map->y, map->dir);
+	content = copy_file_to_string(fd);
+	printf("content: [%s]\n", content);
 	close(fd);
-	printf("1\n");
+	split_elements_and_map(content, textures, map);
 	temp_map = copy_map(map);
-	printf("2\n");
 	start_wall_check(temp_map, map);
 	return (true);
 }

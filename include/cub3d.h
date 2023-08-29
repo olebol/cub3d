@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/24 17:27:45 by evan-der      ########   odam.nl         */
+/*   Updated: 2023/08/29 18:18:31 by evan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ int	skip_empty(char *line, int i);
 int	skip_chars(char *line, int i, char *c);
 int	check_map(char *line, t_map *map);
 bool	end_of_map(char *map, int i);
-int map_height(char *line);
 void	copy_map_to_array(t_map *map, char *line, int len);
 int	get_elements(char *line, t_textures *textures);
-int path_textures_to_struct(char *line, char *surface, t_textures *textures);
+int path_textures_to_struct(char *line, char *surface, t_textures *textures, int id_len);
 bool	all_elements_found(int *tracker);
 char **copy_map(t_map *map);
 void is_closed(char *temp_map[], int x, int y, t_map *map);
 void	check_closed_walls(char *temp_map[], int x, int y, t_map *map);
 void	start_wall_check(char *temp_map[], t_map *map);
+const char	*elements(t_elem elem);
 
 // VISUALIZATION UTILS
 void		draw_map(t_data *data);

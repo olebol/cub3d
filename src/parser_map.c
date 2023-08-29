@@ -6,7 +6,7 @@
 /*   By: evan-der <evan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/23 16:23:02 by evan-der      #+#    #+#                 */
-/*   Updated: 2023/08/24 17:48:35 by evan-der      ########   odam.nl         */
+/*   Updated: 2023/08/29 14:34:08 by evan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ void	start_wall_check(char *temp_map[], t_map *map)
 	{
 		while (temp_map[y][x])
 		{
-			char orig = temp_map[y][x];
-			temp_map[y][x] = 'q';	
-			print_map(temp_map);
-			printf("\n");
-			temp_map[y][x] = orig;
+			// char orig = temp_map[y][x];
+			// temp_map[y][x] = 'q';	
+			// print_map(temp_map);
+			// printf("\n");
+			// temp_map[y][x] = orig;
 			if (temp_map[y][x] == '0')
 				is_closed(temp_map, x, y, map);
 			x++;
@@ -98,25 +98,6 @@ void	copy_map_to_array(t_map *map, char *line, int len)
 		i++;
 	}
 }
-
-
-// int map_height(char *line)
-// {
-// 	size_t	height;
-// 	size_t	i;
-
-// 	height = 0;
-// 	i = 0;
-// 	while (line[i])
-// 	{
-// 		if (line[i] == '\n')
-// 			height++;
-// 		i++;
-// 	}
-// 	if (line[height - 1] != '\n') // even nadenken over hoe de laatste line eruit kan zien en wel of niet meetellen icm input file
-// 		height++;
-// 	return (height);
-// }
 
 bool	end_of_map(char *map, int i) // same als skip_empty, maar dan voor de map :((
 {
