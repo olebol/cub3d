@@ -35,10 +35,11 @@ LIBFT			:= $(LIBFT_DIR)/libft.a
 # MLX42
 MLX_DIR			:= $(LIB_DIR)/MLX
 MLX				:= $(MLX_DIR)/build/libmlx42.a
-MLX_FLAGS		:= -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
 
-ifeq (shell(uname), "Linux")
-	MLX_FLAGS	  = -L$(MLX_DIR)/build -lmlx42 -lglfw -lm
+ifeq ($(shell uname), Linux)
+	MLX_FLAGS	 := -L$(MLX_DIR)/build -lmlx42 -lglfw -lm
+else
+	MLX_FLAGS	 := -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
 endif
 
 # Files
