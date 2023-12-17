@@ -96,6 +96,8 @@ $(OBJ_DIR)/%.o: src/%.c $(HDR)
 open: $(NAME)
 	@ ./$(NAME) maps/s.cub
 
+submodule:
+	git submodule update --init --recursive
 
 norm:
 	@ norminette $(HDR_DIR) $(SRC)
@@ -122,4 +124,4 @@ fclean:
 
 re: fclean ${NAME}
 
-.PHONY: all norm clean fclean re libft libmlx cleanmlx
+.PHONY: all submodule norm clean fclean re
