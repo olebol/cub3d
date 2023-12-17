@@ -1,3 +1,6 @@
 [submodule "lib/MLX"]
 	path = lib/MLX
 	url = git@github.com:codam-coding-college/MLX42.git
+[submodule "lib/libft"]
+	path = lib/libft
+	url = https://github.com/olebol/libft.git
