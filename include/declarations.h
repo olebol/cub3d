@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   declarations.h                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/14 20:59:57 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/21 17:42:02 by opelser       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   declarations.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 20:59:57 by opelser           #+#    #+#             */
+/*   Updated: 2024/02/15 15:38:55 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,18 @@
  * @param width width of map
  * @param height height of map
  * 
- * @param tileSize size of tile for minimap
- * @param minimapSize width of minimap
+ * @param tile_size size of tile for minimap
+ * @param minimap_size width of minimap
  */
-typedef struct		s_map
+typedef struct s_map
 {
 	char			**map;
 
 	int				width;
 	int				height;
 
-	int				tileSize;
-	int				minimapSize;
+	int				tile_size;
+	int				minimap_size;
 }					t_map;
 
 /**
@@ -46,7 +46,7 @@ typedef struct		s_map
  * @param x			player position X
  * @param y			player position Y
  */
-typedef struct		s_player
+typedef struct s_player
 {
 	double			x;
 	double			y;
@@ -66,7 +66,7 @@ typedef struct		s_player
  * @param map		map struct
  * @param player	player struct
  */
-typedef struct		s_data
+typedef struct s_data
 {
 	mlx_t			*mlx;
 

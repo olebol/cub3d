@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   init.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/15 14:32:27 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/19 21:35:09 by opelser       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
+/*   Updated: 2024/02/15 15:38:21 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		init_mlx_data(t_data *data)
 		return (2);
 	}
 
-	data->map.tileSize = 32;
-	data->map.minimapSize = WIN_WIDTH / 8;
+	data->map.tile_size = 32;
+	data->map.minimap_size = WIN_WIDTH / 8;
 	return (0);
 }

@@ -15,7 +15,7 @@
 // Draw the player on the minimap
 static void	draw_player(t_data *data)
 {
-	int		start_pos = (data->map.minimapSize / 2 - 2);
+	int		start_pos = (data->map.minimap_size / 2 - 2);
 	int 	colour = 0xFF0000FF; // red
 
 	// Draw player dot
@@ -55,10 +55,10 @@ bool	is_within_map(t_data *data, double x, double y)
 void	draw_map(t_data *data)
 {
 	// Minimap size in pixels
-	const int		minimap_size = data->map.minimapSize;
+	const int		minimap_size = data->map.minimap_size;
 
 	// Minimap tile size in pixels
-	const int		tile_size = data->map.tileSize;
+	const int		tile_size = data->map.tile_size;
 
 	// Minimap top left corner position
 	const double	offset_x = data->player.x - (minimap_size / tile_size / 2);

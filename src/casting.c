@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   casting.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/16 22:12:24 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/23 14:03:07 by opelser       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   casting.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/16 22:12:24 by opelser           #+#    #+#             */
+/*   Updated: 2024/02/15 15:42:32 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	draw_line(t_data *data, int x, t_ray_data *ray_data)
 {
 	const double			distance = ray_data->distance;
 	unsigned int			colour;
-	size_t					lineheight; 
+	size_t					lineheight;
 	size_t					start_y;
 	size_t					y;
 
