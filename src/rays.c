@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:41:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/15 15:42:43 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/20 14:06:13 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,5 @@ void	set_ray_data(t_data *data, t_ray_data *ray_data, double angle)
 	ray_data->vector = set_vector(angle);
 	set_side_step_distance(ray_data);
 	set_dda(&data->player, ray_data);
+	ray_data->side = 0;
 }
