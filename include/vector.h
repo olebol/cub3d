@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_isalpha.c                                       :+:    :+:            */
+/*   vector.h                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/03 17:09:26 by opelser       #+#    #+#                 */
-/*   Updated: 2022/10/03 20:39:29 by opelser       ########   odam.nl         */
+/*   Created: 2023/08/21 16:00:40 by opelser       #+#    #+#                 */
+/*   Updated: 2023/08/21 16:01:24 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isalpha(int c)
+#ifndef VECTOR_H
+# define VECTOR_H
+
+typedef struct s_vector
 {
-	if ((c >= 'a' && c <= 'z')
-		|| (c >= 'A' && c <= 'Z'))
-		return (1);
-	return (0);
-}
+	double			x;
+	double			y;
+	double			direction;
+}					t_vector;
+
+#endif

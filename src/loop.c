@@ -1,27 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   loop.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/15 14:58:39 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/15 20:08:55 by opelser       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   loop.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/15 14:58:39 by opelser           #+#    #+#             */
+/*   Updated: 2024/02/15 15:40:42 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static bool		isWall(t_data *data, int offsetX, int offsetY)
+static bool	rotation_hook(t_data *data)
 {
-	int		mapX;
-	int		mapY;
+	double			angle;
 
-	mapX = (data->player.posX + offsetX) / data->map.tileSize;
-	mapY = (data->player.posY + offsetY) / data->map.tileSize;
-	if (data->map.map[mapY][mapX] == '1')
-		return (true);
-	return (false);
+	angle = data->player.angle;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT) == true)
+	{
+		angle -= 0.1;
+		if (angle < 0)
+			angle += M_PI * 2;
+
+		data->player.delta_x = cos(angle);
+		data->player.delta_y = sin(angle);
+	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT) == true)
+	{
+		angle += 0.1;
+		if (angle > M_PI * 2)
+			angle -= M_PI * 2;
+
+		data->player.delta_x = cos(angle);
+		data->player.delta_y = sin(angle);
+	}
+	if (angle == data->player.angle)
+		return (false);
+	data->player.angle = angle;
+	return (true);
 }
 
 static void		exit_hook(t_data *data)
@@ -30,51 +47,62 @@ static void		exit_hook(t_data *data)
 		mlx_close_window(data->mlx);
 }
 
-static void		move_hook(t_data *data)
+static bool		move_hook(t_data *data)
 {
+	double				move_x;
+	double				move_y;
+	const double		scalar = 3 * data->mlx->delta_time;
+
+	move_x = 0;
+	move_y = 0;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W) == true)
 	{
-		if (isWall(data, 0, -2) == false)
-		{
-			data->player.img->instances[0].y -= 2;
-			data->player.posY -= 2;
-		}
+		move_x += data->player.delta_x * scalar;
+		move_y += data->player.delta_y * scalar;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) == true)
 	{
-		if (isWall(data, 0, 2 + data->player.img->height) == false)
-		{
-			data->player.img->instances[0].y += 2;
-			data->player.posY += 2;
-		}
+		move_x -= data->player.delta_x * scalar;
+		move_y -= data->player.delta_y * scalar;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A) == true)
 	{
-		if (isWall(data, -2, 0) == false)
-		{
-			data->player.img->instances[0].x -= 2;
-			data->player.posX -= 2;
-		}
+		move_x += data->player.delta_y * scalar;
+		move_y -= data->player.delta_x * scalar;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D) == true)
 	{
-		if (isWall(data, 2 + data->player.img->width, 0) == false)
-		{
-			data->player.img->instances[0].x += 2;
-			data->player.posX += 2;
-		}
+		move_x -= data->player.delta_y * scalar;
+		move_y += data->player.delta_x * scalar;
 	}
+
+	if (move_x == 0 && move_y == 0)
+		return (false);
+	if (is_wall(data, move_x + data->player.x, data->player.y) == false)
+		data->player.x += move_x;
+	if (is_wall(data, data->player.x, move_y + data->player.y) == false)
+		data->player.y += move_y;
+	return (true);
 }
 
-void		captainhook(mlx_key_data_t keydata, void *dataPointer)
+void		captainhook(void *dataPointer)
 {
 	t_data				*data;
+	bool				redraw;
 
-	(void) keydata;
 	data = (t_data *) dataPointer;
 
-	move_hook(data);
+	redraw = false;
 	exit_hook(data);
-
-	draw_map(data);
+	if (rotation_hook(data) == true)
+		redraw = true;
+	if (move_hook(data) == true)
+		redraw = true;
+	if (redraw == true)
+	{
+		ft_bzero(data->screen->pixels, WIN_WIDTH * WIN_HEIGHT * sizeof(int));
+		cast_all_rays(data);
+		draw_map(data);
+	}
+	printf("Fps: %f\n", 1 / data->mlx->delta_time);
 }

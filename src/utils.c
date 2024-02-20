@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_tolower.c                                       :+:    :+:            */
+/*   utils.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: opelser <opelser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/19 19:27:51 by opelser       #+#    #+#                 */
-/*   Updated: 2022/10/19 19:29:12 by opelser       ########   odam.nl         */
+/*   Created: 2023/08/18 16:07:30 by opelser       #+#    #+#                 */
+/*   Updated: 2023/08/20 20:00:40 by opelser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_tolower(int c)
+#include "cub3d.h"
+
+bool		is_wall(t_data *data, double x, double y)
 {
-	if (c >= 'A' && c <= 'Z')
-		c += 32;
-	return (c);
+	return (data->map.map[(int) y][(int) x] == '1');
 }

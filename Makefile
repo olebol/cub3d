@@ -9,19 +9,24 @@ OBJ_DIR			:= obj
 
 # Compiler flags
 CC				:= gcc
-CFLAGS			:= -Wall -Werror -Wextra
-MLX_FLAGS		:= -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
-# MLX_FLAGS		:= -framework Cocoa -framework OpenGL -framework IOKit -ldl -lglfw3 -pthread
+CFLAGS			:= -Wall -Werror -Wextra 
+
+ifdef FAST
+	CFLAGS		+= -Ofast -flto -march=native
+endif
 
 ifdef DEBUG
 	CFLAGS		+= -g -fsanitize=address
 endif
+
 
 # Includes
 HDR_FILES :=									\
 				cub3d.h							\
 				declarations.h					\
 				colors.h						\
+				rays.h							\
+				vector.h						\
 
 # Libft
 LIBFT_DIR		:= $(LIB_DIR)/libft
@@ -31,13 +36,26 @@ LIBFT			:= $(LIBFT_DIR)/libft.a
 MLX_DIR			:= $(LIB_DIR)/MLX
 MLX				:= $(MLX_DIR)/build/libmlx42.a
 
+ifeq ($(shell uname), Linux)
+	MLX_FLAGS	 := -L$(MLX_DIR)/build -lmlx42 -lglfw -lm
+else
+	MLX_FLAGS	 := -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
+endif
+
 # Files
 SRC_FILES :=									\
 				main.c							\
 				init.c							\
-				parsing.c						\
+				utils.c 						\
+				errors.c						\
+\
 				loop.c							\
+\
+				parsing.c						\
+\
 				minimap.c						\
+				casting.c						\
+				rays.c							\
 
 
 SRC				:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
@@ -57,7 +75,7 @@ all: ${NAME}
 
 $(NAME): $(LIBFT) $(MLX) $(OBJ)
 	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling $(NICKNAME)..." "$(RESET)"
-	@ gcc $(OBJ) $(LIBFT) $(MLX_FLAGS) $(MLX) $(INC) -o $(NAME)
+	@ gcc $(CFLAGS) $(OBJ) $(LIBFT) $(MLX_FLAGS) $(MLX) $(INC) -o $(NAME)
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
 
 $(LIBFT):
@@ -76,8 +94,10 @@ $(OBJ_DIR)/%.o: src/%.c $(HDR)
 	@ gcc $(CFLAGS) -c $< -o $@ $(INC)
 
 open: $(NAME)
-	@ ./$(NAME) maps/test
+	@ ./$(NAME) maps/s.cub
 
+submodule:
+	git submodule update --init --recursive
 
 norm:
 	@ norminette $(HDR_DIR) $(SRC)
@@ -104,4 +124,4 @@ fclean:
 
 re: fclean ${NAME}
 
-.PHONY: all norm clean fclean re libft libmlx cleanmlx
+.PHONY: all submodule norm clean fclean re
