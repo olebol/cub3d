@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 22:12:24 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/15 15:42:32 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/20 14:09:16 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	draw_line(t_data *data, int x, t_ray_data *ray_data)
 	colour = get_rgba(255, 255, 255, 255);
 	if (ray_data->side == VERTICAL)
 		colour = get_rgba(255, 255, 255, 220);
-	lineheight = (WIN_HEIGHT / distance);
+	lineheight = (WIN_HEIGHT / distance) * 2;
 	if (lineheight > WIN_HEIGHT)
 		lineheight = WIN_HEIGHT;
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/18 16:07:30 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/20 20:00:40 by opelser       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/18 16:07:30 by opelser           #+#    #+#             */
+/*   Updated: 2024/02/20 17:21:17 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 
 bool		is_wall(t_data *data, double x, double y)
 {
+	if (x < 0 || y < 0 || x >= data->map.width || y >= data->map.height)
+		return (true);
+
 	return (data->map.map[(int) y][(int) x] == '1');
 }
