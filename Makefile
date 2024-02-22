@@ -85,13 +85,13 @@ $(OBJ_DIR)/%.o: src/%.c $(HDR)
 
 $(LIBFT):
 	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling LIBFT..." "$(RESET)"
-	@ git submodule update --init --recursive --remote
+	@ git submodule update --init --recursive $(LIBFT_DIR)
 	@ make -C $(LIBFT_DIR)														> /dev/null
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
 
 $(MLX):
 	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling MLX42..." "$(RESET)"
-	@ git submodule update --init --recursive --remote
+	@ git submodule update --init --recursive $(MLX_DIR)
 	@ cmake $(MLX_DIR) -B $(MLX_DIR)/build										> /dev/null
 	@ make -C $(MLX_DIR)/build -j4												> /dev/null
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
