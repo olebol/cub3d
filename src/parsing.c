@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parsing.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: evan-der <evan-der@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/14 17:25:25 by evan-der      #+#    #+#                 */
-/*   Updated: 2023/08/16 18:10:37 by opelser       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 17:25:25 by evan-der          #+#    #+#             */
+/*   Updated: 2024/02/22 17:10:31 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "cub3d.h"
 #include <fcntl.h>
 
 void	copy_map_to_array(t_map *map, char *line)

@@ -7,9 +7,18 @@ LIB_DIR			:= lib
 SRC_DIR			:= src
 OBJ_DIR			:= obj
 
+# Libft
+LIBFT_DIR		:= $(LIB_DIR)/libft
+LIBFT			:= $(LIBFT_DIR)/libft.a
+
+# MLX42
+MLX_DIR			:= $(LIB_DIR)/MLX
+MLX				:= $(MLX_DIR)/build/libmlx42.a
+
 # Compiler flags
-CC				:= gcc
-CFLAGS			:= -Wall -Werror -Wextra 
+CC				:= clang
+CFLAGS			:= -Wall -Werror -Wextra
+INC				:= -I include/ -I $(LIBFT_DIR)/include/ -I $(MLX_DIR)/include/MLX42/
 
 ifdef FAST
 	CFLAGS		+= -Ofast -flto -march=native
@@ -19,7 +28,6 @@ ifdef DEBUG
 	CFLAGS		+= -g -fsanitize=address
 endif
 
-
 # Includes
 HDR_FILES :=									\
 				cub3d.h							\
@@ -28,13 +36,6 @@ HDR_FILES :=									\
 				rays.h							\
 				vector.h						\
 
-# Libft
-LIBFT_DIR		:= $(LIB_DIR)/libft
-LIBFT			:= $(LIBFT_DIR)/libft.a
-
-# MLX42
-MLX_DIR			:= $(LIB_DIR)/MLX
-MLX				:= $(MLX_DIR)/build/libmlx42.a
 
 ifeq ($(shell uname), Linux)
 	MLX_FLAGS	 := -L$(MLX_DIR)/build -lmlx42 -lglfw -lm
@@ -61,7 +62,7 @@ SRC_FILES :=									\
 SRC				:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ				:= ${addprefix ${OBJ_DIR}/, ${SRC_FILES:.c=.o}}
 HDR				:= $(addprefix $(HDR_DIR)/, $(HDR_FILES))
-INC				:= -I include/ -I $(LIBFT_DIR)/include/ -I $(MLX_DIR)/include
+
 
 # Colours
 GREEN			:= \033[32;1m
@@ -75,36 +76,35 @@ all: ${NAME}
 
 $(NAME): $(LIBFT) $(MLX) $(OBJ)
 	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling $(NICKNAME)..." "$(RESET)"
-	@ gcc $(CFLAGS) $(OBJ) $(LIBFT) $(MLX_FLAGS) $(MLX) $(INC) -o $(NAME)
+	@ gcc $(CFLAGS) $(OBJ) $(LIBFT) $(MLX_FLAGS) $(MLX) -o $(NAME)
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
+
+$(OBJ_DIR)/%.o: src/%.c $(HDR)
+	@ mkdir -p obj
+	@ gcc $(CFLAGS) $(INC) -c $< -o $@
 
 $(LIBFT):
 	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling LIBFT..." "$(RESET)"
+	@ git submodule update --init --recursive --remote
 	@ make -C $(LIBFT_DIR)														> /dev/null
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
 
 $(MLX):
 	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling MLX42..." "$(RESET)"
+	@ git submodule update --init --recursive --remote
 	@ cmake $(MLX_DIR) -B $(MLX_DIR)/build										> /dev/null
 	@ make -C $(MLX_DIR)/build -j4												> /dev/null
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
-	
-$(OBJ_DIR)/%.o: src/%.c $(HDR)
-	@ mkdir -p obj
-	@ gcc $(CFLAGS) -c $< -o $@ $(INC)
 
 open: $(NAME)
 	@ ./$(NAME) maps/s.cub
-
-submodule:
-	git submodule update --init --recursive
 
 norm:
 	@ norminette $(HDR_DIR) $(SRC)
 
 clean:
 	@ echo "$(RED)$(BOLD)Cleaning LIBFT...$(RESET)"
-	@ make clean -C $(LIBFT_DIR)
+	@ make clean -C $(LIBFT_DIR)												> /dev/null
 
 	@ echo "$(RED)$(BOLD)Cleaning $(NICKNAME)...$(RESET)"
 	@ rm -rf $(OBJ)
@@ -112,10 +112,10 @@ clean:
 
 fclean: 
 	@ echo "$(RED)$(BOLD)Fully cleaning LIBFT...$(RESET)"
-	@ make fclean -C $(LIBFT_DIR)
+	@ make fclean -C $(LIBFT_DIR)												> /dev/null
 
 	@ echo "$(RED)$(BOLD)Fully cleaning MLX42...$(RESET)"
-	@ make clean -C $(MLX_DIR)/build
+	@ make clean -C $(MLX_DIR)/build											> /dev/null
 
 	@ echo "$(RED)$(BOLD)Fully cleaning $(NICKNAME)...$(RESET)"
 	@ rm -rf ${NAME}
@@ -124,4 +124,4 @@ fclean:
 
 re: fclean ${NAME}
 
-.PHONY: all submodule norm clean fclean re
+.PHONY: all submodule norm clean fclean re submodule
