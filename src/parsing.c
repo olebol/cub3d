@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:25:25 by evan-der          #+#    #+#             */
-/*   Updated: 2024/02/22 17:10:31 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 22:04:41 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	copy_map_to_array(t_map *map, char *line)
 	}
 }
 
-int map_height(char *line)
+int		map_height(char *line)
 {
 	size_t	height;
 	size_t	i;
@@ -56,7 +56,7 @@ int map_height(char *line)
 	return (height);
 }
 
-int	map_width(char *line)
+int		map_width(char *line)
 {
 	size_t	width;
 
@@ -97,7 +97,7 @@ char	*copy_line(int fd) // get_next_line style
 			ft_putstr_fd("Read failed\n", 2);
 			exit(1);
 		}
-		line = ft_strjoin(line, temp);
+		line = ft_strjoin_replace(line, temp);
 		ret = read(fd, temp, 1);
 	}
 	free(temp);
@@ -145,5 +145,6 @@ void	parse_map(char *map_file, t_map *map)
 		i++;
 	}
 	copy_map_to_array(map, line);
+	free(line);
 	close(fd);
 }

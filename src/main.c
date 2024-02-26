@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:46 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/22 17:11:06 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 22:01:19 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,7 @@ int	main(int argc, char *argv[])
 	mlx_loop_hook(data.mlx, &captainhook, (void *) &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
+
+	ft_free_str_arr(data.map.map);
 	return (0);
 }
