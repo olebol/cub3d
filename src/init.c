@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 23:53:30 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 23:57:58 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		init_player(t_data *data)
 	data->player.y = 1.5;
 
 	// Set player vector direction to 0 degrees (right)
-	set_vector(&data->player.vec, 0);
+	data->player.vec = get_vector(0);
 
 	return (0);
 }
@@ -76,7 +76,7 @@ static bool		init_mlx(t_data *data)
 // Initialize all data
 void	init_data(t_data *data, char *map_path)
 {
-	if (!init_mlx_data(data))
+	if (!init_mlx(data))
 		ft_error("MLX failed to initialize");
 	if (!init_screen(data))
 		ft_error("Screen failed to initialize");

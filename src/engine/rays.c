@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:41:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 23:28:46 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 23:57:27 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	set_dda_values(t_ray_data *ray_data, double x, double y)
 
 void	set_ray_data(t_data *data, t_ray_data *ray_data, double angle)
 {
-	set_vector(&ray_data->vector, angle);
+	ray_data->vector = get_vector(angle);
 	set_side_step_distance(ray_data);
 	set_dda_values(ray_data, data->player.x, data->player.y);
 	ray_data->side = 0;

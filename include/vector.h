@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 16:00:40 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 22:40:16 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 23:57:43 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ typedef struct s_vector
 /**
  * @brief Calculate the vector with the given angle.
 */
-void	set_vector(t_vector *vector, double angle);
+t_vector	get_vector(double angle);
 
 #endif
