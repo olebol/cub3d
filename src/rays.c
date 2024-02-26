@@ -6,23 +6,22 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:41:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/20 14:06:13 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 19:34:50 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "rays.h"
 
-t_vector	set_vector(double angle)
+// Set the vector of the ray
+void	set_vector(double angle, t_ray_data *ray_data)
 {
-	t_vector	vector;
-
-	vector.direction = angle;
-	vector.x = cos(angle);
-	vector.y = sin(angle);
-	return (vector);
+	ray_data->vector.direction = angle;
+	ray_data->vector.x = cos(angle);
+	ray_data->vector.y = sin(angle);
 }
 
+// Use the vector to calculate the distance to the next wall
 void	set_side_step_distance(t_ray_data *ray_data)
 {
 	if (ray_data->vector.x == 0)
@@ -36,6 +35,7 @@ void	set_side_step_distance(t_ray_data *ray_data)
 		ray_data->dda.delta_y = fabs(1 / ray_data->vector.y);
 }
 
+// Set up the data used by the DDA algorith: what direction to take on the map and the initial distance traveled
 void	set_dda(t_player *player, t_ray_data *ray_data)
 {
 	if (ray_data->vector.x < 0)
@@ -63,8 +63,8 @@ void	set_dda(t_player *player, t_ray_data *ray_data)
 
 void	set_ray_data(t_data *data, t_ray_data *ray_data, double angle)
 {
-	ray_data->vector = set_vector(angle);
+	set_vector(angle, ray_data);
 	set_side_step_distance(ray_data);
-	set_dda(&data->player, ray_data);
+	set_dda(&(data->player), ray_data);
 	ray_data->side = 0;
 }
