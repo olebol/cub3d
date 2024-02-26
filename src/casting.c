@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 22:12:24 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 21:31:34 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 22:32:50 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	cast_all_rays(t_data *data)
 	double				ray_angle;
 	size_t				x;
 
-	ray_angle = data->player.angle - fov_in_radians / 2;
+	ray_angle = data->player.vec.direction - fov_in_radians / 2;
 
 	x = 0;
 	while (x < WIN_WIDTH)

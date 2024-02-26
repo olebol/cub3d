@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:59:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 21:43:57 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 22:31:09 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define DECLARATIONS_H
 
 # include "cub3d.h"
+# include "vector.h"
 
 # define WIN_WIDTH 2048
 # define WIN_HEIGHT 1024
@@ -55,10 +56,7 @@ typedef struct s_player
 	double			x;
 	double			y;
 
-	double			delta_x;
-	double			delta_y;
-
-	double			angle;
+	t_vector		vec;
 }					t_player;
 
 /**

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:39 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 21:31:34 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 22:33:09 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ static void	rotation_hook(t_data *data)
 {
 	double			angle;
 
-	angle = data->player.angle;
+	angle = data->player.vec.direction;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT) == true)
 	{
 		angle -= 0.1;
 		if (angle < 0)
 			angle += M_PI * 2;
 
-		data->player.delta_x = cos(angle);
-		data->player.delta_y = sin(angle);
+		data->player.vec.x = cos(angle);
+		data->player.vec.y = sin(angle);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT) == true)
 	{
@@ -32,10 +32,10 @@ static void	rotation_hook(t_data *data)
 		if (angle > M_PI * 2)
 			angle -= M_PI * 2;
 
-		data->player.delta_x = cos(angle);
-		data->player.delta_y = sin(angle);
+		data->player.vec.x = cos(angle);
+		data->player.vec.y = sin(angle);
 	}
-	data->player.angle = angle;
+	data->player.vec.direction = angle;
 }
 
 static void		exit_hook(t_data *data)
@@ -54,23 +54,23 @@ static void		move_hook(t_data *data)
 	move_y = 0;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W) == true)
 	{
-		move_x += data->player.delta_x * scalar;
-		move_y += data->player.delta_y * scalar;
+		move_x += data->player.vec.x * scalar;
+		move_y += data->player.vec.y * scalar;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) == true)
 	{
-		move_x -= data->player.delta_x * scalar;
-		move_y -= data->player.delta_y * scalar;
+		move_x -= data->player.vec.x * scalar;
+		move_y -= data->player.vec.y * scalar;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A) == true)
 	{
-		move_x += data->player.delta_y * scalar;
-		move_y -= data->player.delta_x * scalar;
+		move_x += data->player.vec.y * scalar;
+		move_y -= data->player.vec.x * scalar;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D) == true)
 	{
-		move_x -= data->player.delta_y * scalar;
-		move_y += data->player.delta_x * scalar;
+		move_x -= data->player.vec.y * scalar;
+		move_y += data->player.vec.x * scalar;
 	}
 
 	if (move_x == 0 && move_y == 0)
