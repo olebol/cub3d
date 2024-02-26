@@ -18,7 +18,7 @@ MLX				:= $(MLX_DIR)/build/libmlx42.a
 # Compiler flags
 CC				:= clang
 CFLAGS			:= -Wall -Werror -Wextra
-INC				:= -I include/ -I $(LIBFT_DIR)/include/ -I $(MLX_DIR)/include/MLX42/
+INCL			:= -I $(HDR_DIR)/ -I $(LIBFT_DIR)/include/ -I $(MLX_DIR)/include/MLX42/ 
 
 ifdef FAST
 	CFLAGS		+= -Ofast -flto -march=native
@@ -74,21 +74,25 @@ all: ${NAME}
 
 $(NAME): $(LIBFT) $(MLX) $(OBJ)
 	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling $(NICKNAME)..." "$(RESET)"
-	@ gcc $(CFLAGS) $(OBJ) $(LIBFT) $(MLX_FLAGS) $(MLX) -o $(NAME)
+	@ $(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX_FLAGS) $(MLX) -o $(NAME)
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
 
-$(OBJ_DIR)/%.o: src/%.c $(HDR)
-	@ mkdir -p obj obj/engine
-	@ gcc $(CFLAGS) $(INC) -c $< -o $@
+$(OBJ_DIR)/%.o: src/%.c $(HDR) | $(OBJ_DIR)
+	@ printf	"$(YELLOW)Compiling $(notdir $<)...$(RESET)"
+	@ $(CC) $(CFLAGS) $(INCL) -c $< -o $@
+	@ printf	"\t\t\t$(GREEN)$(BOLD)[OK]$(RESET)\n"
+
+$(OBJ_DIR):
+	@ mkdir -p $(OBJ_DIR) $(OBJ_DIR)/engine
 
 $(LIBFT):
-	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling LIBFT..." "$(RESET)"
+	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling and archiving LIBFT..." "$(RESET)"
 	@ git submodule update --init --recursive $(LIBFT_DIR)
 	@ make -C $(LIBFT_DIR)														> /dev/null
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
 
 $(MLX):
-	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling MLX42..." "$(RESET)"
+	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling and archiving MLX42..." "$(RESET)"
 	@ git submodule update --init --recursive $(MLX_DIR)
 	@ cmake $(MLX_DIR) -B $(MLX_DIR)/build										> /dev/null
 	@ make -C $(MLX_DIR)/build -j4												> /dev/null
