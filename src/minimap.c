@@ -12,70 +12,99 @@
 
 #include "cub3d.h"
 
-// Draw the player on the minimap
-static void	draw_player(t_data *data)
+static void		draw_player_dot(t_data *data, int start_pos, int colour)
 {
-	int		start_pos = (data->map.minimap_size / 2 - 2);
-	int 	colour = 0xFF0000FF; // red
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < 5)
+	{
+		j = 0;
+		while (j < 5)
+		{
+			mlx_put_pixel(data->minimap, \
+						start_pos + i, \
+						start_pos + j, \
+						colour);
+			j++;
+		}
+		i++;
+	}
+}
+
+// Draw the player on the minimap
+static void		draw_player(t_data *data, int start_pos, int colour)
+{
+	int		i;
 
 	// Draw player dot
-	for (int i = 0; i < 5; i++)
-		for (int j = 0; j < 5; j++)
-			mlx_put_pixel(data->screen, i + start_pos, j + start_pos, colour);
+	draw_player_dot(data, start_pos, colour);
 
 	// Draw player direction line
-	for (int i = 0; i < 10; i++)
-		mlx_put_pixel(data->screen, \
-					start_pos + 2 + (data->player.delta_x * i), \
-					start_pos + 2 + (data->player.delta_y * i), \
+	i = 0;
+	while (i < 10)
+	{
+		mlx_put_pixel(data->minimap, \
+					start_pos + 2 + (data->player.vec.x * i), \
+					start_pos + 2 + (data->player.vec.y * i), \
 					colour);
+		i++;
+	}
 }
 
-// Draw a single map tile
-void	draw_map_tile(t_data *data, double x, double y, int screen_x, int screen_y)
+// Draw a pixel to the map
+void	draw_pixel(t_data *data, double x, double y, t_map_tile tile)
 {
-	unsigned int			color;
-
-	if (is_wall(data, x, y) == true)
-		color = 0x00FF00FF; // green
+	if (tile == EMPTY)
+		mlx_put_pixel(data->minimap, x, y, 0x00000000); // transparent
+	else if (tile == FLOOR)
+		mlx_put_pixel(data->minimap, x, y, 0x00FF00FF); // black
 	else
-		color = 0x0000FFFF; // blue
-	mlx_put_pixel(data->screen, screen_x, screen_y, color);
+		mlx_put_pixel(data->minimap, x, y, 0x0000FFFF); // red
 }
 
-// Check if a given coordinate is within the map limits
-bool	is_within_map(t_data *data, double x, double y)
-{	if (x >= 0 && x < (double) data->map.width
-		&& y >= 0 && y < (double) data->map.height)
-		return (true);
-	return (false);
+void	fill_map(t_data *data, int tile_size, \
+					double map_offset_x, double map_offset_y)
+{
+	t_map_tile	tile;
+	uint32_t	x;
+	uint32_t	y;
+	double		map_x;
+	double		map_y;
+
+	y = 0;
+	while (y < data->minimap->height)
+	{
+		x = 0;
+		while (x < data->minimap->width)
+		{
+			map_x = map_offset_x + ((float) x / tile_size);
+			map_y = map_offset_y + ((float) y / tile_size);
+
+			tile = get_wall_type(data, map_x, map_y);
+			draw_pixel(data, x, y, tile);
+			x++;
+		}
+		y++;
+	}
 }
 
 // Draw the map surrounding the player
 void	draw_map(t_data *data)
 {
 	// Minimap size in pixels
-	const int		minimap_size = data->map.minimap_size;
+	const int		minimap_size = data->minimap->width;
 
 	// Minimap tile size in pixels
-	const int		tile_size = data->map.tile_size;
+	const int		tile_size = 32;
 
-	// Minimap top left corner position
-	const double	offset_x = data->player.x - (minimap_size / tile_size / 2);
-	const double	offset_y = data->player.y - (minimap_size / tile_size / 2);
+	// Map offset pointing to the top left corner of the minimap
+	const double	map_offset_x = data->player.x \
+									- minimap_size / tile_size / 2;
+	const double	map_offset_y = data->player.y \
+									- minimap_size / tile_size / 2;
 
-	// Draw map tiles
-	for (int x = 0; x < minimap_size; x++)
-	{
-		for (int y = 0; y < minimap_size; y++)
-		{
-			if (is_within_map(data, offset_x + ((double) x / tile_size), \
-									offset_y + ((double) y / tile_size)) == false)
-				mlx_put_pixel(data->screen, x, y, 0x000000FF); // black
-			else
-				draw_map_tile(data, offset_x + ((double) x / tile_size), \
-									offset_y + ((double) y / tile_size), x, y);
-		}
-	}
-	draw_player(data);
+	fill_map(data, tile_size, map_offset_x, map_offset_y);
+	draw_player(data, minimap_size / 2 - 2, 0xFF0000FF);
 }
