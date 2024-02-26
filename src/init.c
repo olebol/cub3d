@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 22:32:11 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 22:40:55 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,7 @@ int		init_player(t_data *data)
 	data->player.y = 1.5;
 
 	// Set player vector direction to 0 degrees (right)
-	data->player.vec.direction = 0;
-
-	// Set player vector magnitude values
-	data->player.vec.x = cos(data->player.vec.direction);
-	data->player.vec.y = sin(data->player.vec.direction);
+	set_vector(&data->player.vec, 0);
 
 	return (0);
 }

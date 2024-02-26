@@ -6,20 +6,12 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:41:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 19:50:39 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 22:40:22 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "rays.h"
-
-// Calculate the vector of the ray
-void	set_vector(t_ray_data *ray_data, double angle)
-{
-	ray_data->vector.direction = angle;
-	ray_data->vector.x = cos(angle);
-	ray_data->vector.y = sin(angle);
-}
 
 // Use the normalized vector to calculate the distance between two walls
 void	set_side_step_distance(t_ray_data *ray_data)

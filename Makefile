@@ -46,17 +46,19 @@ endif
 # Files
 SRC_FILES :=									\
 				main.c							\
-				init.c							\
 				utils.c 						\
 				errors.c						\
 \
 				loop.c							\
+				minimap.c						\
 \
+				init.c							\
 				parsing.c						\
 \
-				minimap.c						\
 				casting.c						\
 				rays.c							\
+\
+				vector.c						\
 
 
 SRC				:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
