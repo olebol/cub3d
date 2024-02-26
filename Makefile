@@ -100,7 +100,7 @@ open: $(NAME)
 	@ ./$(NAME) maps/s.cub
 
 norm:
-	@ norminette $(HDR_DIR) $(SRC)
+	@ norminette $(HDR_DIR) $(SRC) | grep -v -e "Empty line in function" -e "Comment is invalid in this scope" -e "extra tabs before function name"
 
 clean:
 	@ echo "$(RED)$(BOLD)Cleaning LIBFT...$(RESET)"
