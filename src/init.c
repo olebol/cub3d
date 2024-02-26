@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 23:10:26 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 23:29:35 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static bool		init_screen(t_data *data)
 
 static bool		init_minimap(t_data *data)
 {
-	const uint32_t		minimap_size = (data->screen->width / 8 + data->screen->height / 8) / 2;
+	const uint32_t		minimap_size = (data->screen->width / 8 \
+										+ data->screen->height / 8) / 2;
 
 	data->minimap = mlx_new_image(data->mlx, minimap_size, minimap_size);
 	if (!data->minimap)

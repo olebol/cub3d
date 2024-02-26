@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:41:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 22:59:10 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 23:28:46 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	set_side_step_distance(t_ray_data *ray_data)
 void	set_dda_values(t_ray_data *ray_data, double x, double y)
 {
 	t_dda_values	*dda;
-	
+
 	dda = &(ray_data->dda);
 	if (ray_data->vector.x < 0)
 	{
