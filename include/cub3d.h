@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 22:58:57 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 23:53:55 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
  * 
  * @param x			player position X
  * @param y			player position Y
+ * @param vec		player direction vector
  */
 typedef struct s_player
 {
@@ -45,6 +46,7 @@ typedef struct s_player
  * @param *mlx		pointer to mlx struct
  * 
  * @param *screen	pointer to image covering whole screen
+ * @param *minimap	pointer to image covering minimap
  * @param map		map struct
  * @param player	player struct
  */
@@ -59,8 +61,7 @@ typedef struct s_data
 }					t_data;
 
 // Init
-int			init_mlx_data(t_data *data);
-int			init_player(t_data *data);
+void		init_data(t_data *data, char *map_path);
 
 // Errors
 void		ft_error(char *message);

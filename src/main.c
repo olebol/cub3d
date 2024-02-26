@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:46 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 22:01:19 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 23:53:45 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,8 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		ft_error("Invalid number of arguments");
 
-	if (init_mlx_data(&data))
-		ft_error("Failed to initialize MLX data");
+	init_data(&data, argv[1]);
 
-	parse_map(argv[1], &data.map);
-	init_player(&data);
-	print_map(data.map.map);
-
-	// mlx_key_hook(data.mlx, &captainhook, (void *) &data);
 	mlx_loop_hook(data.mlx, &captainhook, (void *) &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
