@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:59:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/15 15:38:55 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 21:43:57 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 
 # define WIN_WIDTH 2048
 # define WIN_HEIGHT 1024
+
+typedef enum MAP_TILE
+{
+	EMPTY = 0,
+	FLOOR = '1',
+	WALL = '2',
+}	t_map_tile;
 
 /**
  * @brief struct for map
@@ -35,9 +42,6 @@ typedef struct s_map
 
 	int				width;
 	int				height;
-
-	int				tile_size;
-	int				minimap_size;
 }					t_map;
 
 /**
@@ -71,6 +75,7 @@ typedef struct s_data
 	mlx_t			*mlx;
 
 	mlx_image_t		*screen;
+	mlx_image_t		*minimap;
 	t_map			map;
 	t_player		player;
 }					t_data;

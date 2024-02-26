@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/22 17:13:03 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 21:31:34 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ void		captainhook(void *data);
 void		cast_all_rays(t_data *data);
 
 // Utils
-bool		is_wall(t_data *data, double x, double y);
+t_map_tile	get_wall_type(t_data *data, double x, double y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:39 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 19:57:20 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 21:31:34 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ static void		move_hook(t_data *data)
 
 	if (move_x == 0 && move_y == 0)
 		return ;
-	if (is_wall(data, move_x * 2 + data->player.x, data->player.y) == false)
+	if (get_wall_type(data, move_x * 2 + data->player.x, data->player.y) != FLOOR)
 		data->player.x += move_x;
-	if (is_wall(data, data->player.x, move_y * 3 + data->player.y) == false)
+	if (get_wall_type(data, data->player.x, move_y * 3 + data->player.y) != FLOOR)
 		data->player.y += move_y;
 }
 

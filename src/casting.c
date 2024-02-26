@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 22:12:24 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/20 14:09:16 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 21:31:34 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	cast_ray(t_data *data, t_ray_data *ray)
 	map_x = (int) data->player.x;
 	map_y = (int) data->player.y;
 
-	while (is_wall(data, map_x, map_y) == false)
+	while (get_wall_type(data, map_x, map_y) != FLOOR)
 	{
 		if (ray->dda.distance_x < ray->dda.distance_y)
 		{
