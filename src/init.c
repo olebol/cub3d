@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 22:56:53 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 23:10:26 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static bool		init_minimap(t_data *data)
 // Initialize MLX, screen and minimap
 int		init_mlx_data(t_data *data)
 {
-	data->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "Cub3D", false);
+	data->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", false);
 	if (!data->mlx)
 		ft_error("MLX failed to initialize");
 	if (!init_screen(data))
