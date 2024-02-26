@@ -6,13 +6,13 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:39 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/20 17:28:23 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 19:57:20 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static bool	rotation_hook(t_data *data)
+static void	rotation_hook(t_data *data)
 {
 	double			angle;
 
@@ -35,10 +35,7 @@ static bool	rotation_hook(t_data *data)
 		data->player.delta_x = cos(angle);
 		data->player.delta_y = sin(angle);
 	}
-	if (angle == data->player.angle)
-		return (false);
 	data->player.angle = angle;
-	return (true);
 }
 
 static void		exit_hook(t_data *data)
@@ -47,7 +44,7 @@ static void		exit_hook(t_data *data)
 		mlx_close_window(data->mlx);
 }
 
-static bool		move_hook(t_data *data)
+static void		move_hook(t_data *data)
 {
 	double				move_x;
 	double				move_y;
@@ -77,32 +74,31 @@ static bool		move_hook(t_data *data)
 	}
 
 	if (move_x == 0 && move_y == 0)
-		return (false);
+		return ;
 	if (is_wall(data, move_x * 2 + data->player.x, data->player.y) == false)
 		data->player.x += move_x;
-	if (is_wall(data, data->player.x, move_y * 2 + data->player.y) == false)
+	if (is_wall(data, data->player.x, move_y * 3 + data->player.y) == false)
 		data->player.y += move_y;
-	return (true);
 }
 
 void		captainhook(void *dataPointer)
 {
 	t_data				*data;
-	bool				redraw;
 
 	data = (t_data *) dataPointer;
 
-	redraw = false;
 	exit_hook(data);
-	if (rotation_hook(data) == true)
-		redraw = true;
-	if (move_hook(data) == true)
-		redraw = true;
-	if (redraw == true)
-	{
-		ft_bzero(data->screen->pixels, WIN_WIDTH * WIN_HEIGHT * sizeof(int));
-		cast_all_rays(data);
-		draw_map(data);
-	}
+	rotation_hook(data);
+	move_hook(data);
+
+	// Clear the screen
+	ft_bzero(data->screen->pixels, WIN_WIDTH * WIN_HEIGHT * sizeof(int));
+
+	// Draw the	3D world
+	cast_all_rays(data);
+
+	// Draw the minimap
+	draw_map(data);
+
 	printf("Fps: %f\n", 1 / data->mlx->delta_time);
 }
