@@ -31,8 +31,8 @@ endif
 # Includes
 HDR_FILES :=									\
 				cub3d.h							\
-				declarations.h					\
 				colors.h						\
+				map.h							\
 				rays.h							\
 				vector.h						\
 
@@ -46,14 +46,13 @@ endif
 # Files
 SRC_FILES :=									\
 				main.c							\
-				utils.c 						\
 				errors.c						\
 \
 				loop.c							\
 				minimap.c						\
 \
 				init.c							\
-				parsing.c						\
+				map.c							\
 \
 				casting.c						\
 				rays.c							\
@@ -64,7 +63,6 @@ SRC_FILES :=									\
 SRC				:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ				:= ${addprefix ${OBJ_DIR}/, ${SRC_FILES:.c=.o}}
 HDR				:= $(addprefix $(HDR_DIR)/, $(HDR_FILES))
-
 
 # Colours
 GREEN			:= \033[32;1m

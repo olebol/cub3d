@@ -82,7 +82,7 @@ void	fill_map(t_data *data, int tile_size, \
 			map_x = map_offset_x + ((float) x / tile_size);
 			map_y = map_offset_y + ((float) y / tile_size);
 
-			tile = get_wall_type(data, map_x, map_y);
+			tile = get_wall_type(&data->map, map_x, map_y);
 			draw_pixel(data, x, y, tile);
 			x++;
 		}
@@ -91,7 +91,7 @@ void	fill_map(t_data *data, int tile_size, \
 }
 
 // Draw the map surrounding the player
-void	draw_map(t_data *data)
+void	draw_minimap(t_data *data)
 {
 	// Minimap size in pixels
 	const int		minimap_size = data->minimap->width;

@@ -6,12 +6,13 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:41:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 22:40:22 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 22:59:10 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "rays.h"
+#include <math.h>
 
 // Use the normalized vector to calculate the distance between two walls
 void	set_side_step_distance(t_ray_data *ray_data)
@@ -64,7 +65,7 @@ void	set_dda_values(t_ray_data *ray_data, double x, double y)
 
 void	set_ray_data(t_data *data, t_ray_data *ray_data, double angle)
 {
-	set_vector(ray_data, angle);
+	set_vector(&ray_data->vector, angle);
 	set_side_step_distance(ray_data);
 	set_dda_values(ray_data, data->player.x, data->player.y);
 	ray_data->side = 0;

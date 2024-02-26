@@ -1,23 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   declarations.h                                     :+:      :+:    :+:   */
+/*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 20:59:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 22:31:09 by opelser          ###   ########.fr       */
+/*   Created: 2024/02/26 22:41:51 by opelser           #+#    #+#             */
+/*   Updated: 2024/02/26 22:52:00 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DECLARATIONS_H
-# define DECLARATIONS_H
-
-# include "cub3d.h"
-# include "vector.h"
-
-# define WIN_WIDTH 2048
-# define WIN_HEIGHT 1024
+#ifndef MAP_H
+# define MAP_H
 
 typedef enum MAP_TILE
 {
@@ -45,37 +39,7 @@ typedef struct s_map
 	int				height;
 }					t_map;
 
-/**
- * @brief struct for player
- * 
- * @param x			player position X
- * @param y			player position Y
- */
-typedef struct s_player
-{
-	double			x;
-	double			y;
-
-	t_vector		vec;
-}					t_player;
-
-/**
- * @brief struct for mlx
- * 
- * @param *mlx		pointer to mlx struct
- * 
- * @param *screen	pointer to image covering whole screen
- * @param map		map struct
- * @param player	player struct
- */
-typedef struct s_data
-{
-	mlx_t			*mlx;
-
-	mlx_image_t		*screen;
-	mlx_image_t		*minimap;
-	t_map			map;
-	t_player		player;
-}					t_data;
+void		parse_map(char *map_file, t_map *map);
+t_map_tile	get_wall_type(t_map *map, double x, double y);
 
 #endif

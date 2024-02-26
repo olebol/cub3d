@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 21:31:34 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 22:58:57 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,48 @@
 
 # include "MLX42.h"
 # include "libft.h"
-# include "colors.h"
-# include "declarations.h"
+# include "vector.h"
+# include "map.h"
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include <math.h>
+
+# define WIN_WIDTH 2048
+# define WIN_HEIGHT 1024
+
+/**
+ * @brief struct for player
+ * 
+ * @param x			player position X
+ * @param y			player position Y
+ */
+typedef struct s_player
+{
+	double			x;
+	double			y;
+
+	t_vector		vec;
+}					t_player;
+
+/**
+ * @brief struct for mlx
+ * 
+ * @param *mlx		pointer to mlx struct
+ * 
+ * @param *screen	pointer to image covering whole screen
+ * @param map		map struct
+ * @param player	player struct
+ */
+typedef struct s_data
+{
+	mlx_t			*mlx;
+
+	mlx_image_t		*screen;
+	mlx_image_t		*minimap;
+	t_map			map;
+	t_player		player;
+}					t_data;
 
 // Init
 int			init_mlx_data(t_data *data);
@@ -30,19 +65,13 @@ int			init_player(t_data *data);
 // Errors
 void		ft_error(char *message);
 
-// Parsing
-void		parse_map(char *map_file, t_map *map);
-
 // Minimap
-void		draw_map(t_data *data);
+void		draw_minimap(t_data *data);
 
 // Loop
 void		captainhook(void *data);
 
 // Casting
 void		cast_all_rays(t_data *data);
-
-// Utils
-t_map_tile	get_wall_type(t_data *data, double x, double y);
 
 #endif

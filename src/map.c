@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:25:25 by evan-der          #+#    #+#             */
-/*   Updated: 2024/02/26 22:04:41 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 22:53:52 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "map.h"
 #include <fcntl.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include "libft.h"
 
 void	copy_map_to_array(t_map *map, char *line)
 {
-	size_t	i;
-	size_t	j;
-	size_t	k;
+	uint32_t	i;
+	uint32_t	j;
+	uint32_t	k;
 
 	i = 0;
 	j = 0;
@@ -40,8 +43,8 @@ void	copy_map_to_array(t_map *map, char *line)
 
 int		map_height(char *line)
 {
-	size_t	height;
-	size_t	i;
+	uint32_t	height;
+	uint32_t	i;
 
 	height = 0;
 	i = 0;
@@ -58,7 +61,7 @@ int		map_height(char *line)
 
 int		map_width(char *line)
 {
-	size_t	width;
+	uint32_t	width;
 
 	width = 0;
 	while (line[width] != '\n' && line[width] != '\0')
@@ -147,4 +150,12 @@ void	parse_map(char *map_file, t_map *map)
 	copy_map_to_array(map, line);
 	free(line);
 	close(fd);
+}
+
+t_map_tile		get_wall_type(t_map *map, double x, double y)
+{
+	if (x < 0 || y < 0 || x >= map->width || y >= map->height)
+		return (EMPTY);
+
+	return (map->map[(int) y][(int) x]);
 }

@@ -6,11 +6,12 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:39 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 22:33:09 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/26 23:01:22 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <math.h>
 
 static void	rotation_hook(t_data *data)
 {
@@ -75,9 +76,9 @@ static void		move_hook(t_data *data)
 
 	if (move_x == 0 && move_y == 0)
 		return ;
-	if (get_wall_type(data, move_x * 2 + data->player.x, data->player.y) != FLOOR)
+	if (get_wall_type(&data->map, move_x * 2 + data->player.x, data->player.y) != FLOOR)
 		data->player.x += move_x;
-	if (get_wall_type(data, data->player.x, move_y * 3 + data->player.y) != FLOOR)
+	if (get_wall_type(&data->map, data->player.x, move_y * 3 + data->player.y) != FLOOR)
 		data->player.y += move_y;
 }
 
@@ -98,7 +99,7 @@ void		captainhook(void *dataPointer)
 	cast_all_rays(data);
 
 	// Draw the minimap
-	draw_map(data);
+	draw_minimap(data);
 
 	printf("Fps: %f\n", 1 / data->mlx->delta_time);
 }

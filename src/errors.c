@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   errors.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/16 14:40:08 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/16 14:41:42 by opelser       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   errors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/16 14:40:08 by opelser           #+#    #+#             */
+/*   Updated: 2024/02/26 22:55:27 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include <stdio.h>
+#include <colors.h>
+#include <stdlib.h>
 
 void	ft_error(char *message)
 {
