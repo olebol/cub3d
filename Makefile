@@ -47,15 +47,13 @@ endif
 SRC_FILES :=									\
 				main.c							\
 				errors.c						\
-\
-				loop.c							\
-				minimap.c						\
-\
 				init.c							\
 				map.c							\
 \
-				casting.c						\
-				rays.c							\
+				engine/casting.c				\
+				engine/rays.c					\
+				engine/loop.c					\
+				engine/minimap.c				\
 \
 				vector.c						\
 
@@ -80,7 +78,7 @@ $(NAME): $(LIBFT) $(MLX) $(OBJ)
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
 
 $(OBJ_DIR)/%.o: src/%.c $(HDR)
-	@ mkdir -p obj
+	@ mkdir -p obj obj/engine
 	@ gcc $(CFLAGS) $(INC) -c $< -o $@
 
 $(LIBFT):

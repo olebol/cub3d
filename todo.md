@@ -1,4 +1,4 @@
-# cub3d
+# cub3d to-do list
 
 ### Features
 - [ ] Add textures
