@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:39 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 23:01:22 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/27 16:12:39 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,22 @@
 static void	rotation_hook(t_data *data)
 {
 	double			angle;
+	const double	scalar = 20 * data->mlx->delta_time;
 
 	angle = data->player.vec.direction;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT) == true)
 	{
-		angle -= 0.1;
+		angle -= 0.1 * scalar;
 		if (angle < 0)
 			angle += M_PI * 2;
-
-		data->player.vec.x = cos(angle);
-		data->player.vec.y = sin(angle);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT) == true)
 	{
-		angle += 0.1;
+		angle += 0.1 * scalar;
 		if (angle > M_PI * 2)
 			angle -= M_PI * 2;
-
-		data->player.vec.x = cos(angle);
-		data->player.vec.y = sin(angle);
 	}
-	data->player.vec.direction = angle;
+	data->player.vec = get_vector(angle);
 }
 
 static void		exit_hook(t_data *data)
