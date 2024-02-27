@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:46 by opelser       #+#    #+#                 */
-/*   Updated: 2024/02/27 14:19:21 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/02/27 14:43:26 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,12 @@ int	cubed(const char *file)
 	t_data	data;
 
 	init_data_struct(&data);
+	printf("init_data_struct\n");
 	if (init_mlx_struct(&data) != R_SUCCESS)
 		return (error(&data));
 	if (parse_file(file, &data) != R_SUCCESS)
 		return (error(&data));
+	printf("cubed\n");
 	init_player(&data); // ??
 	print_map(data.map.map);
 

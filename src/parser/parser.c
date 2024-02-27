@@ -6,7 +6,7 @@
 /*   By: evalieve <evalieve@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 17:42:50 by evalieve      #+#    #+#                 */
-/*   Updated: 2024/02/27 14:19:40 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/02/27 14:43:57 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	parse_file(const char *file, t_data *data)
 	close(fd);
 	if (verify_elements(content, data, &pos) != R_SUCCESS)
 		return (data->e_code);
+printf("parse_file\n");
 	if (verify_map(content, data, &pos) != R_SUCCESS)
 		return (data->e_code);
 	free(content);

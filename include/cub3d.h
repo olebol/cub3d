@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2024/02/27 14:37:33 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/02/27 14:49:10 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define WIN_HEIGHT 1024
 # define EXTENSION ".cub"
 # define EXTENSION_LEN 4
-# define ELEM_COUNT 8
+# define ELEM_COUNT 6
 # define ERROR -1
 # define BUF_SIZE 1
 

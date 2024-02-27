@@ -6,7 +6,7 @@
 /*   By: evalieve <evalieve@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 17:42:11 by evalieve      #+#    #+#                 */
-/*   Updated: 2024/02/27 14:28:42 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/02/27 14:49:29 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	search_elements(t_elements *elements, t_data *data, \
 		*pos = skip_empty(content, *pos);
 		while (i < ELEM_COUNT && content[*pos])
 		{
+			// printf("i: %zu\n", i);
+			// printf("id: %s\n", id[i]);
 			if (compare_ids(&content[*pos], id[i]))
 			{
 				if (tracker[i] == true)
@@ -75,7 +77,11 @@ int	search_elements(t_elements *elements, t_data *data, \
 		if (!elements_missing(tracker))
 			break ;
 		if (i == ELEM_COUNT)
-			return (set_error(data, E_ELEM_WRONG));//, R_ELEM_WRONG));
+		{
+			// printf("search_elements\n");
+				return (set_error(data, E_ELEM_WRONG));//, R_ELEM_WRONG));
+
+		}	
 	}
 	return (R_SUCCESS);
 }
@@ -88,6 +94,7 @@ int	verify_elements(char *content, t_data *data, size_t *pos)
 	elements = data->elements;
 	if (search_elements(elements, data, content, tracker, pos) != R_SUCCESS)
 		return (data->e_code);
+	printf("verify_elements\n");
 	if (elements_missing(tracker)) // deze nog nodig want ook in functie hiervoor
 		return (set_error(data, E_ELEM_MISS));//, R_ELEM_MISS));
 	if (check_information_elements(elements, data) != R_SUCCESS)
