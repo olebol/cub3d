@@ -113,7 +113,7 @@ $(MLX):
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
 
 open: $(NAME)
-	@ ./$(NAME) maps/s.cub
+	@ ./$(NAME) maps/valid_map.cub
 
 norm:
 	@ norminette $(HDR_DIR) $(SRC) | grep -v -e "Empty line in function" -e "Comment is invalid in this scope" -e "extra tabs before function name"
