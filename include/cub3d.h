@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2024/02/27 16:02:16 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
+/*   Updated: 2024/02/27 17:12:36 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "libft.h"
 # include "vector.h"
 # include "map.h"
+# include "errors.h"
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -31,25 +32,6 @@
 # define ELEM_COUNT 6
 # define ERROR -1
 # define BUF_SIZE 1
-
-typedef enum s_error
-{
-	E_SUCCESS,
-	E_ARGC,
-	E_MLX_INIT,
-	E_EXTENSION,
-	E_FILE,
-	E_ELEM_DUP,
-	E_ELEM_WRONG,
-	E_ELEM_MISS,
-	E_RGB,
-	E_ELEM_VALUE,
-	E_PLAYER_DUP,
-	E_INVALID_MAP,
-	E_NO_PLAYER,
-	E_UNCLOSED_MAP,
-}			t_error;
-
 
 /**
  * @brief struct for elements
@@ -115,17 +97,6 @@ typedef struct s_data
 	t_error			e_code;
 }					t_data;
 
-// typedef struct	s_data
-// {
-// 	mlx_t			*mlx;		// mlx struct
-
-// 	mlx_image_t		*screen;	// image covering whole screen
-// 	t_map			map;		// map struct
-// 	t_textures		textures;	// textures struct
-// 	t_return		r_value;	// return value
-// 	t_error			e_message;		// error value
-// }				t_data;
-
 // Init
 void		init_data(t_data *data);
 int			init_player(t_data *data);
@@ -176,11 +147,7 @@ char	*read_file(int fd);
 void	locate_player(t_data *data);
 
 // Error
-void	fatal(void);
-void	free_elems(t_elements *elements);
-const char	*error_messages(t_error error);
-int	set_error(t_data *data, t_error e_code);
-int	error(t_data *data);
+void		free_elems(t_elements *elements);
 
 
 #endif
