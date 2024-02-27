@@ -6,6 +6,8 @@ HDR_DIR			:= include
 LIB_DIR			:= lib
 SRC_DIR			:= src
 OBJ_DIR			:= obj
+DIRECTORIES		:=								\
+					engine						\
 
 # Libft
 LIBFT_DIR		:= $(LIB_DIR)/libft
@@ -83,7 +85,7 @@ $(OBJ_DIR)/%.o: src/%.c $(HDR) | $(OBJ_DIR)
 	@ printf	"\t\t\t$(GREEN)$(BOLD)[OK]$(RESET)\n"
 
 $(OBJ_DIR):
-	@ mkdir -p $(OBJ_DIR) $(OBJ_DIR)/engine
+	@ mkdir -p $(addprefix $(OBJ_DIR)/, $(DIRECTORIES))
 
 $(LIBFT):
 	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling and archiving LIBFT..." "$(RESET)"
