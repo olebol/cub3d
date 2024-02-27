@@ -6,14 +6,14 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 23:57:58 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/27 14:16:54 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 // Set player position and direction
-int		init_player(t_data *data)
+static void		init_player(t_data *data)
 {
 	// Set player pos to middle of top left tile (excl. wall layer)
 	data->player.x = 1.5;
@@ -21,8 +21,6 @@ int		init_player(t_data *data)
 
 	// Set player vector direction to 0 degrees (right)
 	data->player.vec = get_vector(0);
-
-	return (0);
 }
 
 static bool		init_screen(t_data *data)
