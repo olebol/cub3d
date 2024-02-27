@@ -6,7 +6,7 @@
 /*   By: evalieve <evalieve@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 17:41:54 by evalieve      #+#    #+#                 */
-/*   Updated: 2024/02/27 15:39:15 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/02/27 16:02:46 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,33 @@ char	**set_map(const char *content, int width, int height)
 		}
 	}
 	return (map);
+}
+
+void	locate_player(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < data->map.height)
+	{
+		j = 0;
+		while (j < data->map.width)
+		{
+			if (data->map.map[i][j] == 'N' || data->map.map[i][j] == 'S' || \
+				data->map.map[i][j] == 'W' || data->map.map[i][j] == 'E')
+			{
+				data->player.x = j + 0.5;
+				data->player.y = i + 0.5;
+				get_vector(data->map.map[i][j]);
+				data->map.map[i][j] = '0';
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+
 }
 
 int	verify_map(const char *content, t_data *data, size_t *pos)

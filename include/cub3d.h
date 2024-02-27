@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2024/02/27 15:28:50 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/02/27 16:02:16 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ typedef struct s_data
 // }				t_data;
 
 // Init
-void		init_data(t_data *data, char *map_path);
+void		init_data(t_data *data);
 int			init_player(t_data *data);
 
 // Errors
@@ -141,6 +141,9 @@ void		captainhook(void *data);
 
 // Casting
 void		cast_all_rays(t_data *data);
+
+// Vector
+t_vector	get_vector(double angle);
 
 // Parser
 void	*ft_malloc(size_t size);
@@ -170,6 +173,7 @@ int	verify_map(const char *content, t_data *data, size_t *pos);
 int	verify_extension(const char *file, t_data *data);
 int	parse_file(const char *file, t_data *data);
 char	*read_file(int fd);
+void	locate_player(t_data *data);
 
 // Error
 void	fatal(void);

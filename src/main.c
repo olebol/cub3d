@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:46 by opelser       #+#    #+#                 */
-/*   Updated: 2024/02/27 15:35:33 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/02/27 15:59:03 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int	init_mlx_struct(t_data *data)
 {
 	data->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, GAME_NAME, false);
 	if (!data->mlx)
-		return (set_error(data, E_MLX_INIT));//, R_MLX_INIT));
+		return (set_error(data, E_MLX_INIT));
 	data->screen = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
 	data->minimap = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
 	if (mlx_image_to_window(data->mlx, data->screen, 0, 0) || \
 		!data->screen || !data->minimap)
-		return (set_error(data, E_MLX_INIT));//, R_MLX_INIT));
+		return (set_error(data, E_MLX_INIT));
 	return (E_SUCCESS);
 }
 
@@ -73,14 +73,14 @@ int	cubed(const char *file)
 {
 	t_data	data;
 
-	init_data_struct(&data);
-	if (init_mlx_struct(&data) != E_SUCCESS)
-		return (error(&data));
+	init_data(&data);
+	// if (init_mlx_struct(&data) != E_SUCCESS)
+	// 	return (error(&data));
 	if (parse_file(file, &data) != E_SUCCESS)
 		return (error(&data));
-	// init_player(&data); // ??
+	// init_player(&data); 
 	print_map(data.map.map);
-
+	locate_player(&data);
 	// not sure which is needed for mlx hooks and loops etc
 	// mlx_key_hook(data.mlx, &captainhook, (void *) &data);
 	mlx_loop_hook(data.mlx, &captainhook, (void *) &data);
