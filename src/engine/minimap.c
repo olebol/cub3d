@@ -100,11 +100,11 @@ void	draw_minimap(t_data *data)
 	const int		tile_size = 32;
 
 	// Map offset pointing to the top left corner of the minimap
-	const double	map_offset_x = data->player.x \
-									- ((float) minimap_size / tile_size / 2);
-	const double	map_offset_y = data->player.y \
-									- ((float) minimap_size / tile_size / 2);
+	const double	offset = (float) minimap_size / tile_size / 2;
+	const double	map_offset_x = data->player.x - offset;
+	const double	map_offset_y = data->player.y - offset;
 
+	// Draw map and player
 	fill_map(data, tile_size, map_offset_x, map_offset_y);
 	draw_player(data, minimap_size / 2 - 2, 0xFF0000FF);
 }
