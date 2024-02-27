@@ -6,7 +6,7 @@
 /*   By: evalieve <evalieve@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 17:42:11 by evalieve      #+#    #+#                 */
-/*   Updated: 2024/02/27 14:49:29 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/02/27 15:36:12 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ int	check_information_elements(t_elements *elements, t_data *data)
 {
 	if (elements->no == NULL || elements->so == NULL || elements->we == NULL || \
 			elements->ea == NULL || elements->f == NULL || elements->c == NULL)
-				return (set_error(data, E_ELEM_VALUE));//, R_ELEM_VALUE));
-	if (check_element_path(elements->no, data) != R_SUCCESS || \
-			check_element_path(elements->so, data) != R_SUCCESS || \
-			check_element_path(elements->we, data) != R_SUCCESS || \
-			check_element_path(elements->ea, data) != R_SUCCESS)
-		return (set_error(data, E_ELEM_VALUE));//, R_ELEM_VALUE));
-	if (check_element_rgb(elements->f, data) != R_SUCCESS || \
-			check_element_rgb(elements->c, data) != R_SUCCESS)
-			return (set_error(data, E_RGB));//, R_RGB));
-	return (R_SUCCESS);
+				return (set_error(data, E_ELEM_VALUE));
+	if (check_element_path(elements->no, data) != E_SUCCESS || \
+			check_element_path(elements->so, data) != E_SUCCESS || \
+			check_element_path(elements->we, data) != E_SUCCESS || \
+			check_element_path(elements->ea, data) != E_SUCCESS)
+		return (set_error(data, E_ELEM_VALUE));
+	if (check_element_rgb(elements->f, data) != E_SUCCESS || \
+			check_element_rgb(elements->c, data) != E_SUCCESS)
+			return (set_error(data, E_RGB));
+	return (E_SUCCESS);
 }
 
 size_t set_element(char *content, t_elements *elements, char *id)
@@ -62,12 +62,10 @@ int	search_elements(t_elements *elements, t_data *data, \
 		*pos = skip_empty(content, *pos);
 		while (i < ELEM_COUNT && content[*pos])
 		{
-			// printf("i: %zu\n", i);
-			// printf("id: %s\n", id[i]);
 			if (compare_ids(&content[*pos], id[i]))
 			{
 				if (tracker[i] == true)
-					return (set_error(data, E_ELEM_DUP));//, R_ELEM_DUP));
+					return (set_error(data, E_ELEM_DUP));
 				tracker[i] = true;
 				*pos += set_element(&content[*pos], elements, id[i]);
 				break ;
@@ -77,13 +75,9 @@ int	search_elements(t_elements *elements, t_data *data, \
 		if (!elements_missing(tracker))
 			break ;
 		if (i == ELEM_COUNT)
-		{
-			// printf("search_elements\n");
-				return (set_error(data, E_ELEM_WRONG));//, R_ELEM_WRONG));
-
-		}	
+				return (set_error(data, E_ELEM_WRONG));
 	}
-	return (R_SUCCESS);
+	return (E_SUCCESS);
 }
 
 int	verify_elements(char *content, t_data *data, size_t *pos)
@@ -92,15 +86,14 @@ int	verify_elements(char *content, t_data *data, size_t *pos)
 	int			tracker[] = {false, false, false, false, false, false};
 	
 	elements = data->elements;
-	if (search_elements(elements, data, content, tracker, pos) != R_SUCCESS)
+	if (search_elements(elements, data, content, tracker, pos) != E_SUCCESS)
 		return (data->e_code);
-	printf("verify_elements\n");
-	if (elements_missing(tracker)) // deze nog nodig want ook in functie hiervoor
-		return (set_error(data, E_ELEM_MISS));//, R_ELEM_MISS));
-	if (check_information_elements(elements, data) != R_SUCCESS)
+	if (elements_missing(tracker)) // deze nog nodig want ook in functie hiervoor?
+		return (set_error(data, E_ELEM_MISS));
+	if (check_information_elements(elements, data) != E_SUCCESS)
 	{
 		free_elems(elements);
 		return (data->e_code);
 	}
-	return (R_SUCCESS);
+	return (E_SUCCESS);
 }

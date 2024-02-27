@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:46 by opelser       #+#    #+#                 */
-/*   Updated: 2024/02/27 14:43:26 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/02/27 15:35:33 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	init_mlx_struct(t_data *data)
 	if (mlx_image_to_window(data->mlx, data->screen, 0, 0) || \
 		!data->screen || !data->minimap)
 		return (set_error(data, E_MLX_INIT));//, R_MLX_INIT));
-	return (R_SUCCESS);
+	return (E_SUCCESS);
 }
 
 void	init_data_struct(t_data *data)
@@ -74,13 +74,11 @@ int	cubed(const char *file)
 	t_data	data;
 
 	init_data_struct(&data);
-	printf("init_data_struct\n");
-	if (init_mlx_struct(&data) != R_SUCCESS)
+	if (init_mlx_struct(&data) != E_SUCCESS)
 		return (error(&data));
-	if (parse_file(file, &data) != R_SUCCESS)
+	if (parse_file(file, &data) != E_SUCCESS)
 		return (error(&data));
-	printf("cubed\n");
-	init_player(&data); // ??
+	// init_player(&data); // ??
 	print_map(data.map.map);
 
 	// not sure which is needed for mlx hooks and loops etc

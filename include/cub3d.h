@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2024/02/27 14:49:10 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/02/27 15:28:50 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,6 @@
 # define ELEM_COUNT 6
 # define ERROR -1
 # define BUF_SIZE 1
-
-typedef enum s_return
-{
-	R_SUCCESS,
-	R_ARGC,
-	R_MLX_INIT,
-	R_EXTENSION,
-	R_ELEM_DUP,
-	R_ELEM_WRONG,
-	R_ELEM_MISS,
-	R_RGB,
-	R_ELEM_VALUE,
-	R_PLAYER_DUP,
-	R_INVALID_MAP,
-	R_NO_PLAYER,
-	R_UNCLOSED_MAP,
-}			t_return;
 
 typedef enum s_error
 {
@@ -129,7 +112,6 @@ typedef struct s_data
 	t_map			map;
 	t_elements		*elements;
 	t_player		player;
-	// t_return		r_value;
 	t_error			e_code;
 }					t_data;
 
@@ -193,7 +175,7 @@ char	*read_file(int fd);
 void	fatal(void);
 void	free_elems(t_elements *elements);
 const char	*error_messages(t_error error);
-int	set_error(t_data *data, t_error e_code);//, t_return r_value);
+int	set_error(t_data *data, t_error e_code);
 int	error(t_data *data);
 
 

@@ -6,7 +6,7 @@
 /*   By: evalieve <evalieve@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 17:42:50 by evalieve      #+#    #+#                 */
-/*   Updated: 2024/02/27 14:43:57 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/02/27 15:37:50 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	verify_extension(const char *file, t_data *data)
 	fn_len = ft_strlen(file);
 	if (fn_len < EXTENSION_LEN + 1 || \
 			ft_strncmp(&file[fn_len - EXTENSION_LEN], EXTENSION, EXTENSION_LEN))
-		return (set_error(data, E_EXTENSION));//, R_EXTENSION));
-	return (R_SUCCESS);
+		return (set_error(data, E_EXTENSION));
+	return (E_SUCCESS);
 }
 
 int	parse_file(const char *file, t_data *data)
@@ -30,18 +30,17 @@ int	parse_file(const char *file, t_data *data)
 	char	*content;
 
 	pos = 0;
-	if (verify_extension(file, data) != R_SUCCESS)
-		return (set_error(data, E_EXTENSION));//, R_EXTENSION));
+	if (verify_extension(file, data) != E_SUCCESS)
+		return (set_error(data, E_EXTENSION));
 	fd = open(file, O_RDONLY, 0);
 	if (fd < 0)
-		return (set_error(data, E_FILE));//, R_FILE)
+		return (set_error(data, E_FILE));
 	content = read_file(fd);
 	close(fd);
-	if (verify_elements(content, data, &pos) != R_SUCCESS)
+	if (verify_elements(content, data, &pos) != E_SUCCESS)
 		return (data->e_code);
-printf("parse_file\n");
-	if (verify_map(content, data, &pos) != R_SUCCESS)
+	if (verify_map(content, data, &pos) != E_SUCCESS)
 		return (data->e_code);
 	free(content);
-	return (R_SUCCESS);
+	return (E_SUCCESS);
 }

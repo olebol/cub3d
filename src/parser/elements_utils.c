@@ -6,7 +6,7 @@
 /*   By: evalieve <evalieve@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 17:42:17 by evalieve      #+#    #+#                 */
-/*   Updated: 2024/02/27 14:29:22 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/02/27 15:25:46 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_element_path(char *path, t_data *data)
 			return (set_error(data, E_ELEM_VALUE));//, R_ELEM_VALUE));
 		i++;
 	}
-	return (R_SUCCESS);
+	return (E_SUCCESS);
 }
 
 char	*strip_path(char *line, int start)

@@ -6,7 +6,7 @@
 /*   By: evalieve <evalieve@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 17:42:03 by evalieve      #+#    #+#                 */
-/*   Updated: 2024/02/27 14:27:03 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/02/27 15:33:38 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,10 @@ size_t height_map(const char *map)
 char	*trim_map(const char *map)
 {
 	size_t	i;
-	// size_t	tmp;
 	size_t	start;
 	char	*tmp_map;
 
 	i = 0;
-	// tmp = 0;
 	start = 0;
 	while (map[i] && (map[i] == '\n' || map[i] == ' ' || map[i] == '\t'))
 		i++;

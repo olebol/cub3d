@@ -6,7 +6,7 @@
 /*   By: evalieve <evalieve@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 17:41:54 by evalieve      #+#    #+#                 */
-/*   Updated: 2024/02/27 14:26:46 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/02/27 15:39:15 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,19 @@ int	validate_elements_map(const char *map, t_data *data)
 				{
 					if (special_id[0] == 1 || special_id[1] == 1 || \
 							special_id[2] == 1 || special_id[3] == 1)
-						return (set_error(data, E_PLAYER_DUP)); //, R_PLAYER_DUP)); // andere error maken
+						return (set_error(data, E_PLAYER_DUP));
 					special_id[j] = 1;
 				}
 				j++;
 			}
 		}
 		else if (map[i] != ' ' && map[i] != '1' && map[i] != '0' && map[i] != '\n')
-			return (set_error(data, E_NO_PLAYER)); //, R_NO_PLAYER)); // andere error maken
+			return (set_error(data, E_INVALID_MAP));
 		i++;
 	}
 	if (special_id[0] == 0 && special_id[1] == 0 && special_id[2] == 0 && special_id[3] == 0)
-		return (set_error(data, E_NO_PLAYER)); //, R_NO_PLAYER)); // andere error maken
-	return (R_SUCCESS);
+		return (set_error(data, E_NO_PLAYER));
+	return (E_SUCCESS);
 }
 
 char	**set_map(const char *content, int width, int height)
@@ -99,16 +99,15 @@ char	**set_map(const char *content, int width, int height)
 int	verify_map(const char *content, t_data *data, size_t *pos)
 {
 	char	*tmp_map;
-	// size_t	i;
 
 	tmp_map = trim_map(&content[*pos]);
 	// checken of map bestaat
-	if (validate_elements_map(tmp_map, data) != R_SUCCESS)
+	if (validate_elements_map(tmp_map, data) != E_SUCCESS)
 		return (data->e_code);
 	data->map.width = width_map(tmp_map);
 	data->map.height = height_map(tmp_map);
 	data->map.map = set_map(tmp_map, data->map.width, data->map.height);
-	if (validate_structure_map(data) != R_SUCCESS)
+	if (validate_structure_map(data) != E_SUCCESS)
 		return (data->e_code);
-	return (R_SUCCESS);
+	return (E_SUCCESS);
 }

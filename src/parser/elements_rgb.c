@@ -6,7 +6,7 @@
 /*   By: evalieve <evalieve@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 17:44:59 by evalieve      #+#    #+#                 */
-/*   Updated: 2024/02/27 14:30:23 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/02/27 15:32:04 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	validate_rgb_format(t_data *data, unsigned int *color)
 {
 	if (color[0] > 255 || color[1] > 255 || color[2] > 255)
-		return (set_error(data, E_RGB));//, R_RGB)); // andere error maken
+		return (set_error(data, E_RGB));
 	data->elements->rgb_f = (color[0] << 16) | (color[1] << 8) | color[2];
-	return (R_SUCCESS);
+	return (E_SUCCESS);
 }
 
 unsigned int	set_rgb_component(char *str, size_t len)
@@ -50,15 +50,15 @@ int	check_element_rgb(char *str, t_data *data)
 		while (str[len + i] && ft_isdigit(str[len + i]))
 			len++;
 		if (len > 3 || (str[len + i] != ',' && str[len + i] != '\0') || len == 0)
-			return (set_error(data, E_RGB));//, R_RGB));
+			return (set_error(data, E_RGB));
 		color[comps] = set_rgb_component(&str[i], len);
 		comps++;
 		i += len + 1;
 		len = 0;
 	}
 	if (comps != 3)
-		return (set_error(data, E_RGB));//, R_RGB));
-	if (validate_rgb_format(data, color) != R_SUCCESS)
+		return (set_error(data, E_RGB));
+	if (validate_rgb_format(data, color) != E_SUCCESS)
 		return (data->e_code);
-	return (R_SUCCESS);
+	return (E_SUCCESS);
 }
