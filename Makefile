@@ -38,11 +38,13 @@ HDR_FILES :=									\
 				rays.h							\
 				vector.h						\
 
-
+# MLX Flags
 ifeq ($(shell uname), Linux)
-	MLX_FLAGS	 := -L$(MLX_DIR)/build -lmlx42 -lglfw -lm
+	MLX_FLAGS := -L $(MLX_DIR)/build -lmlx42 -lglfw -lm
+else ifeq ($(shell uname), Darwin)
+	MLX_FLAGS := -lglfw -L "/opt/homebrew/Cellar/glfw/3.3.8/lib/"
 else
-	MLX_FLAGS	 := -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
+	MLX_FLAGS := -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
 endif
 
 # Files
