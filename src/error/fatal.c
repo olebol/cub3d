@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   errors.c                                           :+:    :+:            */
+/*   fatal.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*   By: evalieve <evalieve@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/08/16 14:40:08 by opelser       #+#    #+#                 */
-/*   Updated: 2024/02/27 12:19:47 by evalieve      ########   odam.nl         */
+/*   Created: 2024/02/22 17:49:16 by evalieve      #+#    #+#                 */
+/*   Updated: 2024/02/27 11:48:52 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <colors.h>
-#include <stdlib.h>
+#include <cub3d.h>
 
-void	ft_error(char *message)
+// data structure meegeven om te free'en?
+void	fatal(void)
 {
-	printf("%s%s", C_LRED, C_BOLD);
-	printf("Error\n%s\n", message);
-	printf("%s", C_RESET);
-	exit(1);
+	perror("CUB3D");
+	exit(EXIT_FAILURE);
 }

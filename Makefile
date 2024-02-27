@@ -40,7 +40,9 @@ HDR_FILES :=									\
 ifeq ($(shell uname), Linux)
 	MLX_FLAGS	 := -L$(MLX_DIR)/build -lmlx42 -lglfw -lm
 else
-	MLX_FLAGS	 := -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
+	MLX_FLAGS	:= -lglfw -L "/opt/homebrew/Cellar/glfw/3.4/lib/"	
+# MLX_FLAGS	 := -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
+
 endif
 
 # Files
@@ -56,6 +58,19 @@ SRC_FILES :=									\
 				engine/minimap.c				\
 \
 				vector.c						\
+\
+				parser/parser.c					\
+				parser/map.c					\
+				parser/map_walls.c				\
+				parser/map_utils.c				\
+				parser/elements.c				\
+				parser/elements_utils.c			\
+				parser/elements_rgb.c			\
+				parser/utils.c					\
+\
+				error/messages.c				\
+				error/free.c					\
+				error/fatal.c					\
 
 
 SRC				:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
@@ -83,7 +98,7 @@ $(OBJ_DIR)/%.o: src/%.c $(HDR) | $(OBJ_DIR)
 	@ printf	"\t\t\t$(GREEN)$(BOLD)[OK]$(RESET)\n"
 
 $(OBJ_DIR):
-	@ mkdir -p $(OBJ_DIR) $(OBJ_DIR)/engine
+	@ mkdir -p $(OBJ_DIR) $(OBJ_DIR)/engine $(OBJ_DIR)/parser $(OBJ_DIR)/error
 
 $(LIBFT):
 	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling and archiving LIBFT..." "$(RESET)"
