@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:43:51 by evalieve          #+#    #+#             */
-/*   Updated: 2024/02/28 17:52:09 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 18:21:59 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ const char	*ft_strerror(t_error error)
 		[E_ELEM_DUP]		= "Duplicate element found",
 		[E_ELEM_ID]			= "Invalid element identifier",
 		[E_ELEM_MISS]		= "Missing element",
-		[E_RGB]				= "Invalid RGB value",
 		[E_ELEM_VALUE]		= "Invalid element value",
+		[E_ELEM_RGB]		= "Invalid RGB value",
+		[E_MAP_INVALID]		= "Invalid character in map",
+		[E_MAP_EMPTY]		= "Empty map",
+		[E_MAP_UNCLOSED]	= "Unclosed map",
+		[E_PLAYER_NO]		= "No player start position found",
 		[E_PLAYER_DUP]		= "Duplicate player start position",
-		[E_INVALID_MAP]		= "Invalid character in map",
-		[E_NO_PLAYER]		= "No player start position found",
-		[E_UNCLOSED_MAP]	= "Unclosed map",
 	};
 
 	return (messages[error]);

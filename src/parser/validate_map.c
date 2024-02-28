@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:41:54 by evalieve          #+#    #+#             */
-/*   Updated: 2024/02/28 16:31:34 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 18:20:46 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ static bool		contains_valid_symbols(t_map *map)
 void	validate_map(t_map *map)
 {
 	if (contains_valid_symbols(map) == false)
-		error(E_INVALID_MAP);
+		error(E_MAP_INVALID);
 
 	if (is_map_closed(map) == false)
-		error(E_UNCLOSED_MAP);
+		error(E_MAP_UNCLOSED);
 }

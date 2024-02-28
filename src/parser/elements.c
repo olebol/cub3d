@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 16:32:13 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 18:19:26 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static uint32_t		str_to_rgba(char *str)
 
 		// Check the length of the number and the separator
 		// if (len > 3 || len == 0 || (str[len + i] != ',' && str[len + i] != '\0'))
-		// 	error(E_RGB);
+		// 	error(E_ELEM_RGB);
 
 		num = num * 256 + ft_atoi(str + i);
 

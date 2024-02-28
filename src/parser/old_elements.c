@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   elements.c                                         :+:      :+:    :+:   */
+/*   old_elements.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:42:11 by evalieve          #+#    #+#             */
-/*   Updated: 2024/02/27 21:37:09 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 18:19:26 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void		check_information_elements(t_elements *elements)
 	if (check_element_rgb(elements->f) == false ||
 		check_element_rgb(elements->c) == false)
 	{
-		error(E_RGB);
+		error(E_ELEM_RGB);
 	}
 }
 

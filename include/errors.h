@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:08:10 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 16:31:46 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 18:21:45 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ typedef enum s_error
 	E_ELEM_DUP,
 	E_ELEM_ID,
 	E_ELEM_MISS,
-	E_RGB,
+	E_ELEM_RGB,
 	E_ELEM_VALUE,
 	E_PLAYER_DUP,
-	E_INVALID_MAP,
-	E_NO_PLAYER,
-	E_UNCLOSED_MAP,
+	E_MAP_EMPTY,
+	E_MAP_INVALID,
+	E_PLAYER_NO,
+	E_MAP_UNCLOSED,
 }			t_error;
 
 /**

@@ -13,21 +13,26 @@
 #include "map.h"
 #include "libft.h"
 #include "utils.h"
+#include "errors.h"
 
 #include <stdlib.h>
 
-static size_t	get_map_width(const char *map)
+static size_t	get_map_width(const char *map_str)
 {
-	size_t	i;
-	size_t	longest;
-	size_t	current;
+	const size_t	map_len = ft_strlen(map_str);
+	size_t			longest;
+	size_t			current;
+	size_t			i;
+
+	if (!map_str || map_len == 0)
+		return (0);
 
 	i = 0;
 	longest = 0;
 	current = 0;
-	while (map[i])
+	while (i <= map_len)
 	{
-		if (map[i] == '\n')
+		if (map_str[i] == '\n' || map_str[i] == '\0')
 		{
 			if (current > longest)
 				longest = current;
@@ -41,23 +46,26 @@ static size_t	get_map_width(const char *map)
 	return (longest);
 }
 
-static size_t	get_map_height(const char *map)
+static size_t	get_map_height(const char *map_str)
 {
 	size_t	i;
 	size_t	height;
 
+	if (!map_str || map_str[0] == '\0')
+		return (0);
+
 	i = 0;
 	height = 0;
-	while (map[i])
+	while (map_str[i])
 	{
-		if (map[i] == '\n')
+		if (map_str[i] == '\n')
 			height++;
 		i++;
 	}
 	return (height + 1);
 }
 
-static char		*trim_map(const char *map)
+static char		*trim_map(const char *map) // can this be removed?
 {
 	size_t	i;
 	size_t	start;
@@ -85,19 +93,52 @@ static char		*trim_map(const char *map)
 	return (tmp_map);
 }
 
-#include <stdio.h>
+static void		fill_map(t_map *map, const char *map_str)
+{
+	const int	map_len = ft_strlen(map_str);
+	int			i;
+	int			y;
+	int			x;
+
+	i = 0;
+	x = 0;
+	y = 0;
+	while (i <= map_len)
+	{
+		if (map_str[i] == '\n' || map_str[i] == '\0')
+		{
+			while (x < map->width)
+			{
+				map->map[y][x] = ' ';
+				x++;
+			}
+			x = 0;
+			y++;
+		}
+		else
+		{
+			map->map[y][x] = map_str[i];
+			x++;
+		}
+
+		i++;
+	}
+}
 
 // Parse a map given as a string and fill the t_map struct including a 2d array representation of the map
 void		parse_map(t_map *map, const char *content)
 {
 	const char	*map_string = trim_map(content);
-	const int	map_len = ft_strlen(map_string);
-	int			i;
 	int			y;
-	int			x;
 
 	map->height = get_map_height(map_string);
 	map->width = get_map_width(map_string);
+
+	if (map->height == 0 || map->width == 0)
+		error(E_MAP_EMPTY);
+
+	if (map->height < 3 || map->width < 3)
+		error(E_MAP_UNCLOSED);
 	
 	map->map = (char **) ft_malloc((map->height + 1) * sizeof(char *));
 	map->map[map->height] = NULL;
@@ -110,27 +151,5 @@ void		parse_map(t_map *map, const char *content)
 		y++;
 	}
 
-	i = 0;
-	x = 0;
-	y = 0;
-	while (i <= map_len)
-	{
-		if (map_string[i] == '\n' || map_string[i] == '\0')
-		{
-			while (x < map->width)
-			{
-				map->map[y][x] = ' ';
-				x++;
-			}
-			x = 0;
-			y++;
-		}
-		else
-		{
-			map->map[y][x] = map_string[i];
-			x++;
-		}
-
-		i++;
-	}
+	fill_map(map, map_string);
 }

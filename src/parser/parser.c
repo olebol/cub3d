@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:42:50 by evalieve          #+#    #+#             */
-/*   Updated: 2024/02/28 16:32:13 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 18:21:45 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,26 @@ static bool	locate_player(t_data *data, char **map)
 	return (player_found);
 }
 
+void	print_map(t_map *map)
+{
+	printf("Map width: %d\n", map->width);
+	printf("Map height: %d\n", map->height);
+
+	for (int y = 0; y < map->height; y++)
+	{
+		for (int x = 0; x < map->width; x++)
+		{
+			if (map->map[y][x] == '\n')
+				printf("\\n");
+			if (map->map[y][x] == '\t')
+				printf("\\t");
+			else
+				printf("%c", map->map[y][x]);
+		}
+		printf("\n");
+	}
+}
+
 void	parse_file(t_data *data, const char *file)
 {
 	char		*content;
@@ -109,8 +129,10 @@ void	parse_file(t_data *data, const char *file)
 	parse_map(&data->map, content + map_start);
 	validate_map(&data->map);
 
+	print_map(&data->map);
+
 	if (locate_player(data, data->map.map) == false)
-		error(E_NO_PLAYER);
+		error(E_PLAYER_NO);
 
 	free(content);
 }
