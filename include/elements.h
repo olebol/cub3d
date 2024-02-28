@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:46:05 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 22:59:00 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 23:17:20 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ typedef struct s_elements
 }					t_elements;
 
 /**
- * @brief Parses the elements from the given string and sets them in the given elements struct
+ * @brief Parses the elements from the given string 
+ * 				and sets them in the given elements struct
  * 
  * @param elements 	elements struct to set the parsed elements in
  * @param str 		string to parse the elements from
 */
 size_t		parse_elements(t_elements *elements, char *str);
-
 
 #endif
