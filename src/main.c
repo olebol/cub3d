@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:46 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 23:53:45 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 15:14:20 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,30 @@ void	print_map(char **map)
 	}
 }
 
-int	main(int argc, char *argv[])
+void	cubed(const char *file)
 {
-	t_data		data;
+	t_data	data;
 
-	if (argc != 2)
-		ft_error("Invalid number of arguments");
+	parse_file(&data, file);
 
-	init_data(&data, argv[1]);
+	init(&data);
+
+	printf("player.x: %f\n", data.player.x);
+	printf("player.y: %f\n", data.player.y);
+
+	print_map(data.map.map);
 
 	mlx_loop_hook(data.mlx, &captainhook, (void *) &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
+}
 
-	ft_free_str_arr(data.map.map);
+int	main(int argc, char *argv[])
+{
+	if (argc != 2)
+		error(E_ARGC);
+
+	cubed(argv[1]);
+
 	return (0);
 }

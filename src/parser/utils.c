@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 17:25:25 by evan-der          #+#    #+#             */
-/*   Updated: 2024/02/27 20:29:54 by opelser          ###   ########.fr       */
+/*   Created: 2024/02/27 14:21:48 by evalieve          #+#    #+#             */
+/*   Updated: 2024/02/27 18:19:43 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include "libft.h"
+#include "cub3d.h"
 
-t_map_tile		get_wall_type(t_map *map, double x, double y)
+// Malloc with exit on fail
+void	*ft_malloc(size_t size)
 {
-	if (x < 0 || y < 0 || x >= map->width || y >= map->height)
-		return (EMPTY);
+	void	*ptr;
 
-	return (map->map[(int) y][(int) x]);
+	ptr = malloc(size);
+	if (!ptr)
+		error(E_MALLOC);
+
+	return (ptr);
 }

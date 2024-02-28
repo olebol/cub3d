@@ -1,25 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 17:25:25 by evan-der          #+#    #+#             */
-/*   Updated: 2024/02/27 20:29:54 by opelser          ###   ########.fr       */
+/*   Created: 2024/02/27 17:08:10 by opelser           #+#    #+#             */
+/*   Updated: 2024/02/27 22:08:45 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include "libft.h"
+#ifndef ERRORS_H
+# define ERRORS_H
 
-t_map_tile		get_wall_type(t_map *map, double x, double y)
+# include "libft.h"
+
+typedef enum s_error
 {
-	if (x < 0 || y < 0 || x >= map->width || y >= map->height)
-		return (EMPTY);
+	E_MALLOC,
+	E_READ,
+	E_ARGC,
+	E_MLX_INIT,
+	E_IMAGE_INIT,
+	E_EXTENSION,
+	E_FILE,
+	E_ELEM_DUP,
+	E_ELEM_ID,
+	E_ELEM_MISS,
+	E_RGB,
+	E_ELEM_VALUE,
+	E_PLAYER_DUP,
+	E_INVALID_MAP,
+	E_NO_PLAYER,
+	E_UNCLOSED_MAP,
+}			t_error;
 
-	return (map->map[(int) y][(int) x]);
-}
+void	error(t_error exit_code);
+
+#endif

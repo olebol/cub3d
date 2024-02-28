@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 17:25:25 by evan-der          #+#    #+#             */
-/*   Updated: 2024/02/27 20:29:54 by opelser          ###   ########.fr       */
+/*   Created: 2024/02/27 20:28:28 by opelser           #+#    #+#             */
+/*   Updated: 2024/02/27 20:34:04 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include "libft.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-t_map_tile		get_wall_type(t_map *map, double x, double y)
-{
-	if (x < 0 || y < 0 || x >= map->width || y >= map->height)
-		return (EMPTY);
+# include <stdlib.h>
 
-	return (map->map[(int) y][(int) x]);
-}
+void	*ft_malloc(size_t size);
+
+#endif

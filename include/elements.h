@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   elements.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 17:25:25 by evan-der          #+#    #+#             */
-/*   Updated: 2024/02/27 20:29:54 by opelser          ###   ########.fr       */
+/*   Created: 2024/02/27 21:46:05 by opelser           #+#    #+#             */
+/*   Updated: 2024/02/28 15:44:30 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include "libft.h"
+#ifndef ELEMENTS_H
+# define ELEMENTS_H
 
-t_map_tile		get_wall_type(t_map *map, double x, double y)
+# include "MLX42.h"
+
+typedef struct s_elements
 {
-	if (x < 0 || y < 0 || x >= map->width || y >= map->height)
-		return (EMPTY);
+	mlx_texture_t	*textures[4];
+	uint32_t		floor;
+	uint32_t		ceiling;
+}					t_elements;
 
-	return (map->map[(int) y][(int) x]);
-}
+size_t		parse_elementss(t_elements *elements, char *str);
+
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/27 14:16:54 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 16:08:36 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,12 @@ static bool		init_mlx(t_data *data)
 }
 
 // Initialize all data
-void	init_data(t_data *data, char *map_path)
+void	init(t_data *data)
 {
 	if (!init_mlx(data))
-		ft_error("MLX failed to initialize");
+		error(E_MLX_INIT);
 	if (!init_screen(data))
-		ft_error("Screen failed to initialize");
+		error(E_IMAGE_INIT);
 	if (!init_minimap(data))
-		ft_error("Minimap failed to initialize");
-	init_player(data);
-	parse_map(map_path, &data->map);
+		error(E_IMAGE_INIT);
 }

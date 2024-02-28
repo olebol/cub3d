@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 17:25:25 by evan-der          #+#    #+#             */
-/*   Updated: 2024/02/27 20:29:54 by opelser          ###   ########.fr       */
+/*   Created: 2024/02/22 17:43:42 by evalieve          #+#    #+#             */
+/*   Updated: 2024/02/27 17:03:07 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include "libft.h"
+#include "cub3d.h"
 
-t_map_tile		get_wall_type(t_map *map, double x, double y)
+void	free_elems(t_elements *elements)
 {
-	if (x < 0 || y < 0 || x >= map->width || y >= map->height)
-		return (EMPTY);
-
-	return (map->map[(int) y][(int) x]);
+	if (elements->no)
+		free(elements->no);
+	if (elements->so)
+		free(elements->so);
+	if (elements->we)
+		free(elements->we);
+	if (elements->ea)
+		free(elements->ea);
+	if (elements->f)
+		free(elements->f);
+	if (elements->c)
+		free(elements->c);
 }

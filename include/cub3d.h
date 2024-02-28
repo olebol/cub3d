@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 23:53:55 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/27 22:30:39 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,27 @@
 # include "libft.h"
 # include "vector.h"
 # include "map.h"
+# include "errors.h"
+# include "utils.h"
+# include "elements.h"
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 
+# define GAME_NAME "cub3D"
+
 # define WIN_WIDTH 2048
 # define WIN_HEIGHT 1024
+
+# define EXTENSION ".cub"
+# define EXTENSION_LEN 4
+
+# define ELEM_COUNT 6
+
+# define BUF_SIZE 1
+
+
 
 /**
  * @brief struct for player
@@ -56,15 +70,16 @@ typedef struct s_data
 
 	mlx_image_t		*screen;
 	mlx_image_t		*minimap;
+
+	t_elements		elements;
+
 	t_map			map;
+
 	t_player		player;
 }					t_data;
 
 // Init
-void		init_data(t_data *data, char *map_path);
-
-// Errors
-void		ft_error(char *message);
+void		init(t_data *data);
 
 // Minimap
 void		draw_minimap(t_data *data);
@@ -74,5 +89,16 @@ void		captainhook(void *data);
 
 // Casting
 void		cast_all_rays(t_data *data);
+
+// Vector
+t_vector	get_vector(double angle);
+
+// Parsing
+void		parse_file(t_data *data, const char *file);
+
+// Elements
+// void			verify_elements(char *content, t_data *data, size_t *pos);
+// bool			check_element_rgb(char *str);
+// void			search_elements(t_elements *elements, char *content, int *tracker, size_t *pos);
 
 #endif

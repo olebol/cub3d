@@ -10,17 +10,17 @@ DIRECTORIES		:=								\
 					engine						\
 
 # Libft
-LIBFT_DIR		:= $(LIB_DIR)/libft
-LIBFT			:= $(LIBFT_DIR)/libft.a
+LIBFT_DIR		:= ${LIB_DIR}/libft
+LIBFT			:= ${LIBFT_DIR}/libft.a
 
 # MLX42
-MLX_DIR			:= $(LIB_DIR)/MLX
-MLX				:= $(MLX_DIR)/build/libmlx42.a
+MLX_DIR			:= ${LIB_DIR}/MLX
+MLX				:= ${MLX_DIR}/build/libmlx42.a
 
 # Compiler flags
 CC				:= clang
 CFLAGS			:= -Wall -Werror -Wextra
-INCL			:= -I $(HDR_DIR)/ -I $(LIBFT_DIR)/include/ -I $(MLX_DIR)/include/MLX42/ 
+INCL			:= -I ${HDR_DIR}/ -I ${LIBFT_DIR}/include/ -I ${MLX_DIR}/include/MLX42/ 
 
 ifdef FAST
 	CFLAGS		+= -Ofast -flto -march=native
@@ -37,14 +37,16 @@ HDR_FILES :=									\
 				map.h							\
 				rays.h							\
 				vector.h						\
+				utils.h							\
+				elements.h						\
+				errors.h						\
 
-# MLX Flags
-ifeq ($(shell uname), Linux)
-	MLX_FLAGS := -L $(MLX_DIR)/build -lmlx42 -lglfw -lm
-else ifeq ($(shell uname), Darwin)
-	MLX_FLAGS := -lglfw -L "/opt/homebrew/Cellar/glfw/3.3.8/lib/"
-else
-	MLX_FLAGS := -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
+ifeq (${shell uname}, Linux)
+	MLX_FLAGS	:= -L${MLX_DIR}/build -lmlx42 -lglfw -lm
+else ifeq (${shell uname}, Darwin)
+	MLX_FLAGS	:= -lglfw -L "/opt/homebrew/Cellar/glfw/3.4/lib/"
+else 
+	MLX_FLAGS	:= -lglfw -L "/Users/${USER}/.brew/opt/glfw/lib/"
 endif
 
 # Files
@@ -60,11 +62,19 @@ SRC_FILES :=									\
 				engine/minimap.c				\
 \
 				vector.c						\
+\
+				parser/parser.c					\
+				parser/parse_map.c				\
+				parser/validate_map.c			\
+				parser/elements.c				\
+				parser/utils.c					\
+\
+				error/messages.c				\
 
 
-SRC				:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
+SRC				:= ${addprefix ${SRC_DIR}/, ${SRC_FILES}}
 OBJ				:= ${addprefix ${OBJ_DIR}/, ${SRC_FILES:.c=.o}}
-HDR				:= $(addprefix $(HDR_DIR)/, $(HDR_FILES))
+HDR				:= ${addprefix ${HDR_DIR}/, ${HDR_FILES}}
 
 # Colours
 GREEN			:= \033[32;1m
@@ -74,17 +84,15 @@ BOLD			:= \033[1m
 RESET			:= \033[0m
 
 # Rules
-all: ${NAME}
+all: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJ)
 	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling $(NICKNAME)..." "$(RESET)"
 	@ $(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX_FLAGS) $(MLX) -o $(NAME)
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
 
-$(OBJ_DIR)/%.o: src/%.c $(HDR) | $(OBJ_DIR)
-	@ printf	"$(YELLOW)Compiling $(notdir $<)...$(RESET)"
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HDR) | $(OBJ_DIR)
 	@ $(CC) $(CFLAGS) $(INCL) -c $< -o $@
-	@ printf	"\t\t\t$(GREEN)$(BOLD)[OK]$(RESET)\n"
 
 $(OBJ_DIR):
 	@ mkdir -p $(addprefix $(OBJ_DIR)/, $(DIRECTORIES))
@@ -103,7 +111,7 @@ $(MLX):
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
 
 open: $(NAME)
-	@ ./$(NAME) maps/s.cub
+	@ ./$(NAME) maps/valid_map.cub
 
 norm:
 	@ norminette $(HDR_DIR) $(SRC) | grep -v -e "Empty line in function" -e "Comment is invalid in this scope" -e "extra tabs before function name"
@@ -128,6 +136,6 @@ fclean:
 	@ rm -rf $(OBJ)
 	@ rm -rf $(OBJ_DIR)
 
-re: fclean ${NAME}
+re: fclean $(NAME)
 
 .PHONY: all submodule norm clean fclean re submodule
