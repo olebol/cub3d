@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:41:54 by evalieve          #+#    #+#             */
-/*   Updated: 2024/02/28 18:20:46 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 21:36:27 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,73 +18,57 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-// Copies one map struct to another
-static void		copy_map(t_map *copy, t_map *orig)
+static bool		check_square(t_map *map, int x, int y)
 {
-	const int		height = orig->height;
-	int				i;
-
-	copy->map = (char **) ft_malloc((height + 1) * sizeof(char *));
-	copy->map[height] = NULL;
-
-	i = 0;
-	while (i < height)
-	{
-		copy->map[i] = ft_strdup(orig->map[i]);
-
-		if (copy->map[i] == NULL)
-			error(E_MALLOC);
-
-		i++;
-	}
-}
-
-static bool		is_closed(t_map *map, int x, int y)
-{
-	if (map->map[y][x] == 'x' || map->map[y][x] == '1')
+	if (map->map[y][x] == WALL)
 		return (true);
 
-	if (x == 0 || y == 0 ||
-		x == map->width - 1 || y == map->height - 1 ||
-		map->map[y][x] == ' ')
-	{
+	// Edge of the map
+	if (x == 0 || y == 0 || x == map->width - 1 || y == map->height - 1)
 		return (false);
-	}
 
-	// Mark square as visited
-	map->map[y][x] = 'x';
-
-	// Check all 8 surrounding directions
-	is_closed(map, x + 1, y);
-	is_closed(map, x - 1, y);
-	is_closed(map, x, y + 1);
-	is_closed(map, x, y - 1);
-	is_closed(map, x + 1, y + 1);
-	is_closed(map, x - 1, y - 1);
-	is_closed(map, x + 1, y - 1);
-	is_closed(map, x - 1, y + 1);
+	if (map->map[y][x] == EMPTY)
+		return (false);
 
 	return (true);
 }
 
-static		bool	is_map_closed(t_map *map)
+static bool		is_closed(t_map *map, int x, int y)
 {
-	t_map		copy;
+	// Check all directions
+	if (check_square(map, x, y) == false ||
+		check_square(map, x + 1, y) == false ||
+		check_square(map, x - 1, y) == false ||
+		check_square(map, x, y + 1) == false ||
+		check_square(map, x, y - 1) == false ||
+		check_square(map, x + 1, y + 1) == false ||
+		check_square(map, x + 1, y - 1) == false ||
+		check_square(map, x - 1, y + 1) == false ||
+		check_square(map, x - 1, y - 1) == false)
+		return (false);
+
+	return (true);
+}
+
+static bool		is_map_closed(t_map *map)
+{
 	size_t		x;
 	size_t		y;
 
-	copy_map(&copy, map);
-
 	y = 0;
-	while (copy.map[y])
+	while (map->map[y])
 	{
 		x = 0;
-		while (copy.map[y][x])
+		while (map->map[y][x])
 		{
-			if (copy.map[y][x] == '0' && is_closed(&copy, x, y) == false)
+			if (map->map[y][x] != WALL &&
+				map->map[y][x] != EMPTY)
 			{
-				ft_free_str_arr(copy.map);
-				return (false);
+				if (is_closed(map, x, y) == false)
+				{
+					ft_free_str_arr(map->map);
+					return (false);
+				}
 			}
 			x++;
 		}
@@ -105,8 +89,14 @@ static bool		contains_valid_symbols(t_map *map)
 		x = 0;
 		while (x < map->width)
 		{
-			if (map->map[y][x] != EMPTY && map->map[y][x] != WALL && map->map[y][x] != FLOOR && map->map[y][x] != '\n' &&
-				map->map[y][x] != 'N' && map->map[y][x] != 'E' && map->map[y][x] != 'S' && map->map[y][x] != 'W')
+			if (map->map[y][x] != EMPTY &&
+				map->map[y][x] != WALL &&
+				map->map[y][x] != FLOOR &&
+				map->map[y][x] != '\n' &&
+				map->map[y][x] != 'N' &&
+				map->map[y][x] != 'E' &&
+				map->map[y][x] != 'S' &&
+				map->map[y][x] != 'W')
 			{
 				return (false);
 			}

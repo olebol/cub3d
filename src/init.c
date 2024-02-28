@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 16:11:04 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 23:09:16 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static bool		init_minimap(t_data *data)
 	return (true);
 }
 
-// Initialize MLX, screen and minimap
+// Initialize MLX
 static bool		init_mlx(t_data *data)
 {
 	data->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", false);
@@ -60,9 +60,31 @@ static bool		init_mlx(t_data *data)
 	return (true);
 }
 
-// Initialize all data
-void	init(t_data *data)
+static void		init_fields(t_data *data)
 {
+	data->elements.textures[NORTH] = NULL;
+	data->elements.textures[SOUTH] = NULL;
+	data->elements.textures[WEST] = NULL;
+	data->elements.textures[EAST] = NULL;
+	data->elements.floor = 0x00000000;
+	data->elements.ceiling = 0x00000000;
+
+	data->player.x = 0;
+	data->player.y = 0;
+	data->player.vec = get_vector(0);
+	
+	data->map.width = 0;
+	data->map.height = 0;
+	data->map.map = NULL;
+}
+
+// Initialize all data
+void	init(t_data *data, const char *filename)
+{
+	init_fields(data);
+
+	parse_file(data, filename);
+
 	if (!init_mlx(data))
 		error(E_MLX_INIT);
 	if (!init_screen(data))

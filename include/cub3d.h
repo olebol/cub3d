@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 17:22:42 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 23:01:48 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_data
 }					t_data;
 
 // Init
-void		init(t_data *data);
+void		init(t_data *data, const char *filename);
 
 // Minimap
 void		draw_minimap(t_data *data);

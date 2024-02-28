@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 18:19:26 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 23:14:25 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,132 +14,149 @@
 #include "errors.h"
 #include "libft.h"
 
-typedef enum e_texture
+static void		set_colour(uint32_t *colour, const char *value)
 {
-	NORTH,
-	SOUTH,
-	WEST,
-	EAST,
-	FLOOR,
-	CEILING
-}	t_texture;
+	const char		**rgb = (const char **) ft_split(value, ',');
+	int				channel;
+	int				i;
 
-int		ft_atoi(const char *str)
-{
-	int		sign;
-	int		res;
-	int		i;
+	if (rgb == NULL)
+		error(E_MALLOC);
+
+	if (*colour != 0x00000000)
+		error(E_ELEM_DUPLICATE);
 
 	i = 0;
-	sign = 1;
-	if (str[i] == '-' || str[i] == '+')
+	while (rgb[i])
 	{
-		if (str[i] == '-')
-			sign = -1;
+		channel = 0;
+
+		if (ft_strlen(rgb[i]) > 3)
+			error(E_ELEM_RGB);
+
+		if (ft_err_atoi(rgb[i], &channel) != 0)
+			error(E_ELEM_RGB);
+
+		if (channel > 255)
+			error(E_ELEM_RGB);
+
+		// Add the current number to the colour
+		*colour = (*colour << 8) | channel;
+
 		i++;
 	}
 
-	res = 0;
-	while (str[i])
-	{
-		res = res * 10 + (str[i] - '0');
-		i++;
-	}
-	return (res * sign);
+	// Add the alpha channel
+	*colour = (*colour << 8) | 0xFF;
+
+	if (i != 3)
+		error(E_ELEM_RGB);
+
+	ft_free_str_arr((char **) rgb);
 }
 
-// String to RGBA
-static uint32_t		str_to_rgba(char *str)
+static void		set_texture(t_elements *elements, t_texture id, char *value)
 {
-	size_t		i;
-	size_t		len;
-	uint32_t	num;
-
-	i = 0;
-	num = 0;
-	while (str[i])
-	{
-		len = 0;
-
-		// Get the length of the number
-		while (str[len + i] && ft_isdigit(str[len + i]))
-			len++;
-
-		// Check the length of the number and the separator
-		// if (len > 3 || len == 0 || (str[len + i] != ',' && str[len + i] != '\0'))
-		// 	error(E_ELEM_RGB);
-
-		num = num * 256 + ft_atoi(str + i);
-
-		i += len + 1;
-	}
-
-	return (num);
-}
-
-static void		set_element(t_elements *elements, char *str)
-{
-	char	**parts = ft_split(str, ' ');
-	char	*id = parts[0];
-	char	*value = parts[1];
-
 	// Check the value
+	if (value == NULL)
+		error(E_ELEM_VALUE);
 
-	if (ft_strcmp(id, "NO") == 0)
-		elements->textures[NORTH] = mlx_load_png(value);
-	else if (ft_strcmp(id, "SO") == 0)
-		elements->textures[SOUTH] = mlx_load_png(value);
-	else if (ft_strcmp(id, "WE") == 0)
-		elements->textures[WEST] = mlx_load_png(value);
-	else if (ft_strcmp(id, "EA") == 0)
-		elements->textures[EAST] = mlx_load_png(value);
-	else if (ft_strcmp(id, "F") == 0)
-		elements->floor = str_to_rgba(value);
-	else if (ft_strcmp(id, "C") == 0)
-		elements->ceiling = str_to_rgba(value);
-	else
+	// Check if the texture is already set
+	if (elements->textures[id] != NULL)
+		error(E_ELEM_DUPLICATE);
+
+	// Load the texture
+	elements->textures[id] = mlx_load_png(value);
+
+	// if (elements->textures[id] == NULL)
+	// 	error(E_ELEM_VALUE);
+}
+
+static void		set_element(t_elements *elements, char *id, char *value)
+{
+	if (id == NULL)
 		error(E_ELEM_ID);
 
-	ft_free_str_arr(parts);
+	if (value == NULL)
+		error(E_ELEM_VALUE);
+
+	if (ft_strcmp(id, "NO") == 0)
+		set_texture(elements, NORTH, value);
+	else if (ft_strcmp(id, "SO") == 0)
+		set_texture(elements, SOUTH, value);
+	else if (ft_strcmp(id, "WE") == 0)
+		set_texture(elements, WEST, value);
+	else if (ft_strcmp(id, "EA") == 0)
+		set_texture(elements, EAST, value);
+	else if (ft_strcmp(id, "F") == 0)
+		set_colour(&elements->floor, value);
+	else if (ft_strcmp(id, "C") == 0)
+		set_colour(&elements->ceiling, value);
+	else
+		error(E_ELEM_ID);
+}
+
+static char	*get_next_string(char *str, size_t *i)
+{
+	char		*sub;
+	size_t		start;
+	size_t		end;
+
+	// Skip spaces
+	start = *i;
+	while (str[start] && (str[start] == ' ' || str[start] == '\t' || str[start] == '\n'))
+		start++;
+
+	// Get the length of the str
+	end = start;
+	while (str[end] && (str[end] != ' ' && str[end] != '\t' && str[end] != '\n'))
+		end++;
+
+	// Get the substring
+	sub = ft_substr(str, start, end - start);
+	if (sub == NULL)
+		error(E_MALLOC);
+
+	*i = end;
+	return (sub);
 }
 
 size_t	parse_elements(t_elements *elements, char *str)
 {
+	char		*id;
+	char		*value;
 	size_t		loops;
 	size_t		i;
-	int			start;
-	char		*current;
 
 	i = 0;
 	loops = 0;
 	while (str[i] && loops < 6)
 	{
-		// Skip spaces
-		start = i;
-		while (str[start] && (str[start] == ' ' || str[start] == '\t'))
-			start++;
+		// Get the id
+		id = get_next_string(str, &i);
 
-		// Get the length of the str
-		i = start;
-		while (str[i] && str[i] != '\n')
-			i++;
+		// Get the value
+		value = get_next_string(str, &i);
+
+		if (str[i] != '\n' && str[i] != '\0')
+			error(E_ELEM_VALUE);
 
 		// Get the substring and process the element
-		current = ft_substr(str, start, i - start);
-		set_element(elements, current);
-		free(current);
+		set_element(elements, id, value);
+
+		// Free the id and value
+		free(id);
+		free(value);
 
 		i++;
 		loops++;
 	}
 
 	// Check if all elements are loaded
-	// if (loops < 6)
-	// 	error(E_ELEM_MISS);
-
-	// if (elements->textures[NORTH] == NULL || elements->textures[SOUTH] == NULL ||
-	// 	elements->textures[WEST] == NULL || elements->textures[EAST] == NULL)
-	// 	error(E_ELEM_VALUE);
+	// if (loops < 6 || 
+	// 		elements->textures[NORTH] == NULL || elements->textures[SOUTH] == NULL ||
+	// 		elements->textures[WEST] == NULL || elements->textures[EAST] == NULL)
+	// 	error(E_ELEM_MISSING);
 
 	return (i);
 }

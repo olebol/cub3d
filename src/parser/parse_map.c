@@ -65,34 +65,6 @@ static size_t	get_map_height(const char *map_str)
 	return (height + 1);
 }
 
-static char		*trim_map(const char *map) // can this be removed?
-{
-	size_t	i;
-	size_t	start;
-	char	*tmp_map;
-
-	i = 0;
-	start = 0;
-	while (map[i] && (map[i] == '\n' || map[i] == ' ' || map[i] == '\t'))
-		i++;
-	start = i;
-	while (start > 0)
-	{
-		if (map[start - 1] == '\n')
-			break ;
-		start--;
-	}
-	while (map[i] && map[i + 1])
-		i++;
-	while (i > start && (map[i] == '\n' || map[i] == ' ' || map[i] == '\t'))
-		i--;
-	while (map[i] && map[i] != '\n')
-		i++;
-	tmp_map = (char *) ft_malloc((i - start + 1) * sizeof(char));
-	ft_strlcpy(tmp_map, &map[start], i - start + 1);
-	return (tmp_map);
-}
-
 static void		fill_map(t_map *map, const char *map_str)
 {
 	const int	map_len = ft_strlen(map_str);
@@ -125,10 +97,44 @@ static void		fill_map(t_map *map, const char *map_str)
 	}
 }
 
-// Parse a map given as a string and fill the t_map struct including a 2d array representation of the map
-void		parse_map(t_map *map, const char *content)
+static char		*trim_map(const char *map)
 {
-	const char	*map_string = trim_map(content);
+	char		*trimmed;
+	size_t		start;
+	size_t		end;
+
+	if (map == NULL || map[0] == '\0')
+		error(E_MAP_EMPTY);
+
+	// Skip leading whitespace
+	start = 0;
+	while (map[start] && (map[start] == '\n' || map[start] == ' ' || map[start] == '\t'))
+		start++;
+
+	// Go back to the first character after the newline
+	while (start > 0 && map[start - 1] != '\n')
+		start--;
+
+	// Find the end of the map
+	end = ft_strlen(map);
+	while (end > 0 && (map[end] == '\n' || map[end] == ' ' || map[end] == '\t'))
+		end--;
+
+	if (end == 0)
+		error(E_MAP_EMPTY);
+
+	// Trim the map
+	trimmed = ft_substr(map, start, end - start + 1);
+	if (!trimmed)
+		error(E_MALLOC);
+
+	return (trimmed);
+}
+
+// Parse a map given as a string and fill the t_map struct including a 2d array representation of the map
+void		parse_map(t_map *map, const char *file_string)
+{
+	const char	*map_string = trim_map(file_string);
 	int			y;
 
 	map->height = get_map_height(map_string);
@@ -152,4 +158,6 @@ void		parse_map(t_map *map, const char *content)
 	}
 
 	fill_map(map, map_string);
+
+	free((void *) map_string);
 }

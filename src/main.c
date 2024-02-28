@@ -6,23 +6,32 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:46 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 17:43:52 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 23:11:30 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	cubed(const char *file)
+static void	free_data(t_data *data)
+{
+	ft_free_str_arr(data->map.map);
+	free(data->elements.textures[NORTH]);
+	free(data->elements.textures[SOUTH]);
+	free(data->elements.textures[WEST]);
+	free(data->elements.textures[EAST]);
+}
+
+void	cubed(const char *filename)
 {
 	t_data	data;
 
-	parse_file(&data, file);
-
-	init(&data);
+	init(&data, filename);
 
 	mlx_loop_hook(data.mlx, &captainhook, (void *) &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
+
+	free_data(&data);
 }
 
 int	main(int argc, char *argv[])

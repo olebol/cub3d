@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:46:05 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 17:22:15 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 22:59:00 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define ELEMENTS_H
 
 # include "MLX42.h"
+
+typedef enum e_texture
+{
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST,
+}			t_texture;
 
 /**
  * @brief struct for elements
