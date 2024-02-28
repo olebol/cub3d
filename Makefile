@@ -55,6 +55,7 @@ SRC_FILES :=									\
 				errors.c						\
 				init.c							\
 				map.c							\
+				utils.c							\
 \
 				engine/casting.c				\
 				engine/rays.c					\
@@ -67,7 +68,6 @@ SRC_FILES :=									\
 				parser/parse_map.c				\
 				parser/validate_map.c			\
 				parser/elements.c				\
-				parser/utils.c					\
 \
 				error/messages.c				\
 
