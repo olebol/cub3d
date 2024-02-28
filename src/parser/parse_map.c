@@ -16,7 +16,7 @@
 
 #include <stdlib.h>
 
-static size_t	parse_map_width(const char *map)
+static size_t	get_map_width(const char *map)
 {
 	size_t	i;
 	size_t	longest;
@@ -41,7 +41,7 @@ static size_t	parse_map_width(const char *map)
 	return (longest);
 }
 
-static size_t	parse_map_height(const char *map)
+static size_t	get_map_height(const char *map)
 {
 	size_t	i;
 	size_t	height;
@@ -96,8 +96,8 @@ void		parse_map(t_map *map, const char *content)
 	int			y;
 	int			x;
 
-	map->height = parse_map_height(map_string);
-	map->width = parse_map_width(map_string);
+	map->height = get_map_height(map_string);
+	map->width = get_map_width(map_string);
 	
 	map->map = (char **) ft_malloc((map->height + 1) * sizeof(char *));
 	map->map[map->height] = NULL;
