@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:41:51 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 22:52:00 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 15:43:04 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 typedef enum MAP_TILE
 {
-	EMPTY = 0,
-	FLOOR = '1',
-	WALL = '2',
+	EMPTY = ' ',
+	FLOOR = '0',
+	WALL = '1',
 }	t_map_tile;
 
 /**
@@ -39,7 +39,10 @@ typedef struct s_map
 	int				height;
 }					t_map;
 
-void		parse_map(char *map_file, t_map *map);
 t_map_tile	get_wall_type(t_map *map, double x, double y);
+
+void		parse_map(t_map *map, const char *content);
+
+void		validate_map(t_map *map);
 
 #endif

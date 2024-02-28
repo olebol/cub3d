@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/27 14:21:48 by evalieve          #+#    #+#             */
-/*   Updated: 2024/02/27 18:19:43 by opelser          ###   ########.fr       */
+/*   Created: 2024/02/27 20:28:28 by opelser           #+#    #+#             */
+/*   Updated: 2024/02/27 20:34:04 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-// Malloc with exit on fail
-void	*ft_malloc(size_t size)
-{
-	void	*ptr;
+# include <stdlib.h>
 
-	ptr = malloc(size);
-	if (!ptr)
-		error(E_MALLOC);
+void	*ft_malloc(size_t size);
 
-	return (ptr);
-}
+#endif

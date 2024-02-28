@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   init.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/15 14:32:27 by opelser       #+#    #+#                 */
-/*   Updated: 2024/02/27 15:50:19 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
+/*   Updated: 2024/02/28 14:44:26 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,12 @@ static bool		init_mlx(t_data *data)
 }
 
 // Initialize all data
-void	init_data(t_data *data)
+void	init(t_data *data)
 {
 	if (!init_mlx(data))
-		ft_error("MLX failed to initialize");
+		error(E_MLX_INIT);
 	if (!init_screen(data))
-		ft_error("Screen failed to initialize");
+		error(E_IMAGE_INIT);
 	if (!init_minimap(data))
-		ft_error("Minimap failed to initialize");
-	data->e_code = E_SUCCESS;
-	data->elements = (t_elements *)ft_malloc(sizeof(t_elements));
-	init_player(data);
-	// parse_map(map_path, &data->map);
+		error(E_IMAGE_INIT);
 }

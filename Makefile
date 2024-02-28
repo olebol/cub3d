@@ -35,6 +35,9 @@ HDR_FILES :=									\
 				map.h							\
 				rays.h							\
 				vector.h						\
+				utils.h							\
+				elements.h						\
+				errors.h						\
 
 ifeq (${shell uname}, Linux)
 	MLX_FLAGS	:= -L${MLX_DIR}/build -lmlx42 -lglfw -lm
@@ -59,17 +62,12 @@ SRC_FILES :=									\
 				vector.c						\
 \
 				parser/parser.c					\
-				parser/map.c					\
-				parser/map_walls.c				\
-				parser/map_utils.c				\
+				parser/parse_map.c				\
+				parser/validate_map.c			\
 				parser/elements.c				\
-				parser/elements_utils.c			\
-				parser/elements_rgb.c			\
 				parser/utils.c					\
 \
 				error/messages.c				\
-				error/free.c					\
-				error/fatal.c					\
 
 
 SRC				:= ${addprefix ${SRC_DIR}/, ${SRC_FILES}}
@@ -92,9 +90,7 @@ $(NAME): $(LIBFT) $(MLX) $(OBJ)
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HDR) | $(OBJ_DIR)
-	@ printf	"$(YELLOW)Compiling $(notdir $<)...$(RESET)"
 	@ $(CC) $(CFLAGS) $(INCL) -c $< -o $@
-	@ printf	"\t\t\t$(GREEN)$(BOLD)[OK]$(RESET)\n"
 
 $(OBJ_DIR):
 	@ mkdir -p $(OBJ_DIR) $(OBJ_DIR)/engine $(OBJ_DIR)/parser $(OBJ_DIR)/error

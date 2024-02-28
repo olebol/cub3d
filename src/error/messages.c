@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:43:51 by evalieve          #+#    #+#             */
-/*   Updated: 2024/02/27 17:12:06 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/27 22:34:12 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ const char	*ft_strerror(t_error error)
 {
 	static const char *messages[] = {
 		[E_MALLOC]			= "Memory allocation failed",
+		[E_READ]			= "Failed to read file",
 		[E_ARGC]			= "Invalid number of arguments",
 		[E_MLX_INIT]		= "Failed to initialize mlx",
+		[E_IMAGE_INIT]		= "Failed to initialize an image",
 		[E_EXTENSION]		= "Invalid file extension",
 		[E_FILE]			= "Failed to open file",
 		[E_ELEM_DUP]		= "Duplicate element found",
-		[E_ELEM_WRONG]		= "Invalid element identifier",
+		[E_ELEM_ID]			= "Invalid element identifier",
 		[E_ELEM_MISS]		= "Missing element",
 		[E_RGB]				= "Invalid RGB value",
 		[E_ELEM_VALUE]		= "Invalid element value",

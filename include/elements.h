@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   elements.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/27 14:21:48 by evalieve          #+#    #+#             */
-/*   Updated: 2024/02/27 18:19:43 by opelser          ###   ########.fr       */
+/*   Created: 2024/02/27 21:46:05 by opelser           #+#    #+#             */
+/*   Updated: 2024/02/28 15:44:30 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#ifndef ELEMENTS_H
+# define ELEMENTS_H
 
-// Malloc with exit on fail
-void	*ft_malloc(size_t size)
+# include "MLX42.h"
+
+typedef struct s_elements
 {
-	void	*ptr;
+	mlx_texture_t	*textures[4];
+	uint32_t		floor;
+	uint32_t		ceiling;
+}					t_elements;
 
-	ptr = malloc(size);
-	if (!ptr)
-		error(E_MALLOC);
+size_t		parse_elementss(t_elements *elements, char *str);
 
-	return (ptr);
-}
+
+#endif
