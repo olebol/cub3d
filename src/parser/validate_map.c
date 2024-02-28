@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:41:54 by evalieve          #+#    #+#             */
-/*   Updated: 2024/02/28 14:46:08 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 16:31:34 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 
 #include <stdbool.h>
 #include <stdlib.h>
-#include <stdio.h>
-
 
 // Copies one map struct to another
 static void		copy_map(t_map *copy, t_map *orig)
@@ -122,20 +120,6 @@ static bool		contains_valid_symbols(t_map *map)
 
 void	validate_map(t_map *map)
 {
-	for (int i = 0; i < map->height; i++)
-	{
-		for (int j = 0; j < map->width; j++)
-		{
-			if (map->map[i][j] == '\n')
-				printf("\\n");
-			if (map->map[i][j] == '\0')
-				printf("\\0");
-			else
-				printf("%c", map->map[i][j]);
-		}
-		printf("\n");
-	}
-
 	if (contains_valid_symbols(map) == false)
 		error(E_INVALID_MAP);
 

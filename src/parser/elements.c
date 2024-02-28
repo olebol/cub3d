@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 15:44:30 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 16:32:13 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static void		set_element(t_elements *elements, char *str)
 	ft_free_str_arr(parts);
 }
 
-size_t	parse_elementss(t_elements *elements, char *str)
+size_t	parse_elements(t_elements *elements, char *str)
 {
 	size_t		loops;
 	size_t		i;

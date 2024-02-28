@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/27 22:30:39 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 17:22:42 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@
 # define ELEM_COUNT 6
 
 # define BUF_SIZE 1
-
-
 
 /**
  * @brief struct for player
@@ -95,10 +93,5 @@ t_vector	get_vector(double angle);
 
 // Parsing
 void		parse_file(t_data *data, const char *file);
-
-// Elements
-// void			verify_elements(char *content, t_data *data, size_t *pos);
-// bool			check_element_rgb(char *str);
-// void			search_elements(t_elements *elements, char *content, int *tracker, size_t *pos);
 
 #endif

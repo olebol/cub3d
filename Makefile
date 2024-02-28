@@ -8,6 +8,8 @@ SRC_DIR			:= src
 OBJ_DIR			:= obj
 DIRECTORIES		:=								\
 					engine						\
+					parser						\
+					
 
 # Libft
 LIBFT_DIR		:= ${LIB_DIR}/libft
@@ -52,24 +54,24 @@ endif
 # Files
 SRC_FILES :=									\
 				main.c							\
-				errors.c						\
 				init.c							\
-				map.c							\
+\
 				utils.c							\
 \
-				engine/casting.c				\
-				engine/rays.c					\
-				engine/loop.c					\
-				engine/minimap.c				\
-\
-				vector.c						\
+				error.c							\
 \
 				parser/parser.c					\
 				parser/parse_map.c				\
 				parser/validate_map.c			\
 				parser/elements.c				\
 \
-				error/messages.c				\
+				vector.c						\
+\
+				engine/casting.c				\
+				engine/rays.c					\
+				engine/loop.c					\
+				engine/minimap.c				\
+\
 
 
 SRC				:= ${addprefix ${SRC_DIR}/, ${SRC_FILES}}

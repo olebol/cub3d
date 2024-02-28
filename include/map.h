@@ -6,19 +6,19 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:41:51 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 15:43:04 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 16:29:45 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_H
 # define MAP_H
 
-typedef enum MAP_TILE
+typedef enum map_tile_type
 {
 	EMPTY = ' ',
 	FLOOR = '0',
 	WALL = '1',
-}	t_map_tile;
+}	t_tile;
 
 /**
  * @brief struct for map
@@ -38,8 +38,6 @@ typedef struct s_map
 	int				width;
 	int				height;
 }					t_map;
-
-t_map_tile	get_wall_type(t_map *map, double x, double y);
 
 void		parse_map(t_map *map, const char *content);
 

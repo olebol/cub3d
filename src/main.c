@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:46 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 15:14:20 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 16:31:10 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,6 @@ void	cubed(const char *file)
 	parse_file(&data, file);
 
 	init(&data);
-
-	printf("player.x: %f\n", data.player.x);
-	printf("player.y: %f\n", data.player.y);
-
-	print_map(data.map.map);
 
 	mlx_loop_hook(data.mlx, &captainhook, (void *) &data);
 	mlx_loop(data.mlx);

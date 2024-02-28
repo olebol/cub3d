@@ -54,7 +54,7 @@ static void		draw_player(t_data *data, int start_pos, int colour)
 }
 
 // Draw a pixel to the map
-void	draw_pixel(t_data *data, double x, double y, t_map_tile tile)
+void	draw_pixel(t_data *data, double x, double y, t_tile tile)
 {
 	if (tile == EMPTY)
 		mlx_put_pixel(data->minimap, x, y, 0x00000000); // transparent
@@ -67,7 +67,7 @@ void	draw_pixel(t_data *data, double x, double y, t_map_tile tile)
 void	fill_map(t_data *data, int tile_size, \
 					double map_offset_x, double map_offset_y)
 {
-	t_map_tile	tile;
+	t_tile	tile;
 	uint32_t	x;
 	uint32_t	y;
 	double		map_x;
@@ -82,7 +82,7 @@ void	fill_map(t_data *data, int tile_size, \
 			map_x = map_offset_x + ((float) x / tile_size);
 			map_y = map_offset_y + ((float) y / tile_size);
 
-			tile = get_wall_type(&data->map, map_x, map_y);
+			tile = get_tile_type(&data->map, map_x, map_y);
 			draw_pixel(data, x, y, tile);
 			x++;
 		}

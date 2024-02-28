@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:08:10 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/27 22:08:45 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 16:31:46 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ typedef enum s_error
 	E_UNCLOSED_MAP,
 }			t_error;
 
+/**
+ * @brief Prints an error message and exits with the given exit code
+*/
 void	error(t_error exit_code);
 
 #endif

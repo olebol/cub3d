@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:39 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 15:26:02 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/28 17:05:53 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 
 static void	rotation_hook(t_data *data)
 {
-	double			angle;
-	const double	scalar = 20 * data->mlx->delta_time;
+	double				angle;
+
+	// The scalar is used to make the rotation speed stay constant regardless of the frame rate
+	const double		scalar = 20 * data->mlx->delta_time;
 
 	angle = data->player.vec.direction;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT) == true)
@@ -31,6 +33,8 @@ static void	rotation_hook(t_data *data)
 		if (angle > M_PI * 2)
 			angle -= M_PI * 2;
 	}
+
+	// Update the player direction
 	data->player.vec = get_vector(angle);
 }
 
@@ -42,8 +46,11 @@ static void		exit_hook(t_data *data)
 
 static void		move_hook(t_data *data)
 {
+	// How far the player will move in the x and y direction
 	double				move_x;
 	double				move_y;
+
+	// The scalar is used to make the movement speed stay constant regardless of the frame rate
 	const double		scalar = 3 * data->mlx->delta_time;
 
 	move_x = 0;
@@ -69,11 +76,14 @@ static void		move_hook(t_data *data)
 		move_y += data->player.vec.x * scalar;
 	}
 
+	// If the player is not moving, return
 	if (move_x == 0 && move_y == 0)
 		return ;
-	if (get_wall_type(&data->map, move_x * 2 + data->player.x, data->player.y) == FLOOR)
+
+	// If the player is moving, check collision seperately for gliding feeling and update the player position
+	if (get_tile_type(&data->map, move_x * 2 + data->player.x, data->player.y) == FLOOR)
 		data->player.x += move_x;
-	if (get_wall_type(&data->map, data->player.x, move_y * 3 + data->player.y) == FLOOR)
+	if (get_tile_type(&data->map, data->player.x, move_y * 3 + data->player.y) == FLOOR)
 		data->player.y += move_y;
 }
 

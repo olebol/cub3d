@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   rays.h                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/21 15:40:41 by opelser       #+#    #+#                 */
-/*   Updated: 2023/08/21 16:04:14 by opelser       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   rays.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/21 15:40:41 by opelser           #+#    #+#             */
+/*   Updated: 2024/02/28 16:38:38 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ typedef struct s_dda_values
 	int				map_step_y;
 }					t_dda_values;
 
+/**
+ * @brief	Structure to store the ray data
+ * 
+ * @param	vector 			Vector of the ray
+ * @param	dda 			Values for the ray used by the DDA algorithm
+ * @param	side 			Side of the last wall hit by the ray
+ * @param	distance 		Distance to the wall hit by the ray
+*/
 typedef struct s_ray_data
 {
 	t_vector		vector;
@@ -51,6 +59,13 @@ typedef struct s_ray_data
 	double			distance;
 }					t_ray_data;
 
+/**
+ * @brief		Initializes the ray_data struct
+ * 
+ * @param		data		Pointer to the main data struct
+ * @param		ray_data	Pointer to the ray_data struct
+ * @param		angle		Angle of the ray
+*/
 void	set_ray_data(t_data *data, t_ray_data *ray_data, double angle);
 
 #endif
