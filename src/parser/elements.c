@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 23:14:25 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/29 17:25:32 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ static void		set_texture(t_elements *elements, t_texture id, char *value)
 
 static void		set_element(t_elements *elements, char *id, char *value)
 {
-	if (id == NULL)
+	if (id == NULL || ft_strlen(id) == 0)
 		error(E_ELEM_ID);
 
-	if (value == NULL)
+	if (value == NULL || ft_strlen(value) == 0)
 		error(E_ELEM_VALUE);
 
 	if (ft_strcmp(id, "NO") == 0)
@@ -153,9 +153,11 @@ size_t	parse_elements(t_elements *elements, char *str)
 	}
 
 	// Check if all elements are loaded
-	// if (loops < 6 || 
-	// 		elements->textures[NORTH] == NULL || elements->textures[SOUTH] == NULL ||
-	// 		elements->textures[WEST] == NULL || elements->textures[EAST] == NULL)
+	if (loops < 6)
+		error(E_ELEM_MISSING);
+
+	// if (elements->textures[NORTH] == NULL || elements->textures[SOUTH] == NULL ||
+	// 	elements->textures[WEST] == NULL || elements->textures[EAST] == NULL)
 	// 	error(E_ELEM_MISSING);
 
 	return (i);
