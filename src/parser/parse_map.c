@@ -79,6 +79,7 @@ static void		fill_map(t_map *map, const char *map_str)
 	{
 		if (map_str[i] == '\n' || map_str[i] == '\0')
 		{
+			// Fill the rest of the line with spaces
 			while (x < map->width)
 			{
 				map->map[y][x] = ' ';
@@ -145,7 +146,7 @@ void		parse_map(t_map *map, const char *file_string)
 
 	if (map->height < 3 || map->width < 3)
 		error(E_MAP_UNCLOSED);
-	
+
 	map->map = (char **) ft_malloc((map->height + 1) * sizeof(char *));
 	map->map[map->height] = NULL;
 

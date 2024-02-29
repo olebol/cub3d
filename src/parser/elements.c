@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/29 18:36:01 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/29 19:08:12 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static char	*get_next_string(char *str, size_t *i)
 
 	// Get the length of the str
 	end = start;
-	while (str[end] && !(ft_isspace(str[start]) || str[end] == '\n'))
+	while (str[end] && !(ft_isspace(str[end]) || str[end] == '\n'))
 		end++;
 
 	// Get the substring

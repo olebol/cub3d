@@ -67,7 +67,7 @@ void	draw_pixel(t_data *data, double x, double y, t_tile tile)
 void	fill_map(t_data *data, int tile_size, \
 					double map_offset_x, double map_offset_y)
 {
-	t_tile	tile;
+	t_tile		tile;
 	uint32_t	x;
 	uint32_t	y;
 	double		map_x;

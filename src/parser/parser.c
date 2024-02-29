@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:42:50 by evalieve          #+#    #+#             */
-/*   Updated: 2024/02/29 16:59:40 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/29 18:43:52 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ static bool		is_valid_extension(const char *file)
 {
 	const size_t	fn_len = ft_strlen(file);
 
-	if (fn_len < EXTENSION_LEN + 1 ||
-		ft_strncmp(&file[fn_len - EXTENSION_LEN], EXTENSION, EXTENSION_LEN))
+	if (fn_len < EXTENSION_LEN + 1
+		|| ft_strncmp(&file[fn_len - EXTENSION_LEN], EXTENSION, EXTENSION_LEN))
 	{
 		return (false);
 	}
@@ -74,8 +74,8 @@ static bool	locate_player(t_data *data, char **map)
 		j = 0;
 		while (j < data->map.width)
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S' ||
-				map[i][j] == 'W' || map[i][j] == 'E')
+			if (map[i][j] == 'N' || map[i][j] == 'S'
+				|| map[i][j] == 'W' || map[i][j] == 'E')
 			{
 				if (player_found == true)
 					error(E_PLAYER_DUP);

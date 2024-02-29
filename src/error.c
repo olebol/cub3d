@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:43:51 by evalieve          #+#    #+#             */
-/*   Updated: 2024/02/28 22:22:36 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/29 18:56:23 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 const char	*ft_strerror(t_error error)
 {
-	static const char *messages[] = {
+	static const char		*messages[] =
+	{
 		[E_MALLOC]			= "Memory allocation failed",
 		[E_READ]			= "Failed to read file",
 		[E_ARGC]			= "Invalid number of arguments",
