@@ -101,7 +101,7 @@ $(OBJ_DIR):
 
 $(LIBFT):
 	@ printf "%b%s%b" "$(YELLOW)$(BOLD)" "Compiling and archiving LIBFT..." "$(RESET)"
-	@ git submodule update --init --recursive $(LIBFT_DIR)
+	@ git submodule update --init --recursive --remote $(LIBFT_DIR)
 	@ make -C $(LIBFT_DIR)														> /dev/null
 	@ printf "\t\t%b%s%b\n" "$(GREEN)$(BOLD)" "[OK]" "$(RESET)"
 
