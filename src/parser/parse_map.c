@@ -108,7 +108,7 @@ static char		*trim_map(const char *map)
 
 	// Skip leading whitespace
 	start = 0;
-	while (map[start] && (map[start] == '\n' || map[start] == ' ' || map[start] == '\t'))
+	while (map[start] && (map[start] == '\n' || ft_isspace(map[start])))
 		start++;
 
 	// Go back to the first character after the newline
@@ -117,7 +117,7 @@ static char		*trim_map(const char *map)
 
 	// Find the end of the map
 	end = ft_strlen(map);
-	while (end > 0 && (map[end] == '\n' || map[end] == ' ' || map[end] == '\t'))
+	while (end > 0 && (map[end] == '\n' || ft_isspace(map[end])))
 		end--;
 
 	if (end == 0)

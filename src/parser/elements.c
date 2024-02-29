@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/29 18:11:32 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/29 18:36:01 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,12 @@ static char	*get_next_string(char *str, size_t *i)
 
 	// Skip spaces
 	start = *i;
-	while (str[start] && (str[start] == ' ' || str[start] == '\t' || str[start] == '\n'))
+	while (str[start] && (ft_isspace(str[start]) || str[start] == '\n'))
 		start++;
 
 	// Get the length of the str
 	end = start;
-	while (str[end] && (str[end] != ' ' && str[end] != '\t' && str[end] != '\n'))
+	while (str[end] && !(ft_isspace(str[start]) || str[end] == '\n'))
 		end++;
 
 	// Get the substring
@@ -118,7 +118,7 @@ static char	*get_next_string(char *str, size_t *i)
 		error(E_MALLOC);
 
 	// Go to the end of the line or the start of the next element
-	while (str[end] && (str[end] == ' ' || str[end] == '\t'))
+	while (str[end] && ft_isspace(str[start]))
 		end++;
 
 	*i = end;
