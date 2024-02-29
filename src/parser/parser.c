@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:42:50 by evalieve          #+#    #+#             */
-/*   Updated: 2024/02/28 23:14:01 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/29 16:59:40 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,6 @@ void	parse_file(t_data *data, const char *file)
 	map_start = parse_elements(&data->elements, content);
 	parse_map(&data->map, content + map_start);
 	validate_map(&data->map);
-
-	print_map(&data->map);
 
 	if (locate_player(data, data->map.map) == false)
 		error(E_PLAYER_NO);
