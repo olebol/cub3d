@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/29 17:25:32 by opelser          ###   ########.fr       */
+/*   Updated: 2024/02/29 18:11:32 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,10 @@ static char	*get_next_string(char *str, size_t *i)
 	if (sub == NULL)
 		error(E_MALLOC);
 
+	// Go to the end of the line or the start of the next element
+	while (str[end] && (str[end] == ' ' || str[end] == '\t'))
+		end++;
+
 	*i = end;
 	return (sub);
 }
@@ -138,6 +142,7 @@ size_t	parse_elements(t_elements *elements, char *str)
 		// Get the value
 		value = get_next_string(str, &i);
 
+		// Check if the line is finished
 		if (str[i] != '\n' && str[i] != '\0')
 			error(E_ELEM_VALUE);
 
