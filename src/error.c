@@ -6,13 +6,15 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:43:51 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/01 16:08:04 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 17:28:57 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "errors.h"
 #include "colors.h"
-#include "unistd.h"
+#include "libft.h"
+
+#include <unistd.h>
 
 const char	*ft_strerror(t_error error)
 {
