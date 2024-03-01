@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/01 16:02:52 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 17:13:39 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
  * 
  * @param x			player position X
  * @param y			player position Y
+ * @param fov		player field of view in radians
  * @param vec		player direction vector
  */
 typedef struct s_player
@@ -44,6 +45,7 @@ typedef struct s_player
 	double			x;
 	double			y;
 
+	double			fov;
 	t_vector		vec;
 }					t_player;
 
@@ -81,7 +83,7 @@ void		draw_minimap(t_data *data);
 void		captainhook(void *data);
 
 // Casting
-void		cast_all_rays(t_data *data);
+void		draw_world(t_data *data);
 
 // Vector
 t_vector	get_vector(double angle);

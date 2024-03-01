@@ -37,7 +37,7 @@ HDR_FILES :=									\
 				cub3d.h							\
 				colors.h						\
 				map.h							\
-				rays.h							\
+				casting.h							\
 				vector.h						\
 				utils.h							\
 				elements.h						\
@@ -68,7 +68,7 @@ SRC_FILES :=									\
 				vector.c						\
 \
 				engine/casting.c				\
-				engine/rays.c					\
+				engine/draw_world.c				\
 				engine/loop.c					\
 				engine/minimap.c				\
 \

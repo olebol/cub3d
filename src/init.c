@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/29 18:42:38 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:31:46 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static void		init_fields(t_data *data)
 
 	data->player.x = 0;
 	data->player.y = 0;
+	data->player.fov = 0;
 	data->player.vec = get_vector(0);
 
 	data->map.width = 0;

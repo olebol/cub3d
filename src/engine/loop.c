@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:39 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 17:05:53 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:33:18 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,7 @@ void		captainhook(void *dataPointer)
 	rotation_hook(data);
 	move_hook(data);
 
-	// Clear the screen
-	ft_bzero(data->screen->pixels, WIN_WIDTH * WIN_HEIGHT * sizeof(int));
-
-	// Draw the	3D world
-	cast_all_rays(data);
-
-	// Draw the minimap
-	draw_minimap(data);
+	draw_world(data);
 
 	printf("Fps: %f\n", 1 / data->mlx->delta_time);
 }

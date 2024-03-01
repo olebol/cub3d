@@ -5,54 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/16 22:12:24 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 17:21:22 by opelser          ###   ########.fr       */
+/*   Created: 2023/08/21 15:41:25 by opelser           #+#    #+#             */
+/*   Updated: 2024/03/01 17:11:02 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "rays.h"
+#include "casting.h"
 #include <math.h>
 
-static unsigned int		get_rgba(int r, int g, int b, int a)
+void	dda(t_data *data, t_ray_data *ray)
 {
-	return (r << 24 | g << 16 | b << 8 | a);
-}
-
-static void		draw_line(t_data *data, int x, t_ray_data *ray_data)
-{
-	const double			distance = ray_data->distance;
-	unsigned int			colour;
-	size_t					lineheight;
-	size_t					start_y;
-	size_t					y;
-
-	// Set the colour of the line
-	colour = get_rgba(255, 255, 255, 255);
-	if (ray_data->side == VERTICAL)
-		colour = get_rgba(255, 255, 255, 220);
-
-	// Calculate the height of the line to draw
-	lineheight = (WIN_HEIGHT / distance) * 2;
-	if (lineheight > WIN_HEIGHT)
-		lineheight = WIN_HEIGHT;
-
-	// Set the start position of the line to draw to have the middle point of the line be the middle of the screen
-	start_y = WIN_HEIGHT / 2 - lineheight / 2;
-
-	// Draw the line
-	y = 0;
-	while (y < lineheight)
-	{
-		mlx_put_pixel(data->screen, x, start_y + y, colour);
-		y++;
-	}
-}
-
-static void		cast_ray(t_data *data, t_ray_data *ray)
-{
-	int			map_x;
-	int			map_y;
+	int		map_x;
+	int		map_y;
 
 	// Set the current map position to the player's position
 	map_x = (int) data->player.x;
@@ -87,26 +52,88 @@ static void		cast_ray(t_data *data, t_ray_data *ray)
 		ray->distance = (ray->dda.distance_y - ray->dda.delta_y);
 }
 
-void	cast_all_rays(t_data *data)
+/**
+ * @brief	Use the normalized vector to calculate the distance between two walls
+ * 
+ * @param	ray_data		Structure to store the ray data
+*/
+void	set_side_step_distance(t_ray_data *ray_data)
 {
-	t_ray_data			ray_data;
-	const double		fov_in_radians = 90 * (M_PI / 180);
-	const double		increment = fov_in_radians / WIN_WIDTH;
-	double				ray_angle;
-	size_t				x;
+	// if the ray is parallel to the y axis, set the distance to a near infinite value
+	if (ray_data->vector.x == 0)
+		ray_data->dda.delta_x = 1e30;
+	else
+		ray_data->dda.delta_x = fabs(1 / ray_data->vector.x);
 
-	// Set the angle of the first ray to the leftmost side of the screen
-	ray_angle = data->player.vec.direction - fov_in_radians / 2;
+	// if the ray is parallel to the x axis, set the distance to a near infinite value
+	if (ray_data->vector.y == 0)
+		ray_data->dda.delta_y = 1e30;
+	else
+		ray_data->dda.delta_y = fabs(1 / ray_data->vector.y);
+}
 
-	x = 0;
-	while (x < WIN_WIDTH)
+/**
+	@brief Calculates and sets values used by the DDA algorithm.
+
+	@param x current x position of the player
+	@param y current y position of the player
+	@param ray_data ray_data struct
+*/
+void	set_dda_values(t_ray_data *ray_data, double x, double y)
+{
+	t_dda_values	*dda;
+
+	dda = &(ray_data->dda);
+	// set the distance to the next horizontal intersection to the left and define the direction to take on the map
+	// ray pointed left
+	if (ray_data->vector.x < 0)
 	{
-		set_ray_data(data, &ray_data, ray_angle);
-		cast_ray(data, &ray_data);
-
-		draw_line(data, x, &ray_data);
-
-		ray_angle += increment;
-		x++;
+		dda->distance_x = dda->delta_x * (x - (int) x);
+		dda->map_step_x = -1;
 	}
+	// ray pointed right
+	else
+	{
+		dda->distance_x = dda->delta_x * ((int) x + 1 - x);
+		dda->map_step_x = 1;
+	}
+
+	// set the distance to the next vertical intersection to the top and define the direction to take on the map
+	// ray pointed upwards
+	if (ray_data->vector.y < 0)
+	{
+		dda->distance_y = dda->delta_y * (y - (int) y);
+		dda->map_step_y = -1;
+	}
+	// ray pointed downwards
+	else
+	{
+		dda->distance_y = dda->delta_y * ((int) y + 1 - y);
+		dda->map_step_y = 1;
+	}
+}
+
+/**
+ * @brief		Initializes the ray_data struct
+ * 
+ * @param		data		Pointer to the main data struct
+ * @param		ray_data	Pointer to the ray_data struct
+ * @param		angle		Angle of the ray
+*/
+static void		set_ray_data(t_data *data, t_ray_data *ray_data, double angle)
+{
+	ray_data->vector = get_vector(angle);
+	set_side_step_distance(ray_data);
+	set_dda_values(ray_data, data->player.x, data->player.y);
+	ray_data->side = 0;
+}
+
+t_ray_data		cast_ray(t_data *data, double angle)
+{
+	t_ray_data	ray;
+
+	set_ray_data(data, &ray, angle);
+	dda(data, &ray);
+
+	return (ray);
 }

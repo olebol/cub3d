@@ -6,13 +6,15 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:42:50 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/01 16:07:29 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 17:12:19 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "get_next_line.h"
+
 #include <fcntl.h>
+#include <math.h>
 
 // Find better place for this function
 static bool	locate_player(t_data *data, char **map)
@@ -36,6 +38,7 @@ static bool	locate_player(t_data *data, char **map)
 
 				data->player.x = x + 0.5;
 				data->player.y = y + 0.5;
+				data->player.fov = 90 * (M_PI / 180);
 				data->player.vec = get_vector(0); // change this to the correct angle
 
 				map[y][x] = '0';

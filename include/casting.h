@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rays.h                                             :+:      :+:    :+:   */
+/*   casting.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:40:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 16:38:38 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 17:01:44 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAYS_H
-# define RAYS_H
+#ifndef CASTING_H
+# define CASTING_H
 
 # include "vector.h"
 
@@ -60,12 +60,14 @@ typedef struct s_ray_data
 }					t_ray_data;
 
 /**
- * @brief		Initializes the ray_data struct
+ * @brief		Cast a ray and return the ray data
  * 
- * @param		data		Pointer to the main data struct
- * @param		ray_data	Pointer to the ray_data struct
+ * @param		data		Pointer to the main data structure
  * @param		angle		Angle of the ray
+ * 
+ * @return		t_ray_data	Structure containing the ray data
 */
-void	set_ray_data(t_data *data, t_ray_data *ray_data, double angle);
+t_ray_data		cast_ray(t_data *data, double angle);
+
 
 #endif
