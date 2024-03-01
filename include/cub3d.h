@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/01 17:13:39 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 17:21:55 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,6 @@ void		captainhook(void *data);
 
 // Casting
 void		draw_world(t_data *data);
-
-// Vector
-t_vector	get_vector(double angle);
 
 // Parsing
 void		parse_file(t_data *data, const char *filename);
