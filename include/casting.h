@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   casting.h                                             :+:      :+:    :+:   */
+/*   casting.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:40:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/01 17:01:44 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 17:23:23 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,5 @@ typedef struct s_ray_data
  * @return		t_ray_data	Structure containing the ray data
 */
 t_ray_data		cast_ray(t_data *data, double angle);
-
 
 #endif

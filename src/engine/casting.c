@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:41:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/01 17:11:02 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 17:24:44 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	dda(t_data *data, t_ray_data *ray)
 	while (get_tile_type(&data->map, map_x, map_y) == FLOOR)
 	{
 		// Move to the next tile depending on the distance to the next intersection
-		
+
 		// Move to the next horizontal intersection
 		if (ray->dda.distance_x < ray->dda.distance_y)
 		{

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/01 17:13:19 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 17:24:16 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 void	draw_background(t_data *data)
 {
+	const int	screen_size = data->screen->width * data->screen->height;
 	// const int	ceiling = data->elements.ceiling;
 	// const int	floor = data->elements.floor;
-	const int	screen_size = data->screen->width * data->screen->height;
 	uint8_t		*screen;
 
 	screen = data->screen->pixels;
