@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:42:50 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/01 17:12:19 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 17:19:58 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static bool	locate_player(t_data *data, char **map)
 	int		y;
 	bool	player_found;
 
+	player_found = false;
 	y = 0;
 	while (y < data->map.height)
 	{
