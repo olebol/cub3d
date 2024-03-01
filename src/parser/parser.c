@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:42:50 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/01 15:59:19 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:07:29 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char		*read_file(const char *filename)
 	char		*line;
 
 	if (is_valid_extension(filename, MAP_EXTENSION) == false)
-		error(E_EXTENSION);
+		error(E_FILE_EXTENSION);
 
 	if (fd < 0)
 		error(E_FILE);

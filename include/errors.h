@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:08:10 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 22:22:31 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:08:23 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef enum s_error
 	E_ARGC,
 	E_MLX_INIT,
 	E_IMAGE_INIT,
-	E_EXTENSION,
+	E_FILE_EXTENSION,
 	E_FILE,
 	E_ELEM_DUPLICATE,
 	E_ELEM_ID,

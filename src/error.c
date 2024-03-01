@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:43:51 by evalieve          #+#    #+#             */
-/*   Updated: 2024/02/29 18:56:23 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:08:04 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ const char	*ft_strerror(t_error error)
 		[E_ARGC]			= "Invalid number of arguments",
 		[E_MLX_INIT]		= "Failed to initialize mlx",
 		[E_IMAGE_INIT]		= "Failed to initialize an image",
-		[E_EXTENSION]		= "Invalid file extension",
+		[E_FILE_EXTENSION]	= "Invalid file extension",
 		[E_FILE]			= "Failed to open file",
 		[E_ELEM_DUPLICATE]	= "Duplicate element found",
 		[E_ELEM_ID]			= "Invalid element identifier",

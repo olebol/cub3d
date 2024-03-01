@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/01 16:03:18 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:07:29 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ static void		set_texture(t_elements *elements, t_texture id, char *value)
 		error(E_ELEM_DUPLICATE);
 
 	// Check file extension
-	// if (is_valid_extension(value, TEXTURE_EXTENSION) == false)
-	// 	error(E_EXTENSION);
+	// if (is_valid_extension(value, TEXTURE_FILE_EXTENSION) == false)
+	// 	error(E_FILE_EXTENSION);
 
 	// Load the texture
 	elements->textures[id] = mlx_load_png(value);

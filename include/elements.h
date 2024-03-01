@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:46:05 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/01 16:03:01 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:07:29 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "MLX42.h"
 
-# define TEXTURE_EXTENSION ".png"
+# define TEXTURE_FILE_EXTENSION ".png"
 
 typedef enum e_texture
 {
