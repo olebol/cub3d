@@ -6,12 +6,13 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/29 19:08:12 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:03:18 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "elements.h"
 #include "errors.h"
+#include "utils.h"
 #include "libft.h"
 
 static void		set_colour(uint32_t *colour, const char *value)
@@ -64,6 +65,10 @@ static void		set_texture(t_elements *elements, t_texture id, char *value)
 	// Check if the texture is already set
 	if (elements->textures[id] != NULL)
 		error(E_ELEM_DUPLICATE);
+
+	// Check file extension
+	// if (is_valid_extension(value, TEXTURE_EXTENSION) == false)
+	// 	error(E_EXTENSION);
 
 	// Load the texture
 	elements->textures[id] = mlx_load_png(value);
