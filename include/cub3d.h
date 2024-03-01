@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 23:01:48 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 15:55:34 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,7 @@
 # define WIN_WIDTH 2048
 # define WIN_HEIGHT 1024
 
-# define EXTENSION ".cub"
-# define EXTENSION_LEN 4
-
-# define ELEM_COUNT 6
-
-# define BUF_SIZE 1
+# define MAP_EXTENSION ".cub"
 
 /**
  * @brief struct for player
@@ -92,6 +87,6 @@ void		cast_all_rays(t_data *data);
 t_vector	get_vector(double angle);
 
 // Parsing
-void		parse_file(t_data *data, const char *file);
+void		parse_file(t_data *data, const char *filename);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:28:28 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 23:17:27 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 15:56:03 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,15 @@ t_tile		get_tile_type(t_map *map, double x, double y);
  * @param size 	bytes of memory to allocate
 */
 void		*ft_malloc(size_t size);
+
+/**
+ * @brief Checks if the file has the given extension
+ * 
+ * @param file 		file to check
+ * @param extension	extension to check for
+ * 
+ * @return true if the file has the given extension, false otherwise
+*/
+bool		is_valid_extension(const char *file, const char *extension);
 
 #endif
