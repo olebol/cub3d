@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:28:28 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/01 15:56:03 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:04:25 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define UTILS_H
 
 # include <stdlib.h>
+# include <stdbool.h>
+# include "map.h"
 
 /**
  * @brief Returns the type of tile at the given coordinates
