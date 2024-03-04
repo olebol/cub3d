@@ -57,7 +57,7 @@ static void		draw_player(t_data *data, int start_pos, int colour)
 void	draw_pixel(t_data *data, double x, double y, t_tile tile)
 {
 	if (tile == EMPTY)
-		mlx_put_pixel(data->minimap, x, y, 0x00000000); // transparent
+		mlx_put_pixel(data->minimap, x, y, 0x0000003F); // transparent
 	else if (tile == FLOOR)
 		mlx_put_pixel(data->minimap, x, y, 0x00FF00FF); // black
 	else
