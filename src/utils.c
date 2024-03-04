@@ -6,13 +6,16 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:21:48 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/01 15:56:19 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/04 10:21:20 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
 #include "errors.h"
+#include "libft.h"
+
 #include <stdbool.h>
+#include <stdlib.h>
 
 t_tile		get_tile_type(t_map *map, double x, double y)
 {

@@ -6,15 +6,37 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:42:50 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/01 17:19:58 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/04 10:35:49 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "get_next_line.h"
 
+#include <math.h>
 #include <fcntl.h>
 #include <math.h>
+
+static void		set_player(t_player *player, int x, int y, char direction)
+{
+	double		angle;
+
+	player->x = x + 0.5;
+	player->y = y + 0.5;
+	player->fov = 90 * (M_PI / 180);
+
+	angle = 0;
+	if (direction == 'E')
+		angle = 0;
+	else if (direction == 'S')
+		angle = M_PI / 2;
+	else if (direction == 'W')
+		angle = M_PI;
+	else if (direction == 'N')
+		angle = M_PI * 1.5;
+
+	player->vec = get_vector(angle);
+}
 
 // Find better place for this function
 static bool	locate_player(t_data *data, char **map)
@@ -37,10 +59,7 @@ static bool	locate_player(t_data *data, char **map)
 					error(E_PLAYER_DUP);
 				player_found = true;
 
-				data->player.x = x + 0.5;
-				data->player.y = y + 0.5;
-				data->player.fov = 90 * (M_PI / 180);
-				data->player.vec = get_vector(0); // change this to the correct angle
+				set_player(&data->player, x, y, map[y][x]);
 
 				map[y][x] = '0';
 			}
