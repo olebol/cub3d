@@ -24,8 +24,8 @@ static void		draw_player_dot(t_data *data, int start_pos, int colour)
 		while (j < 5)
 		{
 			mlx_put_pixel(data->minimap, \
-						start_pos + i, \
-						start_pos + j, \
+						start_pos - 2 + i, \
+						start_pos - 2 + j, \
 						colour);
 			j++;
 		}
@@ -46,8 +46,8 @@ static void		draw_player(t_data *data, int start_pos, int colour)
 	while (i < 10)
 	{
 		mlx_put_pixel(data->minimap, \
-					start_pos + 2 + (data->player.vec.x * i), \
-					start_pos + 2 + (data->player.vec.y * i), \
+					start_pos + (data->player.dir.x * i), \
+					start_pos + (data->player.dir.y * i), \
 					colour);
 		i++;
 	}
@@ -57,11 +57,11 @@ static void		draw_player(t_data *data, int start_pos, int colour)
 void	draw_pixel(t_data *data, double x, double y, t_tile tile)
 {
 	if (tile == EMPTY)
-		mlx_put_pixel(data->minimap, x, y, 0x0000003F); // transparent
+		mlx_put_pixel(data->minimap, x, y, 0x0000003F);
 	else if (tile == FLOOR)
-		mlx_put_pixel(data->minimap, x, y, 0x00FF00FF); // black
+		mlx_put_pixel(data->minimap, x, y, 0xA9A9A9FF);
 	else
-		mlx_put_pixel(data->minimap, x, y, 0x0000FFFF); // red
+		mlx_put_pixel(data->minimap, x, y, 0xFFFFFFFF);
 }
 
 void	fill_map(t_data *data, int tile_size, \
@@ -106,5 +106,5 @@ void	draw_minimap(t_data *data)
 
 	// Draw map and player
 	fill_map(data, tile_size, map_offset_x, map_offset_y);
-	draw_player(data, minimap_size / 2 - 2, 0xFF0000FF);
+	draw_player(data, minimap_size / 2, 0xFF0000FF);
 }

@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop.c                                             :+:      :+:    :+:   */
+/*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:39 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/04 14:47:41 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/04 21:33:04 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
 #include <math.h>
 
 static void	rotation_hook(t_data *data)
@@ -20,7 +21,7 @@ static void	rotation_hook(t_data *data)
 	// The scalar is used to make the rotation speed stay constant regardless of the frame rate
 	const double		scalar = 20 * data->mlx->delta_time;
 
-	angle = data->player.vec.direction;
+	angle = data->player.dir.direction;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT) == true)
 	{
 		angle -= 0.1 * data->player.fov * scalar;
@@ -35,7 +36,7 @@ static void	rotation_hook(t_data *data)
 	}
 
 	// Update the player direction
-	data->player.vec = get_vector(angle);
+	data->player.dir = get_vector(angle);
 }
 
 static void		fov_hook(t_data *data)
@@ -73,23 +74,23 @@ static void		move_hook(t_data *data)
 	move_y = 0;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W) == true)
 	{
-		move_x += data->player.vec.x * scalar;
-		move_y += data->player.vec.y * scalar;
+		move_x += data->player.dir.x * scalar;
+		move_y += data->player.dir.y * scalar;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) == true)
 	{
-		move_x -= data->player.vec.x * scalar;
-		move_y -= data->player.vec.y * scalar;
+		move_x -= data->player.dir.x * scalar;
+		move_y -= data->player.dir.y * scalar;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A) == true)
 	{
-		move_x += data->player.vec.y * scalar;
-		move_y -= data->player.vec.x * scalar;
+		move_x += data->player.dir.y * scalar;
+		move_y -= data->player.dir.x * scalar;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D) == true)
 	{
-		move_x -= data->player.vec.y * scalar;
-		move_y += data->player.vec.x * scalar;
+		move_x -= data->player.dir.y * scalar;
+		move_y += data->player.dir.x * scalar;
 	}
 
 	// If the player is not moving, return

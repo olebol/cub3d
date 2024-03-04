@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/01 17:21:55 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/04 21:32:13 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_player
 	double			y;
 
 	double			fov;
-	t_vector		vec;
+	t_vector		dir;
 }					t_player;
 
 /**

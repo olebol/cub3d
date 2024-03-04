@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:42:50 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/04 10:35:49 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/04 16:16:02 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void		set_player(t_player *player, int x, int y, char direction)
 	else if (direction == 'N')
 		angle = M_PI * 1.5;
 
-	player->vec = get_vector(angle);
+	player->dir = get_vector(angle);
 }
 
 // Find better place for this function
