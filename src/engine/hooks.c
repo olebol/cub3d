@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:39 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/01 16:33:18 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/04 14:47:41 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,35 @@ static void	rotation_hook(t_data *data)
 	angle = data->player.vec.direction;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT) == true)
 	{
-		angle -= 0.1 * scalar;
+		angle -= 0.1 * data->player.fov * scalar;
 		if (angle < 0)
 			angle += M_PI * 2;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT) == true)
 	{
-		angle += 0.1 * scalar;
+		angle += 0.1 * data->player.fov * scalar;
 		if (angle > M_PI * 2)
 			angle -= M_PI * 2;
 	}
 
 	// Update the player direction
 	data->player.vec = get_vector(angle);
+}
+
+static void		fov_hook(t_data *data)
+{
+	if (mlx_is_key_down(data->mlx, MLX_KEY_UP) == true)
+	{
+		data->player.fov += 0.1;
+		if (data->player.fov > M_PI / 2)
+			data->player.fov = M_PI / 2;
+	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN) == true)
+	{
+		data->player.fov -= 0.1;
+		if (data->player.fov < 0.1)
+			data->player.fov = 0.1;
+	}
 }
 
 static void		exit_hook(t_data *data)
@@ -94,7 +110,11 @@ void		captainhook(void *dataPointer)
 	data = (t_data *) dataPointer;
 
 	exit_hook(data);
+
 	rotation_hook(data);
+
+	fov_hook(data);
+
 	move_hook(data);
 
 	draw_world(data);

@@ -25,7 +25,7 @@ CFLAGS			:= -Wall -Werror -Wextra
 INCL			:= -I ${HDR_DIR}/ -I ${LIBFT_DIR}/include/ -I ${MLX_DIR}/include/MLX42/ 
 
 ifdef FAST
-	CFLAGS		+= -Ofast -flto -march=native
+	CFLAGS		+= -Ofast -fno-fast-math -flto -march=native
 endif
 
 ifdef DEBUG
@@ -69,7 +69,7 @@ SRC_FILES :=									\
 \
 				engine/casting.c				\
 				engine/draw_world.c				\
-				engine/loop.c					\
+				engine/hooks.c					\
 				engine/minimap.c				\
 \
 
