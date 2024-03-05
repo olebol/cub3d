@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/04 21:32:13 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/05 16:14:55 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 
 # define GAME_NAME "cub3D"
 
-# define WIN_WIDTH 2048
-# define WIN_HEIGHT 1024
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
 
 # define MAP_EXTENSION ".cub"
 
@@ -46,6 +46,7 @@ typedef struct s_player
 	double			y;
 
 	double			fov;
+	t_vector		cam;
 	t_vector		dir;
 }					t_player;
 

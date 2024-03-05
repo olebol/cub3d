@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/04 21:36:02 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/05 16:13:27 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,20 @@ static void		draw_wall_segment(t_data *data, int x, t_ray_data *ray_data)
 
 static void		draw_walls(t_data *data)
 {
-	const double		ray_increment = data->player.fov / WIN_WIDTH;
-	t_ray_data			ray_data;
-	double				ray_angle;
+	const double		fov = data->player.fov;
+	t_ray_data			ray;
+	double				camera_plane_x;
 	size_t				x;
-
-	// Set the angle of the first ray to the leftmost side of the screen
-	ray_angle = data->player.dir.direction - data->player.fov / 2;
 
 	x = 0;
 	while (x < WIN_WIDTH)
 	{
-		ray_data = cast_ray(data, ray_angle);
+		camera_plane_x = fov * (x / (double) WIN_WIDTH) - (fov / 2);
 
-		draw_wall_segment(data, x, &ray_data);
+		ray = cast_ray(data, camera_plane_x);
 
-		ray_angle += ray_increment;
+		draw_wall_segment(data, x, &ray);
+
 		x++;
 	}
 }

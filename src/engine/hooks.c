@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:39 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/04 21:33:04 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/05 16:12:45 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	rotation_hook(t_data *data)
 
 	// Update the player direction
 	data->player.dir = get_vector(angle);
+	data->player.cam = get_vector(angle + (M_PI / 2));
 }
 
 static void		fov_hook(t_data *data)

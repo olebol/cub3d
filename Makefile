@@ -9,7 +9,7 @@ OBJ_DIR			:= obj
 DIRECTORIES		:=								\
 					engine						\
 					parser						\
-					
+
 
 # Libft
 LIBFT_DIR		:= ${LIB_DIR}/libft
@@ -37,7 +37,7 @@ HDR_FILES :=									\
 				cub3d.h							\
 				colors.h						\
 				map.h							\
-				casting.h							\
+				casting.h						\
 				vector.h						\
 				utils.h							\
 				elements.h						\
@@ -71,8 +71,6 @@ SRC_FILES :=									\
 				engine/draw_world.c				\
 				engine/hooks.c					\
 				engine/minimap.c				\
-\
-
 
 SRC				:= ${addprefix ${SRC_DIR}/, ${SRC_FILES}}
 OBJ				:= ${addprefix ${OBJ_DIR}/, ${SRC_FILES:.c=.o}}
