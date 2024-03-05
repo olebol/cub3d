@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/01 17:24:16 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/04 21:36:02 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void		draw_walls(t_data *data)
 	size_t				x;
 
 	// Set the angle of the first ray to the leftmost side of the screen
-	ray_angle = data->player.vec.direction - data->player.fov / 2;
+	ray_angle = data->player.dir.direction - data->player.fov / 2;
 
 	x = 0;
 	while (x < WIN_WIDTH)
