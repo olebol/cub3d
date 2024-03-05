@@ -59,9 +59,9 @@ void	draw_pixel(t_data *data, double x, double y, t_tile tile)
 	if (tile == EMPTY)
 		mlx_put_pixel(data->minimap, x, y, 0x0000003F);
 	else if (tile == FLOOR)
-		mlx_put_pixel(data->minimap, x, y, 0xA9A9A9FF);
-	else
 		mlx_put_pixel(data->minimap, x, y, 0xFFFFFFFF);
+	else
+		mlx_put_pixel(data->minimap, x, y, 0xA9A9A9FF);
 }
 
 void	fill_map(t_data *data, int tile_size, \
