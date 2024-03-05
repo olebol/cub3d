@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:41:54 by evalieve          #+#    #+#             */
-/*   Updated: 2024/02/29 18:52:19 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/05 16:47:59 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,8 @@ static bool		contains_valid_symbols(t_map *map)
 		x = 0;
 		while (x < map->width)
 		{
-			if (map->map[y][x] != EMPTY
-				&& map->map[y][x] != WALL
-				&& map->map[y][x] != FLOOR
-				&& map->map[y][x] != '\n'
-				&& map->map[y][x] != 'N'
-				&& map->map[y][x] != 'E'
-				&& map->map[y][x] != 'S'
-				&& map->map[y][x] != 'W')
-			{
+			if (ft_strchr(VALID_MAP_CHARS, map->map[y][x]) == NULL)
 				return (false);
-			}
 			x++;
 		}
 		y++;

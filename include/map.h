@@ -6,12 +6,14 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:41:51 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 16:29:45 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/05 16:47:49 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_H
 # define MAP_H
+
+# define VALID_MAP_CHARS " 01NSEW"
 
 typedef enum map_tile_type
 {

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:42:50 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/04 16:16:02 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/05 16:45:56 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ static bool	locate_player(t_data *data, char **map)
 		x = 0;
 		while (x < data->map.width)
 		{
-			if (map[y][x] == 'N' || map[y][x] == 'S'
-				|| map[y][x] == 'W' || map[y][x] == 'E')
+			if (ft_strchr("NSEW", map[y][x]) != NULL)
 			{
 				if (player_found == true)
 					error(E_PLAYER_DUP);
