@@ -6,50 +6,35 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/12 17:23:58 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/12 17:34:45 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "casting.h"
 
-typedef enum e_background
+void	draw_background(t_data *data)
 {
-	SKY,
-	GROUND
-}	t_background;
+	const size_t	screen_size = data->screen->width * data->screen->height;
+	int				*screen;
+	size_t			i;
 
-void	ft_memset_extra(uint8_t *pixels, uint32_t colour, size_t screen_size, t_background background)
-{
-	size_t		i;
-	int			*screen;
+	screen = (int *) data->screen->pixels;
 
-	screen = (int *) pixels;
-	if (background == GROUND)
-		screen += screen_size / 2;
-
+	// // Draw the sky
 	i = 0;
 	while (i < screen_size / 2)
 	{
-		screen[i] = colour;
+		screen[i] = data->elements.ceiling;
 		i++;
 	}
-}
-
-void	draw_background(t_data *data)
-{
-	const uint32_t	screen_size = data->screen->width * data->screen->height;
-	const uint32_t	ceiling = data->elements.ceiling;
-	const uint32_t	floor = data->elements.floor;
-	uint8_t			*screen;
-
-	screen = data->screen->pixels;
-
-	// // Draw the sky
-	ft_memset_extra(screen, ceiling, screen_size, SKY);
 
 	// // Draw the ground
-	ft_memset_extra(screen, floor, screen_size, GROUND);
+	while (i < screen_size)
+	{
+		screen[i] = data->elements.floor;
+		i++;
+	}
 
 	// Clear the screen
 	// ft_bzero(screen, screen_size * sizeof(int));
