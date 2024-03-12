@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:39 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/05 16:12:45 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/12 17:27:28 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,5 @@ void		captainhook(void *dataPointer)
 
 	draw_world(data);
 
-	printf("Fps: %f\n", 1 / data->mlx->delta_time);
+	printf("Fps: %d\n", (int) (1 / data->mlx->delta_time));
 }
