@@ -1,49 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   draw_world.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/01 16:30:41 by opelser       #+#    #+#                 */
-/*   Updated: 2024/03/12 16:35:08 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   draw_world.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
+/*   Updated: 2024/03/12 17:23:58 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "casting.h"
 
-void	*ft_memset_extra(void *b, int c, size_t len)
+typedef enum e_background
 {
-	size_t	i;
-	int		*temp;
+	SKY,
+	GROUND
+}	t_background;
 
-	temp = b;
+void	ft_memset_extra(uint8_t *pixels, uint32_t colour, size_t screen_size, t_background background)
+{
+	size_t		i;
+	int			*screen;
+
+	screen = (int *) pixels;
+	if (background == GROUND)
+		screen += screen_size / 2;
+
 	i = 0;
-	while (len > i)
+	while (i < screen_size / 2)
 	{
-		temp[i] = c;
+		screen[i] = colour;
 		i++;
 	}
-	return (b);
 }
 
 void	draw_background(t_data *data)
 {
-	const int	screen_size = data->screen->width * data->screen->height;
-	const int	ceiling = data->elements.ceiling;
-	const int	floor = data->elements.floor;
-	uint8_t		*screen;
+	const uint32_t	screen_size = data->screen->width * data->screen->height;
+	const uint32_t	ceiling = data->elements.ceiling;
+	const uint32_t	floor = data->elements.floor;
+	uint8_t			*screen;
 
 	screen = data->screen->pixels;
 
-	// printf("ceiling = %x\n", ceiling);
-	// printf("floor = %x\n", floor);
 	// // Draw the sky
-	ft_memset_extra(screen, ceiling, screen_size * (sizeof(int)) / 2 * sizeof(int));
+	ft_memset_extra(screen, ceiling, screen_size, SKY);
 
 	// // Draw the ground
-	ft_memset_extra(screen + screen_size / 2 * (sizeof(int)), floor, screen_size * (sizeof(int)) / 2 * sizeof(int));
+	ft_memset_extra(screen, floor, screen_size, GROUND);
 
 	// Clear the screen
 	// ft_bzero(screen, screen_size * sizeof(int));
