@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   casting.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 15:40:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/05 15:55:31 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   casting.h                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/08/21 15:40:41 by opelser       #+#    #+#                 */
+/*   Updated: 2024/03/12 15:32:09 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_dda_values
 /**
  * @brief	Structure to store the ray data
  * 
- * @param	vector 			Vector of the ray
+ * @param	dir	 			Vector of the ray
  * @param	side 			Side of the last wall hit by the ray
  * @param	distance 		Distance to the wall hit by the ray
 */

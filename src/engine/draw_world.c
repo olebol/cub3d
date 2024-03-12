@@ -1,35 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   draw_world.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/05 16:13:27 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   draw_world.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/01 16:30:41 by opelser       #+#    #+#                 */
+/*   Updated: 2024/03/12 16:35:08 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "casting.h"
 
+void	*ft_memset_extra(void *b, int c, size_t len)
+{
+	size_t	i;
+	int		*temp;
+
+	temp = b;
+	i = 0;
+	while (len > i)
+	{
+		temp[i] = c;
+		i++;
+	}
+	return (b);
+}
+
 void	draw_background(t_data *data)
 {
 	const int	screen_size = data->screen->width * data->screen->height;
-	// const int	ceiling = data->elements.ceiling;
-	// const int	floor = data->elements.floor;
+	const int	ceiling = data->elements.ceiling;
+	const int	floor = data->elements.floor;
 	uint8_t		*screen;
 
 	screen = data->screen->pixels;
 
+	// printf("ceiling = %x\n", ceiling);
+	// printf("floor = %x\n", floor);
 	// // Draw the sky
-	// ft_memset(screen, ceiling, screen_size / 2 * sizeof(int));
+	ft_memset_extra(screen, ceiling, screen_size * (sizeof(int)) / 2 * sizeof(int));
 
 	// // Draw the ground
-	// ft_memset(screen + screen_size / 2, floor, screen_size / 2 * sizeof(int));
+	ft_memset_extra(screen + screen_size / 2 * (sizeof(int)), floor, screen_size * (sizeof(int)) / 2 * sizeof(int));
 
 	// Clear the screen
-	ft_bzero(screen, screen_size * sizeof(int));
+	// ft_bzero(screen, screen_size * sizeof(int));
 }
 
 static void		draw_wall_segment(t_data *data, int x, t_ray_data *ray_data)
