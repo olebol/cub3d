@@ -6,7 +6,7 @@
 /*   By: evalieve <evalieve@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/18 11:00:33 by evalieve      #+#    #+#                 */
-/*   Updated: 2024/03/19 18:24:59 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/03/19 18:32:03 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	draw_wall_segment_texture(t_data *data, int x, t_ray_data *ray_data)
 	{
 		tex_y = (int) (y  * ((double)texture->height / lineheight));
 		// tex_y = ((y - start_y) * texture->height / lineheight); // segfaults
-		color = ((int*)texture->pixels)[tex_y * texture->width + tex_x];
+		color = ((int *)texture->pixels)[tex_y * texture->width + tex_x];
 		color = ((color >> 24) & 0xFF) | ((color & 0xFFFFFF) << 8);
 		// color = ((color & 0xFF) << 24) | (color >> 8);
 		mlx_put_pixel(data->screen, x, start_y + y, color);
