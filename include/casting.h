@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/21 15:40:41 by opelser       #+#    #+#                 */
-/*   Updated: 2024/03/12 15:32:09 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/03/19 17:09:55 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ typedef struct s_ray_data
 
 	enum e_side		side;
 	double			distance;
+
+	double			hit_x;
+	double			hit_y;
 }					t_ray_data;
 
 /**

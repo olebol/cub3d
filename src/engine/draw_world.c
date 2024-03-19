@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   draw_world.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/12 17:34:45 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   draw_world.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/01 16:30:41 by opelser       #+#    #+#                 */
+/*   Updated: 2024/03/19 17:12:06 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "casting.h"
+void	draw_wall_segment_texture(t_data *data, int x, t_ray_data *ray_data);
+
 
 void	draw_background(t_data *data)
 {
@@ -40,34 +42,35 @@ void	draw_background(t_data *data)
 	// ft_bzero(screen, screen_size * sizeof(int));
 }
 
-static void		draw_wall_segment(t_data *data, int x, t_ray_data *ray_data)
-{
-	unsigned int			colour;
-	size_t					lineheight;
-	size_t					start_y;
-	size_t					y;
+// static void		draw_wall_segment(t_data *data, int x, t_ray_data *ray_data)
+// {
+// 	unsigned int			colour;
+// 	size_t					lineheight;
+// 	size_t					start_y;
+// 	size_t					y;
 
-	// Set the colour of the line
-	colour = 0xFFFFFFFF;
-	if (ray_data->side == VERTICAL)
-		colour -= 0x00000005;
+// 	// Set the colour of the line
+// 	colour = 0xFFFFFFFF;
+// 	if (ray_data->side == VERTICAL)
+// 		colour -= 0x00000005;
 
-	// Calculate the height of the line to draw
-	lineheight = (WIN_HEIGHT / ray_data->distance) * 2;
-	if (lineheight > WIN_HEIGHT)
-		lineheight = WIN_HEIGHT;
+// 	// Calculate the height of the line to draw
+// 	lineheight = (WIN_HEIGHT / ray_data->distance) * 2;
+// 	// printf("distance: %f\n", ray_data->distZance);
+// 	if (lineheight > WIN_HEIGHT)
+// 		lineheight = WIN_HEIGHT;
 
-	// Set the start position of the line to draw to have the middle point of the line be the middle of the screen
-	start_y = WIN_HEIGHT / 2 - lineheight / 2;
+// 	// Set the start position of the line to draw to have the middle point of the line be the middle of the screen
+// 	start_y = WIN_HEIGHT / 2 - lineheight / 2;
 
-	// Draw the line
-	y = 0;
-	while (y < lineheight)
-	{
-		mlx_put_pixel(data->screen, x, start_y + y, colour);
-		y++;
-	}
-}
+// 	// Draw the line
+// 	y = 0;
+// 	while (y < lineheight)
+// 	{
+// 		mlx_put_pixel(data->screen, x, start_y + y, colour);
+// 		y++;
+// 	}
+// }
 
 static void		draw_walls(t_data *data)
 {
@@ -83,7 +86,7 @@ static void		draw_walls(t_data *data)
 
 		ray = cast_ray(data, camera_plane_x);
 
-		draw_wall_segment(data, x, &ray);
+		draw_wall_segment_texture(data, x, &ray);
 
 		x++;
 	}

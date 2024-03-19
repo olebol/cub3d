@@ -1,9 +1,10 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO ./textures/unnamed.png
+SO ./textures/unnamed.png
+WE ./textures/unnamed.png
+EA ./textures/unnamed.png
 F 220,100,0
 C 225,30,0
+
         1111111111111111111111111
         1000000000110000000000001
         101100000111000000000N001

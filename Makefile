@@ -71,6 +71,8 @@ SRC_FILES :=									\
 				engine/draw_world.c				\
 				engine/hooks.c					\
 				engine/minimap.c				\
+				engine/textures.c				\
+
 
 SRC				:= ${addprefix ${SRC_DIR}/, ${SRC_FILES}}
 OBJ				:= ${addprefix ${OBJ_DIR}/, ${SRC_FILES:.c=.o}}
