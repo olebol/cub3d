@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:08:10 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/01 17:28:40 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/21 15:35:01 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef enum s_error
 {
-	E_MALLOC,
+	E_MALLOC = 1,
 	E_READ,
 	E_ARGC,
 	E_MLX_INIT,
