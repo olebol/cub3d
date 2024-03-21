@@ -64,6 +64,7 @@ SRC_FILES :=									\
 				parser/parse_map.c				\
 				parser/validate_map.c			\
 				parser/elements.c				\
+				parser/parse_textures.c			\
 \
 				vector.c						\
 \
@@ -71,7 +72,6 @@ SRC_FILES :=									\
 				engine/draw_world.c				\
 				engine/hooks.c					\
 				engine/minimap.c				\
-				engine/textures.c				\
 
 
 SRC				:= ${addprefix ${SRC_DIR}/, ${SRC_FILES}}

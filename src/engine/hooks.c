@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/15 14:58:39 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/12 17:27:28 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   hooks.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/08/15 14:58:39 by opelser       #+#    #+#                 */
+/*   Updated: 2024/03/21 17:54:12 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,11 @@ void		captainhook(void *dataPointer)
 
 	move_hook(data);
 
-	draw_world(data);
+	// draw_world(data);
+	
+	draw_map(data);
+	
+	draw_minimap(data);
 
 	printf("Fps: %d\n", (int) (1 / data->mlx->delta_time));
 }

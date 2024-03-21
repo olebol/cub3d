@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/21 15:41:25 by opelser       #+#    #+#                 */
-/*   Updated: 2024/03/19 17:52:52 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/03/21 18:12:04 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	dda(t_data *data, t_ray_data *ray)
 			dda.map_x += dda.map_step_x;
 			
 			// Calculate hitY for vertical walls just after updating map_x
-			ray->hit_y = data->player.y + ((dda.map_x - data->player.x + (1 - dda.map_step_x) / 2) \
+			ray->wall_hit = data->player.y + ((dda.map_x - data->player.x + (1 - dda.map_step_x) / 2) \
 				 / ray->dir.x) * ray->dir.y;
 		}
 		// Move to the next vertical intersection
@@ -104,13 +104,10 @@ void	dda(t_data *data, t_ray_data *ray)
 			dda.map_y += dda.map_step_y;
 
 			// Calculate hitX for horizontal walls just after updating map_y
-            ray->hit_x = data->player.x + ((dda.map_y - data->player.y + (1 - dda.map_step_y) / 2) \
+            ray->wall_hit = data->player.x + ((dda.map_y - data->player.y + (1 - dda.map_step_y) / 2) \
 				 / ray->dir.y) * ray->dir.x;
 		}
 	}
-
-	// printf("hit_x: %f\n", ray->hit_x);
-	// printf("hit_y: %f\n", ray->hit_y);
 
 	// Set distance to the wall hit -1 step 
 	if (ray->side == HORIZONTAL)

@@ -1,13 +1,13 @@
-NO ./textures/unnamed.png
-SO ./textures/unnamed.png
-WE ./textures/unnamed.png
-EA ./textures/unnamed.png
+NO ./textures/floorskin.png
+SO ./textures/floorsteel.png
+WE ./textures/gratewall.png
+EA ./textures/holeskin.png
 F 220,100,0
 C 225,30,0
 
         1111111111111111111111111
         1000000000110000000000001
-        101100000111000000000N001
+        101100000111000000000W001
         1001000000000000000000001
 111111111011000001110000000000001
 100000000011000001110111111111111

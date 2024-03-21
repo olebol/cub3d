@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2024/03/19 17:11:41 by evalieve      ########   odam.nl         */
+/*   Updated: 2024/03/21 18:17:55 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,28 @@
 
 # define GAME_NAME "cub3D"
 
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 720
 
 # define MAP_EXTENSION ".cub"
+
+# define TEXTURE_TOTAL 4
+
+/**
+ * @brief enum for rgba
+ * 
+ * @param R		red
+ * @param G		green
+ * @param B		blue
+ * @param A		alpha
+*/
+typedef	enum	e_rgba
+{
+	R,
+	G,
+	B,
+	A
+}				t_rgba;
 
 /**
  * @brief struct for player
@@ -84,9 +102,14 @@ void		draw_minimap(t_data *data);
 void		captainhook(void *data);
 
 // Casting
-void		draw_world(t_data *data);
+void		draw_map(t_data *data);
+void		draw_minimap(t_data *data);
+// void		draw_world(t_data *data);
+
+
 
 // Parsing
 void		parse_file(t_data *data, const char *filename);
+void		parse_texture(t_data *data);
 
 #endif
