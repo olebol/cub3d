@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   draw_world.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/01 16:30:41 by opelser       #+#    #+#                 */
-/*   Updated: 2024/03/21 18:11:33 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   draw_world.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
+/*   Updated: 2024/03/22 14:47:04 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_texture	determine_texture(t_ray_data *ray_data)
 		else
 			return (SOUTH);
 	}
-	else // if (ray_data->side == VERTICAL)
+	else
 	{
 		if (ray_data->dir.x < 0)
 			return (WEST);
@@ -77,11 +77,11 @@ static void	draw_wall(t_data *data, t_draw_data *draw_data, int x)
 	tex_y= (draw_data->wall_start - WIN_HEIGHT / 2 + draw_data->line_height / 2) * draw_data->step;
 	while (y < end_wall)
 	{
-        color = ((int*)draw_data->texture->pixels)[(int)tex_y * draw_data->texture->width + draw_data->tex_x];
+		color = ((int *) draw_data->texture->pixels)[(int) tex_y * draw_data->texture->width + draw_data->tex_x];
 		
 		mlx_put_pixel(data->screen, x, y, color);
 		
-        tex_y += draw_data->step;
+		tex_y += draw_data->step;
 		y++;
 	}
 }
@@ -117,31 +117,30 @@ static void	set_draw_data(t_data *data, t_ray_data *ray_data, t_draw_data *draw_
 	draw_data->texture = data->elements.textures[determine_texture(ray_data)];
 
 	draw_data->wall_height = (WIN_HEIGHT / ray_data->distance);
-	
+
 	if (draw_data->wall_height < 0)
 		draw_data->wall_height = 0;
 
 	draw_data->line_height = draw_data->wall_height;
-	
+
 	if (draw_data->wall_height > WIN_HEIGHT)
 		draw_data->wall_height = WIN_HEIGHT;
-	
+
 	draw_data->wall_start = WIN_HEIGHT / 2 - draw_data->wall_height / 2;
-	
+
 	if (draw_data->wall_start < 0)
 		draw_data->wall_start = 0;
-	
+
 	draw_data->wall_end = WIN_HEIGHT / 2 + draw_data->wall_height / 2;
 
 	if (draw_data->wall_end > WIN_HEIGHT)
 		draw_data->wall_end = WIN_HEIGHT;
 
 	draw_data->wall_hit = ray_data->wall_hit - floor(ray_data->wall_hit);
-	
-	draw_data->tex_x = (int)(draw_data->wall_hit * (double)draw_data->texture->width);
-	
-	draw_data->step = 1.0 * draw_data->texture->height / draw_data->line_height;
 
+	draw_data->tex_x = (int)(draw_data->wall_hit * (double)draw_data->texture->width);
+
+	draw_data->step = 1.0 * draw_data->texture->height / draw_data->line_height;
 }
 
 /**
@@ -161,17 +160,17 @@ void	draw_map(t_data *data)
 	while (x < WIN_WIDTH)
 	{
 		camera_plane_x = fov * (x / (double) WIN_WIDTH) - (fov / 2);
-		
+
 		ray_data = cast_ray(data, camera_plane_x);
 
 		set_draw_data(data, &ray_data, &draw_data);
-		
+
 		draw_ceiling(data, draw_data.wall_start, x);
-		
+
 		draw_wall(data, &draw_data, x);
-		
+
 		draw_floor(data, draw_data.wall_end, x);		
-		
+
 		x++;
 	}
 }
