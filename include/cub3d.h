@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2024/03/21 18:17:55 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
+/*   Updated: 2024/03/22 14:20:26 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,13 @@
 
 # define GAME_NAME "cub3D"
 
-# define WIN_WIDTH 1280
-# define WIN_HEIGHT 720
+# ifndef WIN_WIDTH
+#  define WIN_WIDTH 1280
+# endif
+
+# ifndef WIN_HEIGHT
+#  define WIN_HEIGHT 720
+# endif
 
 # define MAP_EXTENSION ".cub"
 
