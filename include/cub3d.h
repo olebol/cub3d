@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 18:24:21 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/25 18:43:00 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@
 
 # define MAP_EXTENSION ".cub"
 
-# define TEXTURE_TOTAL 4
-
 /**
  * @brief		Structure to store the data needed for drawing
  * 
@@ -63,22 +61,6 @@ typedef struct s_draw_data
 	double			step;
 	
 }			t_draw_data;
-
-/**
- * @brief enum for rgba
- * 
- * @param R		red
- * @param G		green
- * @param B		blue
- * @param A		alpha
-*/
-typedef	enum	e_rgba
-{
-	R,
-	G,
-	B,
-	A
-}				t_rgba;
 
 /**
  * @brief struct for player
@@ -136,6 +118,7 @@ void		draw_world(t_data *data);
 
 // Parsing
 void		parse_file(t_data *data, const char *filename);
-void		parse_texture(t_data *data);
+void		parse_texture(t_elements *elements);
+
 
 #endif

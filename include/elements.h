@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   elements.h                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/27 21:46:05 by opelser       #+#    #+#                 */
-/*   Updated: 2024/03/19 18:56:27 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   elements.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/27 21:46:05 by opelser           #+#    #+#             */
+/*   Updated: 2024/03/25 19:12:16 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef enum e_texture
 	SOUTH,
 	WEST,
 	EAST,
+	TEXTURE_AMOUNT
 }			t_texture;
 
 /**
@@ -34,7 +35,7 @@ typedef enum e_texture
 */
 typedef struct s_elements
 {
-	mlx_texture_t	*textures[4];
+	mlx_texture_t	*textures[TEXTURE_AMOUNT];
 	uint32_t		floor;
 	uint32_t		ceiling;
 }					t_elements;
@@ -47,5 +48,7 @@ typedef struct s_elements
  * @param str 		string to parse the elements from
 */
 size_t		parse_elements(t_elements *elements, char *str);
+
+void		argb_to_rgba(mlx_texture_t *texture);
 
 #endif

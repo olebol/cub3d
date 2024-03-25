@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:42:50 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/25 17:58:03 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/25 19:09:41 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,6 @@ void	parse_file(t_data *data, const char *filename)
 
 	if (locate_player(data, data->map.map) == false)
 		error(E_PLAYER_NO);
-
-	parse_texture(data);
 
 	free(content);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   elements.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/27 21:47:57 by opelser       #+#    #+#                 */
-/*   Updated: 2024/03/21 18:31:27 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   elements.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
+/*   Updated: 2024/03/25 19:13:00 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "errors.h"
 #include "utils.h"
 #include "libft.h"
-
-#include <stdio.h>
 
 static void		set_colour(uint32_t *colour, const char *value)
 {
@@ -78,6 +76,8 @@ static void		set_texture(t_elements *elements, t_texture id, char *value)
 	if (elements->textures[id] == NULL)
 		error(E_ELEM_VALUE);
 
+	// Shift the texture pixels from ARGB to RGBA format
+	argb_to_rgba(elements->textures[id]);
 }
 
 static void		set_element(t_elements *elements, char *id, char *value)
