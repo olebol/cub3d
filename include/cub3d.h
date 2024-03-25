@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 17:57:38 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/25 18:24:21 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,31 @@
 # define MAP_EXTENSION ".cub"
 
 # define TEXTURE_TOTAL 4
+
+/**
+ * @brief		Structure to store the data needed for drawing
+ * 
+ * @param		texture 		Pointer to the texture
+ * @param		line_height 	The original height of the wall
+ * @param		wall_start 		Starting position of the wall
+ * @param		wall_end 		Ending position of the wall
+ * @param		tex_x 			Position of the texture on the x axis
+ * @param		step 			Step to take on the texture
+*/
+typedef struct s_draw_data
+{
+	mlx_texture_t	*texture;
+
+	int				line_height;
+
+	int				wall_start;
+	int				wall_end;
+	
+	int				tex_x;
+	
+	double			step;
+	
+}			t_draw_data;
 
 /**
  * @brief enum for rgba

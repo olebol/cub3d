@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:40:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 17:55:57 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/25 18:24:04 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,35 +21,6 @@ enum e_side
 	VERTICAL,
 	NO_SIDE
 };
-
-/**
- * @brief		Structure to store the data needed for drawing
- * 
- * @param		texture 		Pointer to the texture
- * @param		line_height 	The original height of the wall
- * @param		wall_height 	Height of the wall including window width scaling
- * @param		wall_start 		Starting position of the wall
- * @param		wall_end 		Ending position of the wall
- * @param		wall_hit 		Position of the wall hit by the ray
- * @param		tex_x 			Position of the texture on the x axis
- * @param		step 			Step to take on the texture
-*/
-typedef struct s_draw_data
-{
-	mlx_texture_t	*texture;
-
-	int				line_height;
-	int				wall_height;
-
-	int				wall_start;
-	int				wall_end;
-	
-	double			wall_hit;
-	int				tex_x;
-	
-	double			step;
-	
-}			t_draw_data;
 
 /** 
  * @brief		Structure to store the values needed for the DDA algorithm
