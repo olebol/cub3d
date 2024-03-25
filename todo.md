@@ -2,7 +2,7 @@
 
 ### Important
 - [x] Add textures
-- [ ] Add viewing up and down
+- [x] Add viewing up and down
 - [x] Add viewing with mouse
 - [ ] Create working doors
 - [ ] Add sprites
