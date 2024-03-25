@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:39 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 15:54:50 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/25 16:45:20 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,10 +148,8 @@ void		captainhook(void *dataPointer)
 
 	move_hook(data);
 
-	// draw_world(data);
-	
-	draw_map(data);
-	
+	draw_world(data);
+
 	draw_minimap(data);
 
 	fps_hook(data);
