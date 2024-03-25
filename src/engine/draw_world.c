@@ -6,38 +6,13 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 16:44:14 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/25 16:50:49 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "casting.h"
 #include <math.h>
-
-/**
- * @brief	Determine the texture to use for the wall
- * 
- * @param	ray_data	Pointer to the ray data
- * 
- * @return	t_texture	Enum value of the texture to use for the wall
-*/
-static t_texture	determine_texture(t_ray_data *ray_data)
-{
-	if (ray_data->side == VERTICAL)
-	{
-		if (ray_data->dir.y < 0)
-			return (NORTH);
-		else
-			return (SOUTH);
-	}
-	else
-	{
-		if (ray_data->dir.x < 0)
-			return (WEST);
-		else
-			return (EAST);
-	}
-}
 
 /**
  * @brief	Draw the floor
@@ -102,6 +77,31 @@ static void	draw_ceiling(t_data *data, int start_wall, int x)
 	{
 		mlx_put_pixel(data->screen, x, i, data->elements.ceiling);
 		i++;
+	}
+}
+
+/**
+ * @brief	Determine the texture to use for the wall
+ * 
+ * @param	ray_data	Pointer to the ray data
+ * 
+ * @return	t_texture	Enum value of the texture to use for the wall
+*/
+static t_texture	determine_texture(t_ray_data *ray_data)
+{
+	if (ray_data->side == VERTICAL)
+	{
+		if (ray_data->dir.y < 0)
+			return (NORTH);
+		else
+			return (SOUTH);
+	}
+	else
+	{
+		if (ray_data->dir.x < 0)
+			return (WEST);
+		else
+			return (EAST);
 	}
 }
 
