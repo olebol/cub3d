@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 17:57:40 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/25 21:27:45 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,6 @@ void	init(t_data *data, const char *filename)
 		error(E_IMAGE_INIT);
 	if (!init_minimap(data))
 		error(E_IMAGE_INIT);
+
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_DISABLED);
 }

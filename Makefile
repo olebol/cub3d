@@ -8,6 +8,7 @@ SRC_DIR			:= src
 OBJ_DIR			:= obj
 DIRECTORIES		:=								\
 					engine						\
+					engine/hooks				\
 					parser						\
 
 
@@ -79,9 +80,9 @@ SRC_FILES :=									\
 				engine/casting.c				\
 				engine/draw_world.c				\
 				engine/minimap.c				\
-				engine/hooks.c					\
-				engine/move.c					\
-				engine/rotate.c					\
+				engine/hooks/hooks.c			\
+				engine/hooks/move.c				\
+				engine/hooks/rotate.c			\
 
 
 SRC				:= ${addprefix ${SRC_DIR}/, ${SRC_FILES}}
