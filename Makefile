@@ -82,7 +82,7 @@ SRC_FILES :=									\
 				engine/minimap.c				\
 				engine/hooks/hooks.c			\
 				engine/hooks/move.c				\
-				engine/hooks/rotate.c			\
+				engine/hooks/view.c			\
 
 
 SRC				:= ${addprefix ${SRC_DIR}/, ${SRC_FILES}}

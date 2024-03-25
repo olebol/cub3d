@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:39 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 21:16:29 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/25 22:50:46 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,21 @@
 
 static void		exit_hook(t_data *data)
 {
+	static bool		mouse_on = false;
+
+	if (mlx_is_key_down(data->mlx, MLX_KEY_TAB) == true)
+	{
+		if (mouse_on == true)
+		{
+			mlx_set_cursor_mode(data->mlx, MLX_MOUSE_DISABLED);
+			mouse_on = false;
+		}
+		else
+		{
+			mlx_set_cursor_mode(data->mlx, MLX_MOUSE_NORMAL);
+			mouse_on = true;
+		}
+	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE) == true)
 		mlx_close_window(data->mlx);
 }
@@ -55,7 +70,7 @@ void		captainhook(void *dataPointer)
 
 	exit_hook(data);
 
-	rotate_hook(data);
+	view_hook(data);
 
 	move_hook(data);
 

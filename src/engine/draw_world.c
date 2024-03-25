@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 18:14:35 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/25 23:14:56 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	draw_wall(t_data *data, t_draw_data *draw_data, int x)
 	int				y;
 
 	tex_y = (wall_start - \
-				(WIN_HEIGHT / 2) + (draw_data->line_height / 2)) \
+				(data->wall_middle) + (draw_data->line_height / 2)) \
 			* draw_data->step;
 
 	y = wall_start;
@@ -131,11 +131,14 @@ static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 
 	draw_data.line_height = wall_height;
 
-	if (wall_height > WIN_HEIGHT)
-		wall_height = WIN_HEIGHT;
+	draw_data.wall_start = data->wall_middle - wall_height / 2;
+	if (draw_data.wall_start < 0)
+		draw_data.wall_start = 0;
 
-	draw_data.wall_start = WIN_HEIGHT / 2 - wall_height / 2;
-	draw_data.wall_end = WIN_HEIGHT / 2 + wall_height / 2;
+	draw_data.wall_end = data->wall_middle + wall_height / 2;
+
+	if (draw_data.wall_end > WIN_HEIGHT)
+		draw_data.wall_end = WIN_HEIGHT;
 
 	draw_data.texture = get_texture(&data->elements, ray_data);
 
@@ -167,7 +170,7 @@ void	draw_world(t_data *data)
 
 		draw_wall(data, &draw_data, x);
 
-		draw_floor(data, draw_data.wall_end, x);		
+		draw_floor(data, draw_data.wall_end, x);
 
 		x++;
 	}

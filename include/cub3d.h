@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 21:37:45 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/25 22:50:46 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ typedef struct s_data
 	t_map			map;
 
 	t_player		player;
+
+	int				wall_middle;
 }					t_data;
 
 // Init
@@ -111,7 +113,7 @@ void		draw_minimap(t_data *data);
 // Loop
 void		captainhook(void *data);
 void		move_hook(t_data *data);
-void		rotate_hook(t_data *data);
+void		view_hook(t_data *data);
 void		mouse_hook(double x, double y, void *dataPointer);
 
 // Drawing world
