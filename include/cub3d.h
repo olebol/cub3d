@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 18:43:00 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/25 21:37:45 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,13 @@ void		draw_minimap(t_data *data);
 void		captainhook(void *data);
 void		move_hook(t_data *data);
 void		rotate_hook(t_data *data);
+void		mouse_hook(double x, double y, void *dataPointer);
 
 // Drawing world
 void		draw_world(t_data *data);
 
 // Parsing
 void		parse_file(t_data *data, const char *filename);
-void		parse_texture(t_elements *elements);
 
 
 #endif

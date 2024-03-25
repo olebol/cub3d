@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:46 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/28 23:11:30 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/25 21:37:54 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	cubed(const char *filename)
 	init(&data, filename);
 
 	mlx_loop_hook(data.mlx, &captainhook, (void *) &data);
+	mlx_cursor_hook(data.mlx, &mouse_hook, (void *) &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
 
