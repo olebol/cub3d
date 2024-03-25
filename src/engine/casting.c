@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   casting.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/21 15:41:25 by opelser       #+#    #+#                 */
-/*   Updated: 2024/03/21 18:12:04 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   casting.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/21 15:41:25 by opelser           #+#    #+#             */
+/*   Updated: 2024/03/25 17:59:09 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,12 +116,13 @@ void	dda(t_data *data, t_ray_data *ray)
 		ray->distance = (dda.distance_y - dda.delta_y);
 }
 
-t_ray_data		cast_ray(t_data *data, double camera_plane_x)
+t_ray_data		cast_ray(t_data *data, int x)
 {
 	t_ray_data		ray;
+	const double	camera_plane_x = 2 * x / (double) WIN_WIDTH - 1;
 
-	ray.dir.x = data->player.dir.x + data->player.cam.x * camera_plane_x;
-	ray.dir.y = data->player.dir.y + data->player.cam.y * camera_plane_x;
+	ray.dir.x = data->player.dir.x + (data->player.cam.x * camera_plane_x);
+	ray.dir.y = data->player.dir.y + (data->player.cam.y * camera_plane_x);
 	ray.side = NO_SIDE;
 	ray.distance = 0;
 

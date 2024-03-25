@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/22 17:42:50 by evalieve      #+#    #+#                 */
-/*   Updated: 2024/03/21 18:16:28 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/22 17:42:50 by evalieve          #+#    #+#             */
+/*   Updated: 2024/03/25 17:58:03 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void		set_player(t_player *player, int x, int y, char direction)
 
 	player->x = x + 0.5;
 	player->y = y + 0.5;
-	player->fov = 90 * (M_PI / 180);
 
 	angle = 0;
 	if (direction == 'E')

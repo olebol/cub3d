@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 16:49:16 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/25 17:57:38 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef	enum	e_rgba
  * 
  * @param x			player position X
  * @param y			player position Y
- * @param fov		player field of view in radians
  * @param vec		player direction vector
  */
 typedef struct s_player
@@ -68,7 +67,6 @@ typedef struct s_player
 	double			x;
 	double			y;
 
-	double			fov;
 	t_vector		cam;
 	t_vector		dir;
 }					t_player;
