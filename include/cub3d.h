@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 16:45:01 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/25 16:49:16 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ void		draw_minimap(t_data *data);
 
 // Loop
 void		captainhook(void *data);
+void		move_hook(t_data *data);
+void		rotate_hook(t_data *data);
 
 // Drawing world
 void		draw_world(t_data *data);

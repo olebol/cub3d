@@ -78,8 +78,10 @@ SRC_FILES :=									\
 \
 				engine/casting.c				\
 				engine/draw_world.c				\
-				engine/hooks.c					\
 				engine/minimap.c				\
+				engine/hooks.c					\
+				engine/move.c					\
+				engine/rotate.c					\
 
 
 SRC				:= ${addprefix ${SRC_DIR}/, ${SRC_FILES}}
