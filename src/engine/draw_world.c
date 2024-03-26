@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   draw_world.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/01 16:30:41 by opelser       #+#    #+#                 */
-/*   Updated: 2024/03/26 17:39:55 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   draw_world.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
+/*   Updated: 2024/03/26 18:29:23 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "casting.h"
 
-/**
- * @brief	Draw the floor
- * 
- * @param	data		Pointer to the main data structure
- * @param	end_wall	End position of the wall
- * @param	x			Current position on the x axis
-*/
-static void	draw_floor(t_data *data, int end_wall, int x)
+static void	draw_background(t_data *data)
 {
-	size_t	i;
+	const uint32_t		ceiling = flip_color(data->elements.ceiling);
+	const uint32_t		floor = flip_color(data->elements.floor);
+	uint32_t			*screen;
+	int					i;
 
-	i = end_wall;
-	while (i < WIN_HEIGHT)
+	screen = (uint32_t *) data->screen->pixels;
+
+	i = 0;
+	while (i < data->wall_middle * WIN_WIDTH)
 	{
-		mlx_put_pixel(data->screen, x, i, data->elements.floor);
+		screen[i] = ceiling;
+		i++;
+	}
+
+	while (i < WIN_WIDTH * WIN_HEIGHT)
+	{
+		screen[i] = floor;
 		i++;
 	}
 }
@@ -61,25 +65,6 @@ static void	draw_wall(t_data *data, t_draw_data *draw_data, int x)
 
 		tex_y += draw_data->step;
 		y++;
-	}
-}
-
-/**
- * @brief	Draw the ceiling
- * 
- * @param	data		Pointer to the main data structure
- * @param	start_wall	Start position of the wall
- * @param	x			Current position on the x axis
-*/
-static void	draw_ceiling(t_data *data, int start_wall, int x)
-{
-	int	i;
-
-	i = 0;
-	while (i < start_wall)
-	{
-		mlx_put_pixel(data->screen, x, i, data->elements.ceiling);
-		i++;
 	}
 }
 
@@ -175,16 +160,13 @@ void	draw_world(t_data *data)
 	int				x;
 
 	x = 0;
+	draw_background(data);
 	while (x < WIN_WIDTH)
 	{
 		ray_data = cast_ray(data, x);
 		draw_data = set_draw_data(data, &ray_data);
 
-		draw_ceiling(data, draw_data.wall_start, x);
-	
 		draw_wall(data, &draw_data, x);
-
-		draw_floor(data, draw_data.wall_end, x);
 
 		x++;
 	}

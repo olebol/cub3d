@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   elements.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/27 21:47:57 by opelser       #+#    #+#                 */
-/*   Updated: 2024/03/26 16:29:00 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   elements.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
+/*   Updated: 2024/03/26 18:29:49 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void		set_colour(uint32_t *colour, const char *value)
 
 	ft_free_str_arr((char **) rgb);
 }
-#include <stdio.h>
+
 static void		set_texture(t_elements *elements, t_texture id, char *value)
 {
 	// Check the value

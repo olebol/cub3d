@@ -57,3 +57,6 @@ dkms.conf
 
 # vscode
 .vscode/
+
+# Project specific
+textures/
