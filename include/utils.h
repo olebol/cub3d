@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:28:28 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/26 15:57:24 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/26 20:50:51 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
  * @param y 			y coordinate
 */
 t_tile		get_tile_type(t_map *map, double x, double y);
+
+void		set_tile_type(t_map *map, double x, double y, t_tile type);
 
 /**
  * @brief Attempts to malloc size bytes and calls error with E_MALLOC on fail

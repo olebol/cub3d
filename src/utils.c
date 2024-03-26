@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:21:48 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/26 15:57:45 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/26 21:18:50 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ t_tile		get_tile_type(t_map *map, double x, double y)
 		return (EMPTY);
 
 	return (map->map[(int) y][(int) x]);
+}
+
+void		set_tile_type(t_map *map, double x, double y, t_tile type)
+{
+	if (x < 0 || y < 0 || x >= map->width || y >= map->height)
+		error(E_MAP_BOUNDS);
+
+	map->map[(int) y][(int) x] = type;
 }
 
 // Malloc with exit on fail

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/26 18:29:23 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/26 21:45:55 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,15 @@ static mlx_texture_t	*get_texture(t_elements *elements, t_ray_data *ray_data)
 */
 static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 {
-	const double		wall_hit = ray_data->wall_hit - (int)ray_data->wall_hit;
+	double				wall_hit;
 	t_draw_data			draw_data;
 	int					wall_height;
+	int					texture_x;
+
+	if (ray_data->side == HORIZONTAL)
+		wall_hit = ray_data->hit_y - (int) ray_data->hit_y;
+	else
+		wall_hit = ray_data->hit_x - (int) ray_data->hit_x;
 
 	wall_height = (WIN_HEIGHT / ray_data->distance);
 	if (wall_height < 0)
@@ -134,16 +140,15 @@ static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 
 	draw_data.texture = get_texture(&data->elements, ray_data);
 
-	if (ray_data->side == VERTICAL && ray_data->dir.y > 0)  // South wall
-		draw_data.tex_x = draw_data.texture->width - \
-			(int)(wall_hit * (double)draw_data.texture->width) - 1;
-	else if (ray_data->side == HORIZONTAL && ray_data->dir.x < 0) // West wall
-		draw_data.tex_x = draw_data.texture->width - \
-			(int)(wall_hit * (double)draw_data.texture->width) - 1;
-	else
-		draw_data.tex_x = (int)(wall_hit * (double)draw_data.texture->width);
+	texture_x = wall_hit * draw_data.texture->width;
 
-	draw_data.step = 1.0 * draw_data.texture->height / draw_data.line_height;
+	if ((ray_data->side == VERTICAL && ray_data->dir.y > 0)			// South wall
+		|| (ray_data->side == HORIZONTAL && ray_data->dir.x < 0))	// West wall
+		texture_x = draw_data.texture->width - texture_x - 1;
+
+	draw_data.tex_x = texture_x;
+
+	draw_data.step = (double) draw_data.texture->height / draw_data.line_height;
 
 	return (draw_data);
 }

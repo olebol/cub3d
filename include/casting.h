@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   casting.h                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/21 15:40:41 by opelser       #+#    #+#                 */
-/*   Updated: 2024/03/26 17:00:57 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   casting.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/21 15:40:41 by opelser           #+#    #+#             */
+/*   Updated: 2024/03/26 20:48:20 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ typedef struct s_ray_data
 	enum e_side		side;
 	double			distance;
 
-	double			wall_hit;
+	double			hit_x;
+	double			hit_y;
+
 	t_tile			tile_hit;
-	int				tile_x;
-	int				tile_y;
 }					t_ray_data;
 
 /**
