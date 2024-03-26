@@ -6,14 +6,14 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 18:39:11 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/25 19:13:33 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/26 15:28:51 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "elements.h"
+#include "MLX42.h"
 
 /**
- * @brief	Shifts the texture pixels from ARGB to RGBA format
+ * @brief	Shifts the texture pixels from ABGR to RGBA format, why does LODEPNG do this?
  * 
  * @param	texture 	Pointer to the texture to shift
  */
@@ -28,9 +28,11 @@ void		argb_to_rgba(mlx_texture_t *texture)
 	i = 0;
 	while (i < total_pixels)
 	{
-		// Shifting the pixel from RGBA to ARGB format
-		pixels[i] = (pixels[i] & 0x00FFFFFF) << 8 | (pixels[i] & 0xFF000000) >> 24;
-
+		// Shift the pixels from ABGR to RGBA format
+		pixels[i] = ((pixels[i] & 0xFF000000) >> 24) | \
+					((pixels[i] & 0x00FF0000) >> 8)  | \
+					((pixels[i] & 0x0000FF00) << 8)  | \
+					((pixels[i] & 0x000000FF) << 24);
 		i++;
 	}
 }
