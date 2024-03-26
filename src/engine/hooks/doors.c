@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:30:02 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/26 21:46:56 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/26 21:50:00 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ void		door_hook(t_data *data)
 
 	if (mlx_is_key_down(data->mlx, MLX_KEY_E) == true)
 	{
+		if (current_time - last_time < 0.2)
+			return ;
+
 		ray = cast_ray(data, WIN_WIDTH / 2);
 
 		if (ray.distance > 1.5 || ray.distance < 0)
 			return ;
 
-		if (current_time - last_time > 0.2)
-		{
-			interact(data, &ray);
-			last_time = current_time;
-		}
+		interact(data, &ray);
+		last_time = current_time;
 	}
 }
 
