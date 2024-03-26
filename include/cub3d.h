@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 22:50:46 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   cub3d.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
+/*   Updated: 2024/03/26 15:40:04 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void		captainhook(void *data);
 void		move_hook(t_data *data);
 void		view_hook(t_data *data);
 void		mouse_hook(double x, double y, void *dataPointer);
+void		door_hook(t_data *data);
 
 // Drawing world
 void		draw_world(t_data *data);

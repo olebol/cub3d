@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   casting.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 15:40:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 18:24:04 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   casting.h                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/08/21 15:40:41 by opelser       #+#    #+#                 */
+/*   Updated: 2024/03/26 17:00:57 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ typedef struct s_ray_data
 	double			distance;
 
 	double			wall_hit;
+	t_tile			tile_hit;
+	int				tile_x;
+	int				tile_y;
 }					t_ray_data;
 
 /**
@@ -75,5 +78,7 @@ typedef struct s_ray_data
  * @return		t_ray_data	Structure containing the ray data
 */
 t_ray_data		cast_ray(t_data *data, int x);
+t_dda_values	get_dda_values(t_ray_data *ray, double x, double y);
+void			set_distances_and_map_steps(t_dda_values *dda, t_ray_data *ray, double x, double y);
 
 #endif

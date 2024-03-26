@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   validate_map.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 17:41:54 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/05 16:47:59 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   validate_map.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/22 17:41:54 by evalieve      #+#    #+#                 */
+/*   Updated: 2024/03/26 17:35:36 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,36 @@ static bool		contains_valid_symbols(t_map *map)
 
 	return (true);
 }
+static bool	doors_are_valid(t_map *map)
+{
+	int			y;
+	int			x;
+
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if (map->map[y][x] == CLOSED_DOOR \
+				|| map->map[y][x] == OPEN_DOOR)
+			{
+				if ((map->map[y][x + 1] != WALL || map->map[y][x - 1] != WALL) \
+					&& (map->map[y + 1][x] != WALL || map->map[y - 1][x] != WALL))
+					return (false);
+				if (map->map[y][x + 1] == OPEN_DOOR || map->map[y][x - 1] == OPEN_DOOR \
+					|| map->map[y + 1][x] == OPEN_DOOR || map->map[y - 1][x] == OPEN_DOOR \
+					|| map->map[y][x + 1] == CLOSED_DOOR || map->map[y][x - 1] == CLOSED_DOOR \
+					|| map->map[y + 1][x] == CLOSED_DOOR || map->map[y - 1][x] == CLOSED_DOOR)
+					return (false);
+			}
+			x++;
+		}
+		y++;
+	}
+
+	return (true);
+}
 
 void	validate_map(t_map *map)
 {
@@ -106,4 +136,7 @@ void	validate_map(t_map *map)
 
 	if (is_map_closed(map) == false)
 		error(E_MAP_UNCLOSED);
+
+	if (doors_are_valid(map) == false)
+		error(E_MAP_DOOR);
 }

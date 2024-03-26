@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 23:17:57 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   init.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/08/15 14:32:27 by opelser       #+#    #+#                 */
+/*   Updated: 2024/03/26 14:31:42 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ static void		init_fields(t_data *data)
 	data->elements.textures[SOUTH] = NULL;
 	data->elements.textures[WEST] = NULL;
 	data->elements.textures[EAST] = NULL;
+	data->elements.textures[DOOR_CLOSED] = NULL;
+	data->elements.textures[DOOR_OPEN] = NULL;
 	data->elements.floor = 0x00000000;
 	data->elements.ceiling = 0x00000000;
 

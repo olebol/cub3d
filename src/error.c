@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 17:43:51 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/01 17:28:57 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   error.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/22 17:43:51 by evalieve      #+#    #+#                 */
+/*   Updated: 2024/03/26 17:36:59 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ const char	*ft_strerror(t_error error)
 		[E_MAP_UNCLOSED]	= "Unclosed map",
 		[E_PLAYER_NO]		= "No player start position found",
 		[E_PLAYER_DUP]		= "Duplicate player start position",
+		[E_MAP_DOOR]		= "Door is not correctly closed by walls",
 	};
 
 	return (messages[error]);

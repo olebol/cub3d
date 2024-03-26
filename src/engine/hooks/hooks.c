@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/15 14:58:39 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 22:50:46 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   hooks.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/08/15 14:58:39 by opelser       #+#    #+#                 */
+/*   Updated: 2024/03/26 15:41:53 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void		fps_hook(t_data *data)
 	}
 }
 
+
 void		captainhook(void *dataPointer)
 {
 	t_data				*data;
@@ -73,6 +74,8 @@ void		captainhook(void *dataPointer)
 	view_hook(data);
 
 	move_hook(data);
+
+	door_hook(data);
 
 	draw_world(data);
 

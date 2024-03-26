@@ -60,6 +60,10 @@ void	draw_pixel(t_data *data, double x, double y, t_tile tile)
 		mlx_put_pixel(data->minimap, x, y, 0x0000003F);
 	else if (tile == FLOOR)
 		mlx_put_pixel(data->minimap, x, y, 0xFFFFFFFF);
+	else if (tile == CLOSED_DOOR)
+		mlx_put_pixel(data->minimap, x, y, 0xff000dFF);
+	else if (tile == OPEN_DOOR)
+		mlx_put_pixel(data->minimap, x, y, 0x57d115FF);
 	else
 		mlx_put_pixel(data->minimap, x, y, 0xA9A9A9FF);
 }

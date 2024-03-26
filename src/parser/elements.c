@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   elements.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 19:13:00 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   elements.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/27 21:47:57 by opelser       #+#    #+#                 */
+/*   Updated: 2024/03/26 16:29:00 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void		set_colour(uint32_t *colour, const char *value)
 
 	ft_free_str_arr((char **) rgb);
 }
-
+#include <stdio.h>
 static void		set_texture(t_elements *elements, t_texture id, char *value)
 {
 	// Check the value
@@ -96,6 +96,10 @@ static void		set_element(t_elements *elements, char *id, char *value)
 		set_texture(elements, WEST, value);
 	else if (ft_strcmp(id, "EA") == 0)
 		set_texture(elements, EAST, value);
+	else if (ft_strcmp(id, "DC") == 0)
+		set_texture(elements, DOOR_CLOSED, value);
+	else if (ft_strcmp(id, "DO") == 0)
+		set_texture(elements, DOOR_OPEN, value);
 	else if (ft_strcmp(id, "F") == 0)
 		set_colour(&elements->floor, value);
 	else if (ft_strcmp(id, "C") == 0)
@@ -142,7 +146,7 @@ size_t	parse_elements(t_elements *elements, char *str)
 
 	i = 0;
 	loops = 0;
-	while (str[i] && loops < 6)
+	while (str[i] && loops < ELEMENTS_AMOUNT)
 	{
 		// Get the id
 		id = get_next_string(str, &i);
@@ -166,7 +170,7 @@ size_t	parse_elements(t_elements *elements, char *str)
 	}
 
 	// Check if all elements are loaded
-	if (loops < 6)
+	if (loops < ELEMENTS_AMOUNT)
 		error(E_ELEM_MISSING);
 
 	// if (elements->textures[NORTH] == NULL || elements->textures[SOUTH] == NULL ||

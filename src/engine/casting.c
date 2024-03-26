@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   casting.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 15:41:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 17:59:09 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   casting.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/08/21 15:41:25 by opelser       #+#    #+#                 */
+/*   Updated: 2024/03/26 17:39:28 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static double	get_side_step_distance(double dir)
 }
 
 // set the distance to the next horizontal intersection to the left and define the direction to take on the map
-static void		set_distances_and_map_steps(t_dda_values *dda, \
+void		set_distances_and_map_steps(t_dda_values *dda, \
 										t_ray_data *ray, double x, double y)
 {
 	// ray pointed left
@@ -53,8 +53,6 @@ static void		set_distances_and_map_steps(t_dda_values *dda, \
 		dda->map_step_y = 1;
 	}
 }
-// ray->hitY = data->player.y + ((dda.map_x - data->player.x + (1 - dda.map_step_x) / 2) / ray->dir.x) * ray->dir.y;
-// ray->hitX = data->player.x + ((dda.map_y - data->player.y + (1 - dda.map_step_y) / 2) / ray->dir.y) * ray->dir.x;
 
 t_dda_values	get_dda_values(t_ray_data *ray, double x, double y)
 {
@@ -76,11 +74,34 @@ t_dda_values	get_dda_values(t_ray_data *ray, double x, double y)
 void	dda(t_data *data, t_ray_data *ray)
 {
 	t_dda_values	dda;
+	t_tile			tile;
 	
 	dda = get_dda_values(ray, data->player.x, data->player.y);
-
-	while (get_tile_type(&data->map, dda.map_x, dda.map_y) == FLOOR)
+	
+	while (true)
 	{
+		tile = get_tile_type(&data->map, dda.map_x, dda.map_y);
+		
+		
+		if (tile == WALL)
+		{
+			ray->tile_hit = WALL;
+			break ;
+		}
+		else if (tile == CLOSED_DOOR)
+		{
+			ray->tile_hit = CLOSED_DOOR;
+			ray->tile_x = dda.map_x;
+			ray->tile_y = dda.map_y;
+			break ;
+		}
+		if (tile == OPEN_DOOR)
+		{
+			ray->tile_hit = OPEN_DOOR;
+			ray->tile_x = dda.map_x;
+			ray->tile_y = dda.map_y;
+			break ;
+		}
 		// Move to the next tile depending on the distance to the next intersection
 
 		// Move to the next horizontal intersection
@@ -107,6 +128,7 @@ void	dda(t_data *data, t_ray_data *ray)
             ray->wall_hit = data->player.x + ((dda.map_y - data->player.y + (1 - dda.map_step_y) / 2) \
 				 / ray->dir.y) * ray->dir.x;
 		}
+		
 	}
 
 	// Set distance to the wall hit -1 step 

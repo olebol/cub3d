@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   move.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 16:45:52 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 18:19:03 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   move.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/25 16:45:52 by opelser       #+#    #+#                 */
+/*   Updated: 2024/03/26 17:20:04 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ void		move_hook(t_data *data)
 		return ;
 
 	// If the player is moving, check collision seperately for gliding feeling and update the player position
-	if (get_tile_type(&data->map, move_x * 2 + data->player.x, data->player.y) == FLOOR)
+	if (get_tile_type(&data->map, move_x * 2 + data->player.x, data->player.y) == FLOOR || \
+		get_tile_type(&data->map, move_x * 2 + data->player.x, data->player.y) == OPEN_DOOR)
 		data->player.x += move_x;
-	if (get_tile_type(&data->map, data->player.x, move_y * 3 + data->player.y) == FLOOR)
+	if (get_tile_type(&data->map, data->player.x, move_y * 3 + data->player.y) == FLOOR || \
+		get_tile_type(&data->map, data->player.x, move_y * 3 + data->player.y) == OPEN_DOOR)
 		data->player.y += move_y;
 }

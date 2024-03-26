@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   draw_world.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 23:23:43 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   draw_world.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/01 16:30:41 by opelser       #+#    #+#                 */
+/*   Updated: 2024/03/26 17:39:55 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,12 @@ static mlx_texture_t	*get_texture(t_elements *elements, t_ray_data *ray_data)
 {
 	t_texture		texture;
 
-	if (ray_data->side == VERTICAL)
-	{
+	if (ray_data->tile_hit == CLOSED_DOOR)
+		texture = DOOR_CLOSED;
+	else if (ray_data->tile_hit == OPEN_DOOR)
+		texture = DOOR_OPEN;
+	else if (ray_data->side == VERTICAL)
+	{	
 		if (ray_data->dir.y < 0)
 			texture = NORTH;
 		else
@@ -121,7 +125,7 @@ static mlx_texture_t	*get_texture(t_elements *elements, t_ray_data *ray_data)
 */
 static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 {
-	const double		wall_hit = ray_data->wall_hit;
+	const double		wall_hit = ray_data->wall_hit - (int)ray_data->wall_hit;
 	t_draw_data			draw_data;
 	int					wall_height;
 
@@ -145,7 +149,14 @@ static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 
 	draw_data.texture = get_texture(&data->elements, ray_data);
 
-	draw_data.tex_x = (wall_hit - (int) wall_hit) * draw_data.texture->width;
+	if (ray_data->side == VERTICAL && ray_data->dir.y > 0)  // South wall
+		draw_data.tex_x = draw_data.texture->width - \
+			(int)(wall_hit * (double)draw_data.texture->width) - 1;
+	else if (ray_data->side == HORIZONTAL && ray_data->dir.x < 0) // West wall
+		draw_data.tex_x = draw_data.texture->width - \
+			(int)(wall_hit * (double)draw_data.texture->width) - 1;
+	else
+		draw_data.tex_x = (int)(wall_hit * (double)draw_data.texture->width);
 
 	draw_data.step = 1.0 * draw_data.texture->height / draw_data.line_height;
 
@@ -170,7 +181,7 @@ void	draw_world(t_data *data)
 		draw_data = set_draw_data(data, &ray_data);
 
 		draw_ceiling(data, draw_data.wall_start, x);
-
+	
 		draw_wall(data, &draw_data, x);
 
 		draw_floor(data, draw_data.wall_end, x);
