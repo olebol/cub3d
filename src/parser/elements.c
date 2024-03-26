@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 19:13:00 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/26 16:03:20 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void		set_colour(uint32_t *colour, const char *value)
 
 	// Add the alpha channel
 	*colour = (*colour << 8) | 0xFF;
+	*colour = flip_color(*colour);
 
 	if (i != 3)
 		error(E_ELEM_RGB);
