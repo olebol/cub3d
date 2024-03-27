@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   init.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/15 14:32:27 by opelser       #+#    #+#                 */
-/*   Updated: 2024/03/26 14:31:42 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
+/*   Updated: 2024/03/27 14:55:10 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "errors.h"
 #include <math.h>
 
 static bool		init_screen(t_data *data)
@@ -63,12 +64,14 @@ static bool		init_mlx(t_data *data)
 
 static void		init_fields(t_data *data)
 {
-	data->elements.textures[NORTH] = NULL;
-	data->elements.textures[SOUTH] = NULL;
-	data->elements.textures[WEST] = NULL;
-	data->elements.textures[EAST] = NULL;
-	data->elements.textures[DOOR_CLOSED] = NULL;
-	data->elements.textures[DOOR_OPEN] = NULL;
+	int 		i;
+
+	i = 0;
+	while (i < TEXTURE_AMOUNT)
+	{
+		data->elements.textures[i] = NULL;
+		i++;
+	}
 	data->elements.floor = 0x00000000;
 	data->elements.ceiling = 0x00000000;
 

@@ -6,11 +6,12 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:46 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 21:37:54 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 14:34:42 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "errors.h"
 
 static void	free_data(t_data *data)
 {

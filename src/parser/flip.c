@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_textures.c                                   :+:      :+:    :+:   */
+/*   flip.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 18:39:11 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/26 15:55:35 by opelser          ###   ########.fr       */
+/*   Created: 2024/03/27 14:47:24 by opelser           #+#    #+#             */
+/*   Updated: 2024/03/27 14:51:37 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42.h"
-#include "utils.h"
+#include <stdint.h>
 
-/**
- * @brief	Shifts the texture pixels from ABGR to RGBA format
- * 
- * @param	texture 	Pointer to the texture to shift
- */
-void		argb_to_rgba(mlx_texture_t *texture)
+uint32_t	flip_color(uint32_t color)
 {
-	const uint32_t		total_pixels = texture->width * texture->height;
-	uint32_t			*pixels;
-	size_t				i;
+	return ((color & 0xFF000000) >> 24 | \
+			(color & 0x00FF0000) >> 8 | \
+			(color & 0x0000FF00) << 8 | \
+			(color & 0x000000FF) << 24);
+}
+
+void		flip_texture(mlx_texture_t *texture)
+{
+	const int		size = texture->width * texture->height;
+	uint32_t		*pixels;
+	int				i;
 
 	pixels = (uint32_t *) texture->pixels;
-
 	i = 0;
-	while (i < total_pixels)
+	while (i < size)
 	{
-		// Shift the pixels from ABGR to RGBA format
 		pixels[i] = flip_color(pixels[i]);
-
 		i++;
 	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   elements.h                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/27 21:46:05 by opelser       #+#    #+#                 */
-/*   Updated: 2024/03/26 13:55:02 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   elements.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/27 21:46:05 by opelser           #+#    #+#             */
+/*   Updated: 2024/03/27 14:59:06 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,20 @@ typedef struct s_elements
 */
 size_t		parse_elements(t_elements *elements, char *str);
 
-void		argb_to_rgba(mlx_texture_t *texture);
+/**
+ * @brief Flips the color
+ * 
+ * @param color 		color to flip
+ * 
+ * @return the flipped color
+*/
+uint32_t	flip_color(uint32_t color);
+
+/**
+ * @brief Flips the texture
+ * 
+ * @param texture 		texture to flip
+*/
+void		flip_texture(mlx_texture_t *texture);
 
 #endif

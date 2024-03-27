@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/14 17:14:43 by opelser       #+#    #+#                 */
-/*   Updated: 2024/03/26 15:40:04 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
+/*   Updated: 2024/03/27 14:37:33 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 
 # include "MLX42.h"
 # include "libft.h"
+# include "utils.h"
+
 # include "vector.h"
 # include "map.h"
-# include "errors.h"
-# include "utils.h"
 # include "elements.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
+
 
 # define GAME_NAME "cub3D"
 

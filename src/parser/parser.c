@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/22 17:42:50 by evalieve      #+#    #+#                 */
-/*   Updated: 2024/03/26 14:10:00 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/22 17:42:50 by evalieve          #+#    #+#             */
+/*   Updated: 2024/03/27 14:37:14 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "get_next_line.h"
+#include "errors.h"
 
 #include <math.h>
 #include <fcntl.h>
-#include <math.h>
 
 static void		set_player(t_player *player, int x, int y, char direction)
 {

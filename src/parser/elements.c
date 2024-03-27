@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/26 18:29:49 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:13:27 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "utils.h"
 #include "libft.h"
 
-static void		set_colour(uint32_t *colour, const char *value)
+static void		set_color(uint32_t *color, const char *value)
 {
 	const char		**rgb = (const char **) ft_split(value, ',');
 	int				channel;
@@ -24,7 +24,7 @@ static void		set_colour(uint32_t *colour, const char *value)
 	if (rgb == NULL)
 		error(E_MALLOC);
 
-	if (*colour != 0x00000000)
+	if (*color != 0x00000000)
 		error(E_ELEM_DUPLICATE);
 
 	i = 0;
@@ -41,17 +41,19 @@ static void		set_colour(uint32_t *colour, const char *value)
 		if (channel > 255)
 			error(E_ELEM_RGB);
 
-		// Add the current number to the colour
-		*colour = (*colour << 8) | channel;
+		// Add the current number to the color
+		*color = (*color << 8) | channel;
 
 		i++;
 	}
 
 	// Add the alpha channel
-	*colour = (*colour << 8) | 0xFF;
+	*color = (*color << 8) | 0xFF;
 
 	if (i != 3)
 		error(E_ELEM_RGB);
+
+	*color = flip_color(*color);
 
 	ft_free_str_arr((char **) rgb);
 }
@@ -77,7 +79,7 @@ static void		set_texture(t_elements *elements, t_texture id, char *value)
 		error(E_ELEM_VALUE);
 
 	// Shift the texture pixels from ARGB to RGBA format
-	argb_to_rgba(elements->textures[id]);
+	flip_texture(elements->textures[id]);
 }
 
 static void		set_element(t_elements *elements, char *id, char *value)
@@ -101,9 +103,9 @@ static void		set_element(t_elements *elements, char *id, char *value)
 	else if (ft_strcmp(id, "DO") == 0)
 		set_texture(elements, DOOR_OPEN, value);
 	else if (ft_strcmp(id, "F") == 0)
-		set_colour(&elements->floor, value);
+		set_color(&elements->floor, value);
 	else if (ft_strcmp(id, "C") == 0)
-		set_colour(&elements->ceiling, value);
+		set_color(&elements->ceiling, value);
 	else
 		error(E_ELEM_ID);
 }
@@ -173,9 +175,13 @@ size_t	parse_elements(t_elements *elements, char *str)
 	if (loops < ELEMENTS_AMOUNT)
 		error(E_ELEM_MISSING);
 
-	// if (elements->textures[NORTH] == NULL || elements->textures[SOUTH] == NULL ||
-	// 	elements->textures[WEST] == NULL || elements->textures[EAST] == NULL)
-	// 	error(E_ELEM_MISSING);
+	loops = 0;
+	while (loops < TEXTURE_AMOUNT)
+	{
+		if (elements->textures[loops] == NULL)
+			error(E_ELEM_MISSING);
+		loops++;
+	}
 
 	return (i);
 }

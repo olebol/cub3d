@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:28:28 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/26 20:50:51 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 14:59:44 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,5 @@ void		*ft_malloc(size_t size);
  * @return true if the file has the given extension, false otherwise
 */
 bool		is_valid_extension(const char *file, const char *extension);
-
-/**
- * @brief Flips the color from ABGR to RGBA format or vice versa
- * 
- * @param color 		color to flip
- * 
- * @return the flipped color
-*/
-uint32_t	flip_color(uint32_t color);
 
 #endif

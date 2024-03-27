@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/26 21:45:55 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:04:43 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 static void	draw_background(t_data *data)
 {
-	const uint32_t		ceiling = flip_color(data->elements.ceiling);
-	const uint32_t		floor = flip_color(data->elements.floor);
 	uint32_t			*screen;
 	int					i;
 
@@ -25,13 +23,13 @@ static void	draw_background(t_data *data)
 	i = 0;
 	while (i < data->wall_middle * WIN_WIDTH)
 	{
-		screen[i] = ceiling;
+		screen[i] = data->elements.ceiling;
 		i++;
 	}
 
 	while (i < WIN_WIDTH * WIN_HEIGHT)
 	{
-		screen[i] = floor;
+		screen[i] = data->elements.floor;
 		i++;
 	}
 }

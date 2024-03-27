@@ -73,7 +73,7 @@ SRC_FILES :=									\
 				parser/parse_map.c				\
 				parser/validate_map.c			\
 				parser/elements.c				\
-				parser/parse_textures.c			\
+				parser/flip.c					\
 \
 				vector.c						\
 \
