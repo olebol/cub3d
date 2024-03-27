@@ -6,12 +6,13 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 15:04:43 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 16:49:15 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "casting.h"
+#include "sprite.h"
 
 static void	draw_background(t_data *data)
 {
@@ -159,18 +160,20 @@ static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 void	draw_world(t_data *data)
 {
 	t_draw_data		draw_data;
-	t_ray_data		ray_data;
+	t_ray_data		ray_data[WIN_WIDTH];
 	int				x;
 
 	x = 0;
 	draw_background(data);
 	while (x < WIN_WIDTH)
 	{
-		ray_data = cast_ray(data, x);
-		draw_data = set_draw_data(data, &ray_data);
+		ray_data[x] = cast_ray(data, x);
+		draw_data = set_draw_data(data, &ray_data[x]);
 
 		draw_wall(data, &draw_data, x);
 
 		x++;
 	}
+
+	draw_sprites(data, ray_data);
 }

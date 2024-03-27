@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "utils.h"
 
 static void		draw_player_dot(t_data *data, int start_pos, int colour)
 {

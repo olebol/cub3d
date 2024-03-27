@@ -6,13 +6,14 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:30:02 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/26 21:50:00 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 17:51:14 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "casting.h"
 #include <math.h>
+#include "utils.h"
 
 /**
  * @brief	Open or close the door

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:28:28 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 14:59:44 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 16:16:53 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@
 */
 t_tile		get_tile_type(t_map *map, double x, double y);
 
+/**
+ * @brief Sets the type of tile at the given coordinates
+ * 
+ * @param map 			map to set the tile type in
+ * @param x 			x coordinate
+ * @param y 			y coordinate
+ * @param type 			type of tile to set
+*/
 void		set_tile_type(t_map *map, double x, double y, t_tile type);
 
 /**

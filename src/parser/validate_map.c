@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   validate_map.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: opelser <opelser@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/22 17:41:54 by evalieve      #+#    #+#                 */
-/*   Updated: 2024/03/26 17:35:36 by evalieve      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   validate_map.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/22 17:41:54 by evalieve          #+#    #+#             */
+/*   Updated: 2024/03/27 16:43:09 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ static bool		is_map_closed(t_map *map)
 	return (true);
 }
 
+#include <stdio.h>
+
 static bool		contains_valid_symbols(t_map *map)
 {
 	int			y;
@@ -90,7 +92,10 @@ static bool		contains_valid_symbols(t_map *map)
 		while (x < map->width)
 		{
 			if (ft_strchr(VALID_MAP_CHARS, map->map[y][x]) == NULL)
+			{
+				printf("Invalid symbol: %c\n", map->map[y][x]);
 				return (false);
+			}
 			x++;
 		}
 		y++;
@@ -98,6 +103,7 @@ static bool		contains_valid_symbols(t_map *map)
 
 	return (true);
 }
+
 static bool	doors_are_valid(t_map *map)
 {
 	int			y;

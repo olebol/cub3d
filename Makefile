@@ -43,6 +43,7 @@ HDR_FILES :=									\
 				utils.h							\
 				elements.h						\
 				errors.h						\
+				sprite.h						\
 
 ifeq (${shell uname}, Linux)
 	MLX_FLAGS	:= -L${MLX_DIR}/build -lmlx42 -lglfw -lm
@@ -69,15 +70,17 @@ SRC_FILES :=									\
 \
 				error.c							\
 \
+				vector.c						\
+\
 				parser/parser.c					\
 				parser/parse_map.c				\
+				parser/sprites.c				\
 				parser/validate_map.c			\
 				parser/elements.c				\
 				parser/flip.c					\
 \
-				vector.c						\
-\
 				engine/casting.c				\
+				engine/sprites.c				\
 				engine/draw_world.c				\
 				engine/minimap.c				\
 				engine/hooks/hooks.c			\

@@ -6,19 +6,29 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:46 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 16:13:28 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 17:43:55 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "errors.h"
+#include "sprite.h"
 
 static void	free_data(t_data *data)
 {
-	int		i;
+	t_sprite	*sprite;
+	int			i;
 
 	ft_free_str_arr(data->map.map);
-	
+
+	sprite = data->sprites;
+	while (sprite)
+	{
+		data->sprites = sprite->next;
+		free(sprite);
+		sprite = data->sprites;
+	}
+
 	i = 0;
 	while (i < TEXTURE_AMOUNT)
 	{

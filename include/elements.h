@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:46:05 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 14:59:06 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 16:43:54 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "MLX42.h"
 
 # define TEXTURE_FILE_EXTENSION ".png"
-# define ELEMENTS_AMOUNT 8
+# define ELEMENTS_AMOUNT 9
 
 typedef enum e_texture
 {
@@ -26,6 +26,7 @@ typedef enum e_texture
 	EAST,
 	DOOR_CLOSED,
 	DOOR_OPEN,
+	SPRITE,
 	TEXTURE_AMOUNT
 }			t_texture;
 
@@ -39,6 +40,7 @@ typedef enum e_texture
 typedef struct s_elements
 {
 	mlx_texture_t	*textures[TEXTURE_AMOUNT];
+
 	uint32_t		floor;
 	uint32_t		ceiling;
 }					t_elements;

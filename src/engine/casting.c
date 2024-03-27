@@ -6,12 +6,14 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:41:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/26 21:28:32 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 17:50:14 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "casting.h"
+#include "utils.h"
+
 #include <math.h>
 
 // set the distance to the next horizontal intersection to the left and define the direction to take on the map

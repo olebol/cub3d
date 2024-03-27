@@ -6,14 +6,14 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:40:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/26 20:48:20 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 17:45:14 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CASTING_H
 # define CASTING_H
 
-# include "vector.h"
+typedef struct s_data	t_data;
 
 enum e_side
 {
@@ -78,7 +78,5 @@ typedef struct s_ray_data
  * @return		t_ray_data	Structure containing the ray data
 */
 t_ray_data		cast_ray(t_data *data, int x);
-t_dda_values	get_dda_values(t_ray_data *ray, double x, double y);
-void			set_distances_and_map_steps(t_dda_values *dda, t_ray_data *ray, double x, double y);
 
 #endif

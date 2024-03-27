@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 15:13:27 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:56:10 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ static void		set_element(t_elements *elements, char *id, char *value)
 		set_texture(elements, DOOR_CLOSED, value);
 	else if (ft_strcmp(id, "DO") == 0)
 		set_texture(elements, DOOR_OPEN, value);
+	else if (ft_strcmp(id, "S") == 0)
+		set_texture(elements, SPRITE, value);
 	else if (ft_strcmp(id, "F") == 0)
 		set_color(&elements->floor, value);
 	else if (ft_strcmp(id, "C") == 0)

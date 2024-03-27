@@ -6,13 +6,15 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:42:50 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/27 14:37:14 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 17:52:01 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "get_next_line.h"
 #include "errors.h"
+#include "sprite.h"
+#include "utils.h"
 
 #include <math.h>
 #include <fcntl.h>
@@ -39,7 +41,7 @@ static void		set_player(t_player *player, int x, int y, char direction)
 }
 
 // Find better place for this function
-static bool	locate_player(t_data *data, char **map)
+static bool	find_player(t_data *data, char **map)
 {
 	int		x;
 	int		y;
@@ -102,8 +104,10 @@ void	parse_file(t_data *data, const char *filename)
 	parse_map(&data->map, content + map_start);
 	validate_map(&data->map);
 
-	if (locate_player(data, data->map.map) == false)
+	if (find_player(data, data->map.map) == false)
 		error(E_PLAYER_NO);
+
+	find_sprites(&data->map, data);
 
 	free(content);
 }

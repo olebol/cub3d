@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 14:37:33 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 17:49:39 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 
 # include "MLX42.h"
 # include "libft.h"
-# include "utils.h"
 
-# include "vector.h"
-# include "map.h"
-# include "elements.h"
-
-
+#include "vector.h"
+#include "elements.h"
+#include "sprite.h"
+#include "map.h"
 
 # define GAME_NAME "cub3D"
 
@@ -77,7 +75,7 @@ typedef struct s_player
 }					t_player;
 
 /**
- * @brief struct for mlx
+ * @brief struct for storing data required throughout the program
  * 
  * @param *mlx		pointer to mlx struct
  * 
@@ -98,6 +96,8 @@ typedef struct s_data
 	t_map			map;
 
 	t_player		player;
+
+	t_sprite		*sprites;
 
 	int				wall_middle;
 }					t_data;
