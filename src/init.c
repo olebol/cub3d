@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 17:40:53 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 21:33:37 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void		init_fields(t_data *data)
 
 	data->sprites = NULL;
 
-	data->wall_middle = WIN_HEIGHT / 2;
+	data->mid = WIN_HEIGHT / 2;
 }
 
 // Initialize all data

@@ -4,7 +4,7 @@ WE ./textures/hallo2.png
 EA ./textures/hallo2.png
 DC ./textures/closed_door.png
 DO ./textures/open_door.png
-S  ./textures/e.png
+S  ./textures/skeleton.png
 C 19,22,23
 F 8,8,7
 

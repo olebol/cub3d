@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 16:49:15 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 21:33:37 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	draw_background(t_data *data)
 	screen = (uint32_t *) data->screen->pixels;
 
 	i = 0;
-	while (i < data->wall_middle * WIN_WIDTH)
+	while (i < data->mid * WIN_WIDTH)
 	{
 		screen[i] = data->elements.ceiling;
 		i++;
@@ -51,7 +51,7 @@ static void	draw_wall(t_data *data, t_draw_data *draw_data, int x)
 	int				y;
 
 	tex_y = (wall_start - \
-				(data->wall_middle) + (draw_data->line_height / 2)) \
+				(data->mid) + (draw_data->line_height / 2)) \
 			* draw_data->step;
 
 	y = wall_start;
@@ -125,13 +125,13 @@ static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 
 	draw_data.line_height = wall_height;
 
-	draw_data.wall_start = data->wall_middle - wall_height / 2;
+	draw_data.wall_start = data->mid - wall_height / 2;
 	if (draw_data.wall_start < 0)
 		draw_data.wall_start = 0;
 	if (draw_data.wall_start > WIN_HEIGHT)
 		draw_data.wall_start = WIN_HEIGHT;
 
-	draw_data.wall_end = data->wall_middle + wall_height / 2;
+	draw_data.wall_end = data->mid + wall_height / 2;
 	if (draw_data.wall_end < 0)
 		draw_data.wall_end = 0;
 	if (draw_data.wall_end > WIN_HEIGHT)
@@ -175,5 +175,5 @@ void	draw_world(t_data *data)
 		x++;
 	}
 
-	draw_sprites(data, ray_data);
+	sprites(data, ray_data);
 }

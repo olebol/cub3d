@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:19:35 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 16:48:04 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 21:55:17 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ struct s_sprite
 	double			x;
 	double			y;
 	
-	double			distance;
+	double			distance_x;
+	double			distance_y;
 
 	t_sprite		*next;
 };
 
-void		draw_sprites(t_data *data, t_ray_data *ray_data);
+void		sprites(t_data *data, t_ray_data *ray_data);
 
 void		find_sprites(t_map *map, t_data *data);
 
