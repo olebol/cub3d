@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:18:28 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 23:01:51 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 23:58:25 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
 void		sort_sprites(t_sprite **sprites)
 {
 	t_sprite	*current;
-	t_sprite	*next;
 	t_sprite	*prev;
+	t_sprite	*next;
 
 	current = *sprites;
 	while (current)
 	{
-		next = current->next;
 		prev = NULL;
+		next = current->next;
 		while (next)
 		{
 			if (current->distance_x + current->distance_y 
@@ -36,14 +36,17 @@ void		sort_sprites(t_sprite **sprites)
 					prev->next = next;
 				else
 					*sprites = next;
+
 				current->next = next->next;
 				next->next = current;
 				current = next;
 			}
+
 			prev = current;
 			current = next;
-			next = current->next;
+			next = next->next;
 		}
+
 		current = current->next;
 	}
 }
