@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:46 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 14:34:42 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 16:13:28 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,16 @@
 
 static void	free_data(t_data *data)
 {
+	int		i;
+
 	ft_free_str_arr(data->map.map);
-	free(data->elements.textures[NORTH]);
-	free(data->elements.textures[SOUTH]);
-	free(data->elements.textures[WEST]);
-	free(data->elements.textures[EAST]);
+	
+	i = 0;
+	while (i < TEXTURE_AMOUNT)
+	{
+		mlx_delete_texture(data->elements.textures[i]);
+		i++;
+	}
 }
 
 void	cubed(const char *filename)
