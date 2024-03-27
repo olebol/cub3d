@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 22:16:07 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 23:52:49 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@
  * @brief		Structure to store the data needed for drawing
  * 
  * @param		texture 		Pointer to the texture
- * @param		line_height 	The original height of the wall
- * @param		wall_start 		Starting position of the wall
- * @param		wall_end 		Ending position of the wall
+ * @param		length 	The original height of the wall
+ * @param		start 		Starting position of the wall
+ * @param		end 		Ending position of the wall
  * @param		tex_x 			Position of the texture on the x axis
  * @param		step 			Step to take on the texture
 */
@@ -47,10 +47,10 @@ typedef struct s_draw_data
 {
 	mlx_texture_t	*texture;
 
-	int				line_height;
+	int				length;
 
-	int				wall_start;
-	int				wall_end;
+	int				start;
+	int				end;
 	
 	int				tex_x;
 	

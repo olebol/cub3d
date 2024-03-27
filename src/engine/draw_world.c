@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 21:33:37 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/27 23:52:49 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,17 @@ static void	draw_background(t_data *data)
 static void	draw_wall(t_data *data, t_draw_data *draw_data, int x)
 {
 	const int		*pixels = (int *) draw_data->texture->pixels;
-	const int		wall_start = draw_data->wall_start;
+	const int		start = draw_data->start;
 	uint32_t		color;
 	double			tex_y;
 	int				y;
 
-	tex_y = (wall_start - \
-				(data->mid) + (draw_data->line_height / 2)) \
+	tex_y = (start - \
+				(data->mid) + (draw_data->length / 2)) \
 			* draw_data->step;
 
-	y = wall_start;
-	while (y < draw_data->wall_end)
+	y = start;
+	while (y < draw_data->end)
 	{
 		color = pixels[((int) tex_y * draw_data->texture->width) \
 						+ draw_data->tex_x];
@@ -123,19 +123,19 @@ static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 	if (wall_height < 0)
 		wall_height = 0;
 
-	draw_data.line_height = wall_height;
+	draw_data.length = wall_height;
 
-	draw_data.wall_start = data->mid - wall_height / 2;
-	if (draw_data.wall_start < 0)
-		draw_data.wall_start = 0;
-	if (draw_data.wall_start > WIN_HEIGHT)
-		draw_data.wall_start = WIN_HEIGHT;
+	draw_data.start = data->mid - wall_height / 2;
+	if (draw_data.start < 0)
+		draw_data.start = 0;
+	if (draw_data.start > WIN_HEIGHT)
+		draw_data.start = WIN_HEIGHT;
 
-	draw_data.wall_end = data->mid + wall_height / 2;
-	if (draw_data.wall_end < 0)
-		draw_data.wall_end = 0;
-	if (draw_data.wall_end > WIN_HEIGHT)
-		draw_data.wall_end = WIN_HEIGHT;
+	draw_data.end = data->mid + wall_height / 2;
+	if (draw_data.end < 0)
+		draw_data.end = 0;
+	if (draw_data.end > WIN_HEIGHT)
+		draw_data.end = WIN_HEIGHT;
 
 	draw_data.texture = get_texture(&data->elements, ray_data);
 
@@ -147,7 +147,7 @@ static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 
 	draw_data.tex_x = texture_x;
 
-	draw_data.step = (double) draw_data.texture->height / draw_data.line_height;
+	draw_data.step = (double) draw_data.texture->height / draw_data.length;
 
 	return (draw_data);
 }
