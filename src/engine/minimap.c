@@ -102,7 +102,15 @@ void	draw_minimap(t_data *data)
 	const int		minimap_size = data->minimap->width;
 
 	// Minimap tile size in pixels
-	const int		tile_size = 32;
+	static int		tile_size = 16;
+
+	if (mlx_is_key_down(data->mlx, MLX_KEY_MINUS))
+		tile_size -= 1;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_EQUAL))
+		tile_size += 1;
+
+	if (tile_size < 1)
+		tile_size = 1;
 
 	// Map offset pointing to the top left corner of the minimap
 	const double	offset = (float) minimap_size / tile_size / 2;
