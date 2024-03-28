@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/28 15:23:40 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/28 19:05:01 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,20 @@ static void	draw_background(t_data *data)
 static void	draw_wall(t_data *data, t_draw_data *draw_data, int x)
 {
 	const int		*pixels = (int *) draw_data->texture->pixels;
-	const int		start = draw_data->start;
 	uint32_t		color;
 	double			tex_y;
 	int				y;
 
-	tex_y = (start - \
-				(data->mid) + (draw_data->length / 2)) \
-			* draw_data->step;
-
-	y = start;
+	y = draw_data->start;
 	while (y < draw_data->end)
 	{
+		tex_y = (y - (data->mid - draw_data->length / 2)) * draw_data->step;
+
 		color = pixels[((int) tex_y * draw_data->texture->width) \
 						+ draw_data->tex_x];
 
 		mlx_put_pixel(data->screen, x, y, color);
 
-		tex_y += draw_data->step;
 		y++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:19:35 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 21:55:17 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:44:16 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ typedef struct s_data t_data;
  * @param x 			X coordinate of the sprite
  * @param y 			Y coordinate of the sprite
  * 
- * @param distance 		Distance from the player to the sprite
+ * @param distance_x 	Distance from the player to the sprite on the x axis
+ * @param distance_y 	Distance from the player to the sprite on the y axis
  * 
  * @param next 			Pointer to the next sprite
 */

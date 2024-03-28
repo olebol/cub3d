@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:18:28 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/28 15:40:50 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/28 19:10:38 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #include "casting.h"
 
 #include <math.h>
+
+static double 	get_distance(double x, double y)
+{
+	return (x * x + y * y);
+}
 
 void		sort_sprites(t_sprite **sprites)
 {
@@ -29,8 +34,8 @@ void		sort_sprites(t_sprite **sprites)
 		next = current->next;
 		while (next)
 		{
-			if (current->distance_x + current->distance_y 
-				 < next->distance_x + next->distance_y)
+			if (get_distance(current->distance_x, current->distance_y) 
+				 < get_distance(next->distance_x, next->distance_y))
 			{
 				if (prev)
 					prev->next = next;
@@ -51,6 +56,8 @@ void		sort_sprites(t_sprite **sprites)
 	}
 }
 
+#include <stdio.h>
+
 void	draw_sprite(t_data *data, t_sprite *sprite, t_ray_data *rays)
 {
 	const t_vector		player = data->player.dir;
@@ -60,8 +67,8 @@ void	draw_sprite(t_data *data, t_sprite *sprite, t_ray_data *rays)
 	const double		inverseDeterminant = 1.0 / ((cam.x * player.y) - (player.x * cam.y));
 	
 	// ???
-	const double		transformX = inverseDeterminant *  ((player.y * sprite->distance_x) - (player.x * sprite->distance_y));
-	const double		transformY = inverseDeterminant * ((-cam.y * sprite->distance_x) + (cam.x * sprite->distance_y));
+	const double		transformX = inverseDeterminant * ((player.y * sprite->distance_x) - (player.x * sprite->distance_y));
+	const double		transformY = inverseDeterminant * (( -cam.y  * sprite->distance_x) + (  cam.x  * sprite->distance_y));
 
 	// Calculate sprite screen position
 	const int			spriteScreenX = ((int) (WIDTH / 2) * (1 + transformX / transformY));
@@ -87,15 +94,26 @@ void	draw_sprite(t_data *data, t_sprite *sprite, t_ray_data *rays)
 	if (drawEndX >= WIDTH)
 		drawEndX = WIDTH - 1;
 
-	// Draw the sprite
+	// Draw the sprite with texture
+	const uint32_t			*pixels = (uint32_t *) sprite->texture->pixels;
+	const double 			stepX = (float) sprite->texture->width  / spriteWidth;
+	const double			stepY = (float) sprite->texture->height / spriteHeight;
+
 	for (int x = drawStartX; x < drawEndX; x++)
 	{
 		// Check if a wall is in front of the sprite and if the sprite is on the screen
 		if (transformY > 0 && transformY < rays[x].distance)
 		{
+			const int		texX = (x - (spriteScreenX - spriteWidth / 2)) * stepX;
+
 			for (int y = drawStartY; y < drawEndY; y++)
 			{
-				mlx_put_pixel(data->screen, x, y, 0x00FF00FF);
+				const int		texY = (y - (data->mid - spriteHeight / 2)) * stepY;
+
+				const uint32_t	color = pixels[texY * sprite->texture->width + texX];
+
+				if ((color & 0x000000FF) != 0)
+				mlx_put_pixel(data->screen, x, y, color);
 			}
 		}
 	}
