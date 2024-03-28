@@ -6,11 +6,12 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:49:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 21:55:30 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/28 17:24:36 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "utils.h"
 #include "sprite.h"
 #include "errors.h"
 
@@ -36,9 +37,7 @@ static t_sprite		*create_sprite(t_data *data, double x, double y)
 {
 	t_sprite	*new_sprite;
 
-	new_sprite = (t_sprite *) malloc(sizeof(t_sprite));
-	if (new_sprite == NULL)
-		error(E_MALLOC);
+	new_sprite = (t_sprite *) ft_malloc(sizeof(t_sprite));
 
 	new_sprite->texture = data->elements.textures[SPRITE];
 	new_sprite->x = x;
