@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:18:28 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/28 15:23:40 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:40:50 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,19 @@ void	draw_sprite(t_data *data, t_sprite *sprite, t_ray_data *rays)
 	const int			spriteWidth  = abs((int) (HEIGHT / transformY));
 
 	// Calculate draw start and end
-	int			drawStartY = -spriteHeight / 2 + data->mid;
+	int			drawStartY = data->mid - spriteHeight / 2;
 	if (drawStartY < 0)
 		drawStartY = 0;
 
-	int			drawEndY = spriteHeight / 2 + data->mid;
+	int			drawEndY = data->mid + spriteHeight / 2;
 	if (drawEndY >= HEIGHT)
 		drawEndY = HEIGHT - 1;
 
-	int			drawStartX = -spriteWidth / 2 + spriteScreenX;
+	int			drawStartX = spriteScreenX - spriteWidth / 2;
 	if (drawStartX < 0)
 		drawStartX = 0;
 
-	int			drawEndX = spriteWidth / 2 + spriteScreenX;
+	int			drawEndX = spriteScreenX + spriteWidth / 2;
 	if (drawEndX >= WIDTH)
 		drawEndX = WIDTH - 1;
 
