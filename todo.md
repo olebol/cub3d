@@ -4,8 +4,9 @@
 - [x] Add textures
 - [x] Add viewing up and down
 - [x] Add viewing with mouse
-- [ ] Create working doors
 - [ ] Add sprites
+- [ ] Add animated textures and sprites
+- [ ] Create working doors
 
 ### Less important
 - [ ] Add a minimap overlay
