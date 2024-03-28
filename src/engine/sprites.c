@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:18:28 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 23:58:25 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:23:40 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,22 @@ void		sort_sprites(t_sprite **sprites)
 
 void	draw_sprite(t_data *data, t_sprite *sprite, t_ray_data *rays)
 {
+	const t_vector		player = data->player.dir;
+	const t_vector		cam = data->player.cam;
+
 	// ??
-	const double		inverseDeterminant = 1.0 / ((data->player.cam.x * data->player.dir.y) - (data->player.dir.x * data->player.cam.y));
+	const double		inverseDeterminant = 1.0 / ((cam.x * player.y) - (player.x * cam.y));
 	
 	// ???
-	const double		transformX = inverseDeterminant *  ((data->player.dir.y * sprite->distance_x) - (data->player.dir.x * sprite->distance_y));
-	const double		transformY = inverseDeterminant * ((-data->player.cam.y * sprite->distance_x) + (data->player.cam.x * sprite->distance_y));
+	const double		transformX = inverseDeterminant *  ((player.y * sprite->distance_x) - (player.x * sprite->distance_y));
+	const double		transformY = inverseDeterminant * ((-cam.y * sprite->distance_x) + (cam.x * sprite->distance_y));
 
 	// Calculate sprite screen position
-	const int			spriteScreenX = ((int) (WIN_WIDTH / 2) * (1 + transformX / transformY));
+	const int			spriteScreenX = ((int) (WIDTH / 2) * (1 + transformX / transformY));
 
 	// Calculate scaled sprite height and width
-	const int			spriteHeight = abs((int) (WIN_HEIGHT / transformY));
-	const int			spriteWidth  = abs((int) (WIN_HEIGHT / transformY));
+	const int			spriteHeight = abs((int) (HEIGHT / transformY));
+	const int			spriteWidth  = abs((int) (HEIGHT / transformY));
 
 	// Calculate draw start and end
 	int			drawStartY = -spriteHeight / 2 + data->mid;
@@ -73,16 +76,16 @@ void	draw_sprite(t_data *data, t_sprite *sprite, t_ray_data *rays)
 		drawStartY = 0;
 
 	int			drawEndY = spriteHeight / 2 + data->mid;
-	if (drawEndY >= WIN_HEIGHT)
-		drawEndY = WIN_HEIGHT - 1;
+	if (drawEndY >= HEIGHT)
+		drawEndY = HEIGHT - 1;
 
 	int			drawStartX = -spriteWidth / 2 + spriteScreenX;
 	if (drawStartX < 0)
 		drawStartX = 0;
 
 	int			drawEndX = spriteWidth / 2 + spriteScreenX;
-	if (drawEndX >= WIN_WIDTH)
-		drawEndX = WIN_WIDTH - 1;
+	if (drawEndX >= WIDTH)
+		drawEndX = WIDTH - 1;
 
 	// Draw the sprite
 	for (int x = drawStartX; x < drawEndX; x++)

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 23:52:49 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:23:40 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
 
 # define GAME_NAME "cub3D"
 
-# ifndef WIN_WIDTH
-#  define WIN_WIDTH 1920
+# ifndef WIDTH
+#  define WIDTH 1920
 # endif
 
-# ifndef WIN_HEIGHT
-#  define WIN_HEIGHT 1080
+# ifndef HEIGHT
+#  define HEIGHT 1080
 # endif
 
 # define MAP_EXTENSION ".cub"

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:30:02 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/27 17:51:14 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:23:40 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		door_hook(t_data *data)
 		if (current_time - last_time < 0.2)
 			return ;
 
-		ray = cast_ray(data, WIN_WIDTH / 2);
+		ray = cast_ray(data, WIDTH / 2);
 
 		if (ray.distance > 1.5 || ray.distance < 0)
 			return ;

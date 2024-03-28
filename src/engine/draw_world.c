@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 23:52:49 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:23:40 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ static void	draw_background(t_data *data)
 	screen = (uint32_t *) data->screen->pixels;
 
 	i = 0;
-	while (i < data->mid * WIN_WIDTH)
+	while (i < data->mid * WIDTH)
 	{
 		screen[i] = data->elements.ceiling;
 		i++;
 	}
 
-	while (i < WIN_WIDTH * WIN_HEIGHT)
+	while (i < WIDTH * HEIGHT)
 	{
 		screen[i] = data->elements.floor;
 		i++;
@@ -119,7 +119,7 @@ static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 	else
 		wall_hit = ray_data->hit_x - (int) ray_data->hit_x;
 
-	wall_height = (WIN_HEIGHT / ray_data->distance);
+	wall_height = (HEIGHT / ray_data->distance);
 	if (wall_height < 0)
 		wall_height = 0;
 
@@ -128,14 +128,14 @@ static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 	draw_data.start = data->mid - wall_height / 2;
 	if (draw_data.start < 0)
 		draw_data.start = 0;
-	if (draw_data.start > WIN_HEIGHT)
-		draw_data.start = WIN_HEIGHT;
+	if (draw_data.start > HEIGHT)
+		draw_data.start = HEIGHT;
 
 	draw_data.end = data->mid + wall_height / 2;
 	if (draw_data.end < 0)
 		draw_data.end = 0;
-	if (draw_data.end > WIN_HEIGHT)
-		draw_data.end = WIN_HEIGHT;
+	if (draw_data.end > HEIGHT)
+		draw_data.end = HEIGHT;
 
 	draw_data.texture = get_texture(&data->elements, ray_data);
 
@@ -160,12 +160,12 @@ static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 void	draw_world(t_data *data)
 {
 	t_draw_data		draw_data;
-	t_ray_data		ray_data[WIN_WIDTH];
+	t_ray_data		ray_data[WIDTH];
 	int				x;
 
 	x = 0;
 	draw_background(data);
-	while (x < WIN_WIDTH)
+	while (x < WIDTH)
 	{
 		ray_data[x] = cast_ray(data, x);
 		draw_data = set_draw_data(data, &ray_data[x]);

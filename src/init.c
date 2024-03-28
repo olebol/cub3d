@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 21:33:37 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:23:40 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static bool		init_screen(t_data *data)
 {
-	data->screen = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
+	data->screen = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!data->screen)
 	{
 		mlx_terminate(data->mlx);
@@ -56,7 +56,7 @@ static bool		init_minimap(t_data *data)
 // Initialize MLX
 static bool		init_mlx(t_data *data)
 {
-	data->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", false);
+	data->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
 	if (!data->mlx)
 		return (false);
 	return (true);
@@ -85,7 +85,7 @@ static void		init_fields(t_data *data)
 
 	data->sprites = NULL;
 
-	data->mid = WIN_HEIGHT / 2;
+	data->mid = HEIGHT / 2;
 }
 
 // Initialize all data

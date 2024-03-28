@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:41:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 20:16:46 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:23:40 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ t_ray_data		cast_ray(t_data *data, int x)
 {
 	t_ray_data		ray;
 	const double	fov = M_PI / 2; // field of view
-	const double	camera_plane_x = fov * (x / (double) WIN_WIDTH) - fov / 2; // value between -1 and 1 representing the x-coordinate on the camera plane
+	const double	camera_plane_x = fov * (x / (double) WIDTH) - fov / 2; // value between -1 and 1 representing the x-coordinate on the camera plane
 
 	// Calculate the direction of the ray
 	ray.dir.x = data->player.dir.x + (data->player.cam.x * camera_plane_x);
