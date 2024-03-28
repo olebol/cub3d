@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:18:28 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/28 19:10:38 by opelser          ###   ########.fr       */
+/*   Updated: 2024/03/28 23:37:22 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 #include <math.h>
 
-static double 	get_distance(double x, double y)
+static double 	get_distance(t_sprite *sprite)
 {
-	return (x * x + y * y);
+	return (pow(sprite->distance_x, 2) + pow(sprite->distance_y, 2));
 }
 
 void		sort_sprites(t_sprite **sprites)
@@ -34,8 +34,7 @@ void		sort_sprites(t_sprite **sprites)
 		next = current->next;
 		while (next)
 		{
-			if (get_distance(current->distance_x, current->distance_y) 
-				 < get_distance(next->distance_x, next->distance_y))
+			if (get_distance(current) < get_distance(next))
 			{
 				if (prev)
 					prev->next = next;
@@ -56,23 +55,8 @@ void		sort_sprites(t_sprite **sprites)
 	}
 }
 
-#include <stdio.h>
-
-void	draw_sprite(t_data *data, t_sprite *sprite, t_ray_data *rays)
+static void		draw_sprite(t_data *data, t_sprite *sprite, t_ray_data *rays, int spriteScreenX, double transformY)
 {
-	const t_vector		player = data->player.dir;
-	const t_vector		cam = data->player.cam;
-
-	// ??
-	const double		inverseDeterminant = 1.0 / ((cam.x * player.y) - (player.x * cam.y));
-	
-	// ???
-	const double		transformX = inverseDeterminant * ((player.y * sprite->distance_x) - (player.x * sprite->distance_y));
-	const double		transformY = inverseDeterminant * (( -cam.y  * sprite->distance_x) + (  cam.x  * sprite->distance_y));
-
-	// Calculate sprite screen position
-	const int			spriteScreenX = ((int) (WIDTH / 2) * (1 + transformX / transformY));
-
 	// Calculate scaled sprite height and width
 	const int			spriteHeight = abs((int) (HEIGHT / transformY));
 	const int			spriteWidth  = abs((int) (HEIGHT / transformY));
@@ -119,6 +103,32 @@ void	draw_sprite(t_data *data, t_sprite *sprite, t_ray_data *rays)
 	}
 }
 
+#include <stdio.h>
+
+// Something is wrong with the calculations
+void	transform_sprite_location(t_data *data, t_sprite *sprite, t_ray_data *rays)
+{
+	// Variables for readability
+	const t_vector		player = data->player.dir;
+	const t_vector		cam = data->player.cam;
+	const double		distX = sprite->x - data->player.x;
+	const double		distY = sprite->y - data->player.y;
+
+	// [ transformX ]              [ dirY      -dirX ]   [ distX ]                                         [ dirY      -dirX ]   [ spriteX-playerX ]
+	// [            ]    =    -1 * [                 ]   [       ]    =    1 / (planeX*dirY-dirX*planeY) * [                 ] * [                 ]
+	// [ transformY ]              [ -planeY  planeX ]   [ distY ]                ^ always -1 ^            [ -planeY  planeX ]   [ spriteY-playerY ]
+
+	// Multiplying our matrix by the Inverse Determinant (always -1 for unit vectors) is the same as dividing by the determinant
+	const double		transformX = -1 * ((player.y * distX) - (player.x * distY));
+	const double		transformY = -1 * (( -cam.y  * distX) + (  cam.x  * distY));
+
+	// Calculate sprite screen position
+	const int			spriteScreenX = (int) (WIDTH / 2 * (1 + transformX / transformY));
+
+	// Draw the sprite
+	draw_sprite(data, sprite, rays, spriteScreenX, transformY);
+}
+
 void		sprites(t_data *data, t_ray_data *rays)
 {
 	t_sprite	*sprite;
@@ -142,7 +152,7 @@ void		sprites(t_data *data, t_ray_data *rays)
 	{
 		// print_sprite(sprite);
 
-		draw_sprite(data, sprite, rays);
+		transform_sprite_location(data, sprite, rays);
 
 		sprite = sprite->next;
 	}
