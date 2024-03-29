@@ -9,7 +9,7 @@ Creators: @olebol and @evalieve
 To clone the repository, run the following command in your terminal:
 
 ``` bash
-git clone https://github.com/yourusername/cub3d.git
+git clone https://github.com/olebol/cub3d.git
 ```
 Running the Program
 Before running the program, ensure you have the MLX42 library installed on your system.
