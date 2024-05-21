@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:18:28 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/29 00:03:31 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/21 15:36:49 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		sort_sprites(t_sprite **sprites)
 	}
 }
 
-static void		draw_sprite(t_data *data, t_sprite *sprite, t_ray_data *rays, int spriteScreenX, double transformY)
+static void		draw_sprite(t_data *data, t_sprite *sprite, t_ray_data **rays, int spriteScreenX, double transformY)
 {
 	// Calculate scaled sprite height and width
 	const int			spriteHeight = abs((int) (HEIGHT / transformY));
@@ -86,7 +86,7 @@ static void		draw_sprite(t_data *data, t_sprite *sprite, t_ray_data *rays, int s
 	for (int x = drawStartX; x < drawEndX; x++)
 	{
 		// Check if a wall is in front of the sprite and if the sprite is on the screen
-		if (transformY > 0 && transformY < rays[x].distance)
+		if (transformY > 0 && transformY < rays[x][0].distance)
 		{
 			const int		texX = (x - (spriteScreenX - spriteWidth / 2)) * stepX;
 
@@ -106,7 +106,7 @@ static void		draw_sprite(t_data *data, t_sprite *sprite, t_ray_data *rays, int s
 #include <stdio.h>
 
 // Something is wrong with the calculations
-void	transform_sprite_location(t_data *data, t_sprite *sprite, t_ray_data *rays)
+void	transform_sprite_location(t_data *data, t_sprite *sprite, t_ray_data **rays)
 {
 	// Variables for readability
 	const t_vector		player = data->player.dir;
@@ -129,7 +129,7 @@ void	transform_sprite_location(t_data *data, t_sprite *sprite, t_ray_data *rays)
 	draw_sprite(data, sprite, rays, spriteScreenX, transformY);
 }
 
-void		sprites(t_data *data, t_ray_data *rays)
+void		sprites(t_data *data, t_ray_data **rays)
 {
 	t_sprite	*sprite;
 

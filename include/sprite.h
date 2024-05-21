@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:19:35 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/28 15:44:16 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/21 15:36:17 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ struct s_sprite
 	t_sprite		*next;
 };
 
-void		sprites(t_data *data, t_ray_data *ray_data);
+void		sprites(t_data *data, t_ray_data **rays);
 
 void		find_sprites(t_map *map, t_data *data);
 

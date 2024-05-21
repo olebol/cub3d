@@ -6,9 +6,11 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/28 19:05:01 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/21 15:33:33 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdio.h>
 
 #include "cub3d.h"
 #include "casting.h"
@@ -57,7 +59,8 @@ static void	draw_wall(t_data *data, t_draw_data *draw_data, int x)
 		color = pixels[((int) tex_y * draw_data->texture->width) \
 						+ draw_data->tex_x];
 
-		mlx_put_pixel(data->screen, x, y, color);
+		if (color != 0x000000) 
+			mlx_put_pixel(data->screen, x, y, color);
 
 		y++;
 	}
@@ -148,6 +151,31 @@ static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 	return (draw_data);
 }
 
+void	free_ray_data(t_ray_data **rays)
+{
+	t_ray_data		*current;
+	t_ray_data		*next;
+	int				i;
+
+	i = 0;
+	while (i < WIDTH)
+	{
+		current = rays[i];
+
+		while (current)
+		{
+			next = current->next;
+
+			free(current);
+
+			current = next;
+		}
+
+		i++;
+	}
+}
+
+
 /**
  * @brief	Draw the world
  * 
@@ -156,20 +184,28 @@ static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 void	draw_world(t_data *data)
 {
 	t_draw_data		draw_data;
-	t_ray_data		ray_data[WIDTH];
+	t_ray_data		*rays[WIDTH];
+	t_ray_data		*current;
 	int				x;
 
 	x = 0;
 	draw_background(data);
 	while (x < WIDTH)
 	{
-		ray_data[x] = cast_ray(data, x);
-		draw_data = set_draw_data(data, &ray_data[x]);
+		rays[x] = cast_ray(data, x, false);
 
-		draw_wall(data, &draw_data, x);
+		current = rays[x];
+		while (current != NULL)
+		{
+			draw_data = set_draw_data(data, current);
+			draw_wall(data, &draw_data, x);
+			current = current->next;
+		}
 
 		x++;
 	}
 
-	sprites(data, ray_data);
+	sprites(data, rays);
+
+	free_ray_data(rays);
 }

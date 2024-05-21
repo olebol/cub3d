@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:40:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 17:45:14 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/21 15:01:52 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,12 @@ typedef struct s_dda_values
  * @param	dir	 			Vector of the ray
  * @param	side 			Side of the last wall hit by the ray
  * @param	distance 		Distance to the wall hit by the ray
+ * @param	hit_x 			X coordinate of the wall hit by the ray
+ * @param	hit_y 			Y coordinate of the wall hit by the ray
+ * @param	tile_hit 		Type of the tile hit by the ray
 */
-typedef struct s_ray_data
+typedef struct s_ray_data t_ray_data;
+struct s_ray_data
 {
 	t_vector		dir;
 
@@ -67,7 +71,9 @@ typedef struct s_ray_data
 	double			hit_y;
 
 	t_tile			tile_hit;
-}					t_ray_data;
+
+	t_ray_data		*next;
+};
 
 /**
  * @brief		Cast a ray and return the ray data
@@ -77,6 +83,6 @@ typedef struct s_ray_data
  * 
  * @return		t_ray_data	Structure containing the ray data
 */
-t_ray_data		cast_ray(t_data *data, int x);
+t_ray_data		*cast_ray(t_data *data, int x, bool door_interaction);
 
 #endif
