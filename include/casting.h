@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   casting.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 15:40:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/26 20:48:20 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   casting.h                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/08/21 15:40:41 by opelser       #+#    #+#                 */
+/*   Updated: 2024/04/23 17:22:28 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,12 @@ typedef struct s_dda_values
  * @param	dir	 			Vector of the ray
  * @param	side 			Side of the last wall hit by the ray
  * @param	distance 		Distance to the wall hit by the ray
+ * @param	hit_x 			X coordinate of the wall hit by the ray
+ * @param	hit_y 			Y coordinate of the wall hit by the ray
+ * @param	tile_hit 		Type of the tile hit by the ray
 */
-typedef struct s_ray_data
+typedef struct s_ray_data t_ray_data;
+struct s_ray_data
 {
 	t_vector		dir;
 
@@ -67,7 +71,9 @@ typedef struct s_ray_data
 	double			hit_y;
 
 	t_tile			tile_hit;
-}					t_ray_data;
+
+	t_ray_data		*next;
+};
 
 /**
  * @brief		Cast a ray and return the ray data
@@ -77,7 +83,8 @@ typedef struct s_ray_data
  * 
  * @return		t_ray_data	Structure containing the ray data
 */
-t_ray_data		cast_ray(t_data *data, int x);
+t_ray_data		*cast_ray(t_data *data, int x, bool door_interaction);
+// t_ray_data		*cast_ray(t_data *data, int x);
 t_dda_values	get_dda_values(t_ray_data *ray, double x, double y);
 void			set_distances_and_map_steps(t_dda_values *dda, t_ray_data *ray, double x, double y);
 

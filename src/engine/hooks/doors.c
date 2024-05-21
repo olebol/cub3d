@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   doors.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 15:30:02 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/26 21:50:00 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   doors.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/26 15:30:02 by evalieve      #+#    #+#                 */
+/*   Updated: 2024/04/23 17:21:20 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void		interact(t_data *data, t_ray_data *ray)
  */
 void		door_hook(t_data *data)
 {
-	t_ray_data	ray;
+	t_ray_data	*ray;
 
 	static double		last_time = 0;
 	const double 		current_time = mlx_get_time();
@@ -44,12 +44,12 @@ void		door_hook(t_data *data)
 		if (current_time - last_time < 0.2)
 			return ;
 
-		ray = cast_ray(data, WIN_WIDTH / 2);
+		ray = cast_ray(data, WIN_WIDTH / 2, true);
 
-		if (ray.distance > 1.5 || ray.distance < 0)
+		if (ray->distance > 1.5 || ray->distance < 0)
 			return ;
 
-		interact(data, &ray);
+		interact(data, ray);
 		last_time = current_time;
 	}
 }

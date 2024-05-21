@@ -1,14 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   draw_world.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 15:04:43 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   draw_world.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/01 16:30:41 by opelser       #+#    #+#                 */
+/*   Updated: 2024/05/21 14:42:18 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdio.h>
 
 #include "cub3d.h"
 #include "casting.h"
@@ -58,14 +60,13 @@ static void	draw_wall(t_data *data, t_draw_data *draw_data, int x)
 	{
 		color = pixels[((int) tex_y * draw_data->texture->width) \
 						+ draw_data->tex_x];
-
-		mlx_put_pixel(data->screen, x, y, color);
+		if (color != 0x000000) 
+			mlx_put_pixel(data->screen, x, y, color);
 
 		tex_y += draw_data->step;
 		y++;
 	}
 }
-
 /**
  * @brief	Determine the texture to use for the wall
  * 
@@ -118,6 +119,7 @@ static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 	else
 		wall_hit = ray_data->hit_x - (int) ray_data->hit_x;
 
+	// Calculate the height of the wall on the screen (line_height
 	wall_height = (WIN_HEIGHT / ray_data->distance);
 	if (wall_height < 0)
 		wall_height = 0;
@@ -159,18 +161,20 @@ static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 void	draw_world(t_data *data)
 {
 	t_draw_data		draw_data;
-	t_ray_data		ray_data;
+	t_ray_data		*ray_data;
 	int				x;
 
 	x = 0;
 	draw_background(data);
 	while (x < WIN_WIDTH)
 	{
-		ray_data = cast_ray(data, x);
-		draw_data = set_draw_data(data, &ray_data);
-
-		draw_wall(data, &draw_data, x);
-
+		ray_data = cast_ray(data, x, false);
+		while (ray_data != NULL)
+		{
+			draw_data = set_draw_data(data, ray_data);
+			draw_wall(data, &draw_data, x);
+			ray_data = ray_data->next;
+		}
 		x++;
 	}
 }

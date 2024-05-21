@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   elements.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 15:13:27 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   elements.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/27 21:47:57 by opelser       #+#    #+#                 */
+/*   Updated: 2024/04/23 16:42:06 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void		set_color(uint32_t *color, const char *value)
 
 	ft_free_str_arr((char **) rgb);
 }
-
+#include <stdio.h>
 static void		set_texture(t_elements *elements, t_texture id, char *value)
 {
 	// Check the value
@@ -79,6 +79,8 @@ static void		set_texture(t_elements *elements, t_texture id, char *value)
 		error(E_ELEM_VALUE);
 
 	// Shift the texture pixels from ARGB to RGBA format
+	if (id == 51)
+		printf("elements->textures[id]->pixels[0]: %X\n", elements->textures[id]->pixels[0]);
 	flip_texture(elements->textures[id]);
 }
 
