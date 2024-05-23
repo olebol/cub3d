@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:30:02 by evalieve          #+#    #+#             */
-/*   Updated: 2024/05/21 15:03:30 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/23 16:06:24 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,21 @@
 #include "casting.h"
 #include <math.h>
 #include "utils.h"
+
+
+static void		ft_free_ray(t_ray_data *ray)
+{
+	t_ray_data		*next;
+
+	while (ray)
+	{
+		next = ray->next;
+
+		free(ray);
+
+		ray = next;
+	}
+}
 
 /**
  * @brief	Open or close the door
@@ -48,10 +63,14 @@ void		door_hook(t_data *data)
 		ray = cast_ray(data, WIDTH / 2, true);
 
 		if (ray->distance > 1.5 || ray->distance < 0)
+		{
+			ft_free_ray(ray);
 			return ;
+		}
 
 		interact(data, ray);
 		last_time = current_time;
+
+		ft_free_ray(ray);
 	}
 }
-

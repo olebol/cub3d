@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:41:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/05/21 15:29:29 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/23 15:53:18 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ void	dda_door_interaction(t_data *data, t_ray_data *ray)
 		// Stop the DDA algorithm
 		if (ray->tile_hit == WALL || ray->tile_hit == CLOSED_DOOR || ray->tile_hit == OPEN_DOOR)
 			break ;
+
 		// Move to the next tile depending on the distance to the next intersection
 		go_to_next_intersection(ray, &dda);
 	}
