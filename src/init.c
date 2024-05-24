@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 23:17:57 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:41:59 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static bool		init_minimap(t_data *data)
 // Initialize MLX
 static bool		init_mlx(t_data *data)
 {
-	data->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", false);
+	data->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, GAME_NAME, false);
 	if (!data->mlx)
 		return (false);
 	return (true);
