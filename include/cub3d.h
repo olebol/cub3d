@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/05/24 17:20:33 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/24 17:46:53 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ typedef struct s_draw_data
 
 	int				start;
 	int				end;
-	
+
 	int				tex_x;
-	
+
 	double			step;
-	
+
 }			t_draw_data;
 
 /**
