@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
-/*   Updated: 2024/05/24 17:13:48 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/24 17:19:32 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	init_fields(t_data *data)
 	data->map.width = 0;
 	data->map.height = 0;
 	data->map.map = NULL;
-	data->wall_middle = HEIGHT / 2;
+	data->mid = HEIGHT / 2;
 }
 
 // Initialize all data

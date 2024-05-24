@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/05/24 17:13:48 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/24 17:21:32 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 
 static void	draw_background(t_data *data)
 {
-	const uint32_t		ceiling = flip_color(data->elements.ceiling);
-	const uint32_t		floor = flip_color(data->elements.floor);
 	uint32_t			*screen;
 	int					i;
 
 	screen = (uint32_t *) data->screen->pixels;
+
 	i = 0;
-	while (i < data->wall_middle * WIDTH)
+	while (i < data->mid * WIDTH)
 	{
-		screen[i] = ceiling;
+		screen[i] = data->elements.ceiling;
 		i++;
 	}
+
 	while (i < WIDTH * HEIGHT)
 	{
-		screen[i] = floor;
+		screen[i] = data->elements.floor;
 		i++;
 	}
 }
@@ -41,24 +41,23 @@ static void	draw_background(t_data *data)
  * @param	draw_data	Pointer to the draw data
  * @param	x			Current position on the x axis
 */
-static void	draw_wall(t_data *data, t_draw_data *draw_data, int x)
+static void	draw_wall(t_data *data, t_draw_data *draw, int x)
 {
-	const int		*pixels = (int *) draw_data->texture->pixels;
-	const int		wall_start = draw_data->wall_start;
+	const int		*pixels = (int *) draw->texture->pixels;
 	uint32_t		color;
 	double			tex_y;
 	int				y;
 
-	tex_y = (wall_start - \
-				(data->wall_middle) + (draw_data->line_height / 2)) \
-			* draw_data->step;
-	y = wall_start;
-	while (y < draw_data->wall_end)
+	y = draw->start;
+	while (y < draw->end)
 	{
-		color = pixels[((int) tex_y * draw_data->texture->width) \
-						+ draw_data->tex_x];
+		tex_y = (y - (data->mid - draw->length / 2)) * draw->step;
+
+		color = pixels[((int) tex_y * draw->texture->width) \
+						+ draw->tex_x];
+
 		mlx_put_pixel(data->screen, x, y, color);
-		tex_y += draw_data->step;
+
 		y++;
 	}
 }
@@ -70,12 +69,12 @@ static void	draw_wall(t_data *data, t_draw_data *draw_data, int x)
  * 
  * @return	t_texture	Enum value of the texture to use for the wall
 */
-static	mlx_texture_t	*get_texture(t_elements *elements, t_ray_data *ray_data)
+static mlx_texture_t	*get_texture(t_elements *elements, t_ray_data *ray_data)
 {
 	t_texture		texture;
 
 	if (ray_data->side == VERTICAL)
-	{
+	{	
 		if (ray_data->dir.y < 0)
 			texture = NORTH;
 		else
@@ -88,6 +87,7 @@ static	mlx_texture_t	*get_texture(t_elements *elements, t_ray_data *ray_data)
 		else
 			texture = EAST;
 	}
+
 	return (elements->textures[texture]);
 }
 
@@ -98,30 +98,49 @@ static	mlx_texture_t	*get_texture(t_elements *elements, t_ray_data *ray_data)
  * @param	ray_data	Pointer to the ray data
  * @param	draw_data	Pointer to the draw data
 */
-static	t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
+static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 {
-	const double		wall_hit = ray_data->wall_hit;
-	t_draw_data			draw_data;
+	double				wall_hit;
+	t_draw_data			draw;
 	int					wall_height;
+	int					texture_x;
+
+	if (ray_data->side == HORIZONTAL)
+		wall_hit = ray_data->hit_y - (int) ray_data->hit_y;
+	else
+		wall_hit = ray_data->hit_x - (int) ray_data->hit_x;
 
 	wall_height = (HEIGHT / ray_data->distance);
 	if (wall_height < 0)
 		wall_height = 0;
-	draw_data.line_height = wall_height;
-	draw_data.wall_start = data->wall_middle - wall_height / 2;
-	if (draw_data.wall_start < 0)
-		draw_data.wall_start = 0;
-	if (draw_data.wall_start > HEIGHT)
-		draw_data.wall_start = HEIGHT;
-	draw_data.wall_end = data->wall_middle + wall_height / 2;
-	if (draw_data.wall_end < 0)
-		draw_data.wall_end = 0;
-	if (draw_data.wall_end > HEIGHT)
-		draw_data.wall_end = HEIGHT;
-	draw_data.texture = get_texture(&data->elements, ray_data);
-	draw_data.tex_x = (wall_hit - (int) wall_hit) * draw_data.texture->width;
-	draw_data.step = 1.0 * draw_data.texture->height / draw_data.line_height;
-	return (draw_data);
+
+	draw.length = wall_height;
+
+	draw.start = data->mid - wall_height / 2;
+	if (draw.start < 0)
+		draw.start = 0;
+	if (draw.start > HEIGHT)
+		draw.start = HEIGHT;
+
+	draw.end = data->mid + wall_height / 2;
+	if (draw.end < 0)
+		draw.end = 0;
+	if (draw.end > HEIGHT)
+		draw.end = HEIGHT;
+
+	draw.texture = get_texture(&data->elements, ray_data);
+
+	texture_x = wall_hit * draw.texture->width;
+
+	if ((ray_data->side == VERTICAL && ray_data->dir.y > 0)			// South wall
+		|| (ray_data->side == HORIZONTAL && ray_data->dir.x < 0))	// West wall
+		texture_x = draw.texture->width - texture_x - 1;
+
+	draw.tex_x = texture_x;
+
+	draw.step = (double) draw.texture->height / draw.length;
+
+	return (draw);
 }
 
 /**
@@ -132,16 +151,18 @@ static	t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 void	draw_world(t_data *data)
 {
 	t_draw_data		draw_data;
-	t_ray_data		ray_data;
+	t_ray_data		ray;
 	int				x;
 
 	x = 0;
 	draw_background(data);
 	while (x < WIDTH)
 	{
-		ray_data = cast_ray(data, x);
-		draw_data = set_draw_data(data, &ray_data);
+		ray = cast_ray(data, x);
+		draw_data = set_draw_data(data, &ray);
+
 		draw_wall(data, &draw_data, x);
+
 		x++;
 	}
 }

@@ -64,25 +64,22 @@ endif
 SRC_FILES :=									\
 				main.c							\
 				init.c							\
-\
 				utils.c							\
-\
 				error.c							\
+				vector.c						\
 \
 				parser/parser.c					\
 				parser/parse_map.c				\
 				parser/validate_map.c			\
 				parser/elements.c				\
-				parser/parse_textures.c			\
-\
-				vector.c						\
+				parser/flip.c					\
 \
 				engine/casting.c				\
 				engine/draw_world.c				\
 				engine/minimap.c				\
 				engine/hooks/hooks.c			\
 				engine/hooks/move.c				\
-				engine/hooks/view.c			\
+				engine/hooks/view.c				\
 
 
 SRC				:= ${addprefix ${SRC_DIR}/, ${SRC_FILES}}

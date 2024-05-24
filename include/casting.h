@@ -6,14 +6,14 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:40:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 18:24:04 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/24 17:22:05 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CASTING_H
 # define CASTING_H
 
-# include "vector.h"
+typedef struct s_data	t_data;
 
 enum e_side
 {
@@ -63,7 +63,10 @@ typedef struct s_ray_data
 	enum e_side		side;
 	double			distance;
 
-	double			wall_hit;
+	double			hit_x;
+	double			hit_y;
+
+	t_tile			tile_hit;
 }					t_ray_data;
 
 /**
