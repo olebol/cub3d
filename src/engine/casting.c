@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:41:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/05/24 16:32:05 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/24 17:14:04 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	dda(t_data *data, t_ray_data *ray)
 t_ray_data	cast_ray(t_data *data, int x)
 {
 	t_ray_data		ray;
-	const double	camera_plane_x = 2 * x / (double) WIN_WIDTH - 1;
+	const double	camera_plane_x = 2 * x / (double) WIDTH - 1;
 
 	ray.dir.x = data->player.dir.x + (data->player.cam.x * camera_plane_x);
 	ray.dir.y = data->player.dir.y + (data->player.cam.y * camera_plane_x);

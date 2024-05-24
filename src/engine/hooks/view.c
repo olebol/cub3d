@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:47:55 by opelser           #+#    #+#             */
-/*   Updated: 2024/05/24 16:15:42 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/24 17:13:48 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ static void	up_down(t_data *data, double y)
 {
 	int		wall_middle;
 
-	wall_middle = data->wall_middle - WIN_HEIGHT / 2 + y;
+	wall_middle = data->wall_middle - HEIGHT / 2 + y;
 	if (wall_middle > 200)
 		wall_middle = 200;
 	if (wall_middle < -200)
 		wall_middle = -200;
-	data->wall_middle = wall_middle + WIN_HEIGHT / 2;
+	data->wall_middle = wall_middle + HEIGHT / 2;
 }
 
 void	mouse_hook(double x, double y, void *dataPointer)

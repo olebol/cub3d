@@ -52,12 +52,12 @@ else
 	MLX_FLAGS	:= -lglfw -L "/Users/${USER}/.brew/opt/glfw/lib/"
 endif
 
-ifdef WIN_HEIGHT
-	CFLAGS		+= -D WIN_HEIGHT=${WIN_HEIGHT}
+ifdef HEIGHT
+	CFLAGS		+= -D HEIGHT=${HEIGHT}
 endif
 
-ifdef WIN_WIDTH
-	CFLAGS		+= -D WIN_WIDTH=${WIN_WIDTH}
+ifdef WIDTH
+	CFLAGS		+= -D WIDTH=${WIDTH}
 endif
 
 # Files
