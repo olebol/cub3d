@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/05/24 17:21:32 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/24 17:37:17 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ static void	draw_background(t_data *data)
 	int					i;
 
 	screen = (uint32_t *) data->screen->pixels;
-
 	i = 0;
 	while (i < data->mid * WIDTH)
 	{
 		screen[i] = data->elements.ceiling;
 		i++;
 	}
-
 	while (i < WIDTH * HEIGHT)
 	{
 		screen[i] = data->elements.floor;
@@ -52,12 +50,9 @@ static void	draw_wall(t_data *data, t_draw_data *draw, int x)
 	while (y < draw->end)
 	{
 		tex_y = (y - (data->mid - draw->length / 2)) * draw->step;
-
 		color = pixels[((int) tex_y * draw->texture->width) \
 						+ draw->tex_x];
-
 		mlx_put_pixel(data->screen, x, y, color);
-
 		y++;
 	}
 }
@@ -65,29 +60,28 @@ static void	draw_wall(t_data *data, t_draw_data *draw, int x)
 /**
  * @brief	Determine the texture to use for the wall
  * 
- * @param	ray_data	Pointer to the ray data
+ * @param	ray			Pointer to the ray data
  * 
  * @return	t_texture	Enum value of the texture to use for the wall
 */
-static mlx_texture_t	*get_texture(t_elements *elements, t_ray_data *ray_data)
+static mlx_texture_t	*get_texture(t_elements *elements, t_ray_data *ray)
 {
 	t_texture		texture;
 
-	if (ray_data->side == VERTICAL)
-	{	
-		if (ray_data->dir.y < 0)
+	if (ray->side == VERTICAL)
+	{
+		if (ray->dir.y < 0)
 			texture = NORTH;
 		else
 			texture = SOUTH;
 	}
 	else
 	{
-		if (ray_data->dir.x < 0)
+		if (ray->dir.x < 0)
 			texture = WEST;
 		else
 			texture = EAST;
 	}
-
 	return (elements->textures[texture]);
 }
 
@@ -95,22 +89,22 @@ static mlx_texture_t	*get_texture(t_elements *elements, t_ray_data *ray_data)
  * @brief	Set the data needed for drawing the wall
  * 
  * @param	data		Pointer to the main data structure
- * @param	ray_data	Pointer to the ray data
+ * @param	ray			Pointer to the ray data
  * @param	draw_data	Pointer to the draw data
 */
-static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
+static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray)
 {
 	double				wall_hit;
 	t_draw_data			draw;
 	int					wall_height;
 	int					texture_x;
 
-	if (ray_data->side == HORIZONTAL)
-		wall_hit = ray_data->hit_y - (int) ray_data->hit_y;
+	if (ray->side == HORIZONTAL)
+		wall_hit = ray->hit_y - (int) ray->hit_y;
 	else
-		wall_hit = ray_data->hit_x - (int) ray_data->hit_x;
+		wall_hit = ray->hit_x - (int) ray->hit_x;
 
-	wall_height = (HEIGHT / ray_data->distance);
+	wall_height = (HEIGHT / ray->distance);
 	if (wall_height < 0)
 		wall_height = 0;
 
@@ -128,12 +122,12 @@ static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 	if (draw.end > HEIGHT)
 		draw.end = HEIGHT;
 
-	draw.texture = get_texture(&data->elements, ray_data);
+	draw.texture = get_texture(&data->elements, ray);
 
 	texture_x = wall_hit * draw.texture->width;
 
-	if ((ray_data->side == VERTICAL && ray_data->dir.y > 0)			// South wall
-		|| (ray_data->side == HORIZONTAL && ray_data->dir.x < 0))	// West wall
+	if ((ray->side == VERTICAL && ray->dir.y > 0)			// South wall
+		|| (ray->side == HORIZONTAL && ray->dir.x < 0))	// West wall
 		texture_x = draw.texture->width - texture_x - 1;
 
 	draw.tex_x = texture_x;
@@ -160,9 +154,7 @@ void	draw_world(t_data *data)
 	{
 		ray = cast_ray(data, x);
 		draw_data = set_draw_data(data, &ray);
-
 		draw_wall(data, &draw_data, x);
-
 		x++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:47:24 by opelser           #+#    #+#             */
-/*   Updated: 2024/05/24 17:24:07 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/24 17:29:53 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ uint32_t	flip_color(uint32_t color)
 			(color & 0x000000FF) << 24);
 }
 
-void		flip_texture(mlx_texture_t *texture)
+void	flip_texture(mlx_texture_t *texture)
 {
 	const int		size = texture->width * texture->height;
 	uint32_t		*pixels;
