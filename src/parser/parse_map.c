@@ -64,21 +64,18 @@ static size_t	get_map_height(const char *map_str)
 
 static void	fill_map(t_map *map, const char *map_str)
 {
-	const int	map_len = ft_strlen(map_str);
-	int			i;
-	int			y;
-	int			x;
+	const int		map_len = ft_strlen(map_str);
+	static int		i = 0;
+	static int		y = 0;
+	static int		x = 0;
 
-	i = 0;
-	x = 0;
-	y = 0;
 	while (i <= map_len)
 	{
 		if (map_str[i] == '\n' || map_str[i] == '\0')
 		{
 			while (x < map->width)
 			{
-				map->map[y][x] = ' ';
+				map->map[y][x] = EMPTY;
 				x++;
 			}
 			x = 0;
