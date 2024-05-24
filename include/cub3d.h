@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 22:50:46 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:34:57 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@
 # define GAME_NAME "cub3D"
 
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH 1280
+#  define WIN_WIDTH 1920
 # endif
 
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT 720
+#  define WIN_HEIGHT 1080
 # endif
 
 # define MAP_EXTENSION ".cub"
@@ -55,11 +55,11 @@ typedef struct s_draw_data
 
 	int				wall_start;
 	int				wall_end;
-	
+
 	int				tex_x;
-	
+
 	double			step;
-	
+
 }			t_draw_data;
 
 /**
@@ -121,6 +121,5 @@ void		draw_world(t_data *data);
 
 // Parsing
 void		parse_file(t_data *data, const char *filename);
-
 
 #endif

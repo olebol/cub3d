@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:37:50 by opelser           #+#    #+#             */
-/*   Updated: 2024/02/26 23:57:15 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:05:07 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,5 @@ t_vector	get_vector(double angle)
 	vector.direction = angle;
 	vector.x = cos(angle);
 	vector.y = sin(angle);
-
 	return (vector);
 }

@@ -6,14 +6,14 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:47:55 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/25 23:25:45 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:15:42 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
 
-static void		left_right(t_data *data, double x)
+static void	left_right(t_data *data, double x)
 {
 	double		angle;
 
@@ -22,22 +22,19 @@ static void		left_right(t_data *data, double x)
 		angle -= M_PI * 2;
 	if (angle < 0)
 		angle += M_PI * 2;
-
 	data->player.dir = get_vector(angle);
 	data->player.cam = get_vector(angle + (M_PI / 2));
 }
 
-static void		up_down(t_data *data, double y)
+static void	up_down(t_data *data, double y)
 {
 	int		wall_middle;
 
 	wall_middle = data->wall_middle - WIN_HEIGHT / 2 + y;
-
 	if (wall_middle > 200)
 		wall_middle = 200;
 	if (wall_middle < -200)
 		wall_middle = -200;
-
 	data->wall_middle = wall_middle + WIN_HEIGHT / 2;
 }
 
@@ -48,10 +45,8 @@ void	mouse_hook(double x, double y, void *dataPointer)
 	static double	old_y;
 
 	data = (t_data *) dataPointer;
-
 	left_right(data, old_x - x);
 	up_down(data, old_y - y);
-
 	old_x = x;
 	old_y = y;
 }

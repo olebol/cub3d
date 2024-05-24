@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/26 16:15:23 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:29:25 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,12 @@ static void	draw_background(t_data *data)
 	int					i;
 
 	screen = (uint32_t *) data->screen->pixels;
-
 	i = 0;
 	while (i < data->wall_middle * WIN_WIDTH)
 	{
 		screen[i] = ceiling;
 		i++;
 	}
-
 	while (i < WIN_WIDTH * WIN_HEIGHT)
 	{
 		screen[i] = floor;
@@ -54,15 +52,12 @@ static void	draw_wall(t_data *data, t_draw_data *draw_data, int x)
 	tex_y = (wall_start - \
 				(data->wall_middle) + (draw_data->line_height / 2)) \
 			* draw_data->step;
-
 	y = wall_start;
 	while (y < draw_data->wall_end)
 	{
 		color = pixels[((int) tex_y * draw_data->texture->width) \
 						+ draw_data->tex_x];
-
 		mlx_put_pixel(data->screen, x, y, color);
-
 		tex_y += draw_data->step;
 		y++;
 	}
@@ -75,7 +70,7 @@ static void	draw_wall(t_data *data, t_draw_data *draw_data, int x)
  * 
  * @return	t_texture	Enum value of the texture to use for the wall
 */
-static mlx_texture_t	*get_texture(t_elements *elements, t_ray_data *ray_data)
+static	mlx_texture_t	*get_texture(t_elements *elements, t_ray_data *ray_data)
 {
 	t_texture		texture;
 
@@ -93,7 +88,6 @@ static mlx_texture_t	*get_texture(t_elements *elements, t_ray_data *ray_data)
 		else
 			texture = EAST;
 	}
-
 	return (elements->textures[texture]);
 }
 
@@ -104,7 +98,7 @@ static mlx_texture_t	*get_texture(t_elements *elements, t_ray_data *ray_data)
  * @param	ray_data	Pointer to the ray data
  * @param	draw_data	Pointer to the draw data
 */
-static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
+static	t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 {
 	const double		wall_hit = ray_data->wall_hit;
 	t_draw_data			draw_data;
@@ -113,27 +107,20 @@ static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray_data)
 	wall_height = (WIN_HEIGHT / ray_data->distance);
 	if (wall_height < 0)
 		wall_height = 0;
-
 	draw_data.line_height = wall_height;
-
 	draw_data.wall_start = data->wall_middle - wall_height / 2;
 	if (draw_data.wall_start < 0)
 		draw_data.wall_start = 0;
 	if (draw_data.wall_start > WIN_HEIGHT)
 		draw_data.wall_start = WIN_HEIGHT;
-
 	draw_data.wall_end = data->wall_middle + wall_height / 2;
 	if (draw_data.wall_end < 0)
 		draw_data.wall_end = 0;
 	if (draw_data.wall_end > WIN_HEIGHT)
 		draw_data.wall_end = WIN_HEIGHT;
-
 	draw_data.texture = get_texture(&data->elements, ray_data);
-
 	draw_data.tex_x = (wall_hit - (int) wall_hit) * draw_data.texture->width;
-
 	draw_data.step = 1.0 * draw_data.texture->height / draw_data.line_height;
-
 	return (draw_data);
 }
 
@@ -154,10 +141,7 @@ void	draw_world(t_data *data)
 	{
 		ray_data = cast_ray(data, x);
 		draw_data = set_draw_data(data, &ray_data);
-
-
 		draw_wall(data, &draw_data, x);
-
 		x++;
 	}
 }

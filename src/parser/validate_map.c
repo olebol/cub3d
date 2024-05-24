@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:41:54 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/05 16:47:59 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:10:01 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,19 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-static bool		check_square(t_map *map, int x, int y)
+static bool	check_square(t_map *map, int x, int y)
 {
 	if (map->map[y][x] == WALL)
 		return (true);
-
-	// Edge of the map
 	if (x == 0 || y == 0 || x == map->width - 1 || y == map->height - 1)
 		return (false);
-
 	if (map->map[y][x] == EMPTY)
 		return (false);
-
 	return (true);
 }
 
-static bool		is_closed(t_map *map, int x, int y)
+static bool	is_closed(t_map *map, int x, int y)
 {
-	// Check all directions
 	if (check_square(map, x, y) == false
 		|| check_square(map, x + 1, y) == false
 		|| check_square(map, x - 1, y) == false
@@ -46,11 +41,10 @@ static bool		is_closed(t_map *map, int x, int y)
 		|| check_square(map, x - 1, y + 1) == false
 		|| check_square(map, x - 1, y - 1) == false)
 		return (false);
-
 	return (true);
 }
 
-static bool		is_map_closed(t_map *map)
+static bool	is_map_closed(t_map *map)
 {
 	size_t		x;
 	size_t		y;
@@ -74,11 +68,10 @@ static bool		is_map_closed(t_map *map)
 		}
 		y++;
 	}
-
 	return (true);
 }
 
-static bool		contains_valid_symbols(t_map *map)
+static bool	contains_valid_symbols(t_map *map)
 {
 	int			y;
 	int			x;
@@ -95,7 +88,6 @@ static bool		contains_valid_symbols(t_map *map)
 		}
 		y++;
 	}
-
 	return (true);
 }
 
@@ -103,7 +95,6 @@ void	validate_map(t_map *map)
 {
 	if (contains_valid_symbols(map) == false)
 		error(E_MAP_INVALID);
-
 	if (is_map_closed(map) == false)
 		error(E_MAP_UNCLOSED);
 }
