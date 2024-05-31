@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/05/24 17:37:17 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/31 17:04:06 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,86 +55,6 @@ static void	draw_wall(t_data *data, t_draw_data *draw, int x)
 		mlx_put_pixel(data->screen, x, y, color);
 		y++;
 	}
-}
-
-/**
- * @brief	Determine the texture to use for the wall
- * 
- * @param	ray			Pointer to the ray data
- * 
- * @return	t_texture	Enum value of the texture to use for the wall
-*/
-static mlx_texture_t	*get_texture(t_elements *elements, t_ray_data *ray)
-{
-	t_texture		texture;
-
-	if (ray->side == VERTICAL)
-	{
-		if (ray->dir.y < 0)
-			texture = NORTH;
-		else
-			texture = SOUTH;
-	}
-	else
-	{
-		if (ray->dir.x < 0)
-			texture = WEST;
-		else
-			texture = EAST;
-	}
-	return (elements->textures[texture]);
-}
-
-/**
- * @brief	Set the data needed for drawing the wall
- * 
- * @param	data		Pointer to the main data structure
- * @param	ray			Pointer to the ray data
- * @param	draw_data	Pointer to the draw data
-*/
-static t_draw_data	set_draw_data(t_data *data, t_ray_data *ray)
-{
-	double				wall_hit;
-	t_draw_data			draw;
-	int					wall_height;
-	int					texture_x;
-
-	if (ray->side == HORIZONTAL)
-		wall_hit = ray->hit_y - (int) ray->hit_y;
-	else
-		wall_hit = ray->hit_x - (int) ray->hit_x;
-
-	wall_height = (HEIGHT / ray->distance);
-	if (wall_height < 0)
-		wall_height = 0;
-
-	draw.length = wall_height;
-
-	draw.start = data->mid - wall_height / 2;
-	if (draw.start < 0)
-		draw.start = 0;
-	if (draw.start > HEIGHT)
-		draw.start = HEIGHT;
-
-	draw.end = data->mid + wall_height / 2;
-	if (draw.end < 0)
-		draw.end = 0;
-	if (draw.end > HEIGHT)
-		draw.end = HEIGHT;
-
-	draw.texture = get_texture(&data->elements, ray);
-
-	texture_x = wall_hit * draw.texture->width;
-
-	if ((ray->side == VERTICAL && ray->dir.y > 0)			// South wall
-		|| (ray->side == HORIZONTAL && ray->dir.x < 0))	// West wall
-		texture_x = draw.texture->width - texture_x - 1;
-
-	draw.tex_x = texture_x;
-
-	draw.step = (double) draw.texture->height / draw.length;
-
-	return (draw);
 }
 
 /**

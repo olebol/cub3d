@@ -75,6 +75,7 @@ SRC_FILES :=									\
 				parser/flip.c					\
 \
 				engine/casting.c				\
+				engine/set_draw_data.c			\
 				engine/draw_world.c				\
 				engine/minimap.c				\
 				engine/hooks/hooks.c			\
