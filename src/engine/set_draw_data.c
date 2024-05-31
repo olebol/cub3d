@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:59:27 by opelser           #+#    #+#             */
-/*   Updated: 2024/05/31 17:00:24 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/31 17:14:27 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static mlx_texture_t	*get_texture(t_elements *elements, t_ray_data *ray)
 	return (elements->textures[texture]);
 }
 
-int		get_texture_x(t_ray_data *ray, double tex_width)
+int	get_texture_x(t_ray_data *ray, double tex_width)
 {
 	double			wall_hit;
 	int				tex_x;
@@ -50,13 +50,10 @@ int		get_texture_x(t_ray_data *ray, double tex_width)
 		wall_hit = ray->hit_y - (int) ray->hit_y;
 	else
 		wall_hit = ray->hit_x - (int) ray->hit_x;
-
 	tex_x = wall_hit * tex_width;
-
 	if ((ray->side == VERTICAL && ray->dir.y > 0)
 		|| (ray->side == HORIZONTAL && ray->dir.x < 0))
 		tex_x = tex_width - tex_x - 1;
-
 	return (tex_x);
 }
 
@@ -75,26 +72,19 @@ t_draw_data	set_draw_data(t_data *data, t_ray_data *ray)
 	wall_height = (HEIGHT / ray->distance);
 	if (wall_height < 0)
 		wall_height = 0;
-
 	draw.length = wall_height;
-
 	draw.start = data->mid - wall_height / 2;
 	if (draw.start < 0)
 		draw.start = 0;
 	if (draw.start > HEIGHT)
 		draw.start = HEIGHT;
-
 	draw.end = data->mid + wall_height / 2;
 	if (draw.end < 0)
 		draw.end = 0;
 	if (draw.end > HEIGHT)
 		draw.end = HEIGHT;
-
 	draw.texture = get_texture(&data->elements, ray);
-
 	draw.tex_x = get_texture_x(ray, draw.texture->width);
-
 	draw.step = (double) draw.texture->height / draw.length;
-
 	return (draw);
 }
