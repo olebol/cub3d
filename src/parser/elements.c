@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:47:57 by opelser           #+#    #+#             */
-/*   Updated: 2024/05/24 17:43:36 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/31 17:11:32 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,24 +100,6 @@ static char	*get_next_string(char *str, size_t *i)
 	return (sub);
 }
 
-bool	is_elem_missing(t_elements *elements, size_t loops)
-{
-	size_t		i;
-
-	if (loops < TEXTURE_AMOUNT + 2)
-		return (true);
-	i = 0;
-	while (i < TEXTURE_AMOUNT)
-	{
-		if (elements->textures[i] == NULL)
-			return (true);
-		i++;
-	}
-	if (elements->floor == 0x00000000 || elements->ceiling == 0x00000000)
-		return (true);
-	return (false);
-}
-
 size_t	parse_elements(t_elements *elements, char *str)
 {
 	char		*id;
@@ -139,7 +121,6 @@ size_t	parse_elements(t_elements *elements, char *str)
 		i++;
 		loops++;
 	}
-	if (is_elem_missing(elements, loops) == true)
-		error(E_ELEM_MISSING);
+	validate_elements(elements, loops);
 	return (i);
 }

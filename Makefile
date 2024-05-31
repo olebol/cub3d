@@ -72,6 +72,7 @@ SRC_FILES :=									\
 				parser/parse_map.c				\
 				parser/validate_map.c			\
 				parser/elements.c				\
+				parser/validate_elements.c		\
 				parser/flip.c					\
 \
 				engine/casting.c				\
