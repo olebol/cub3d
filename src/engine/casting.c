@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:41:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/05/24 17:34:31 by opelser          ###   ########.fr       */
+/*   Updated: 2024/05/31 17:17:08 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,24 +93,9 @@ void	calculate_hit(t_data *data, t_ray_data *ray, t_dda_values *dda)
 	}
 }
 
-// DDA algorithm to calculate the distance to the next wall hit
-void	dda(t_data *data, t_ray_data *ray)
-{
-	t_dda_values	dda;
-
-	dda = get_dda_values(ray, data->player.x, data->player.y);
-	while (true)
-	{
-		ray->tile_hit = get_tile_type(&data->map, dda.map_x, dda.map_y);
-		if (ray->tile_hit == WALL)
-			break ;
-		go_to_next_intersection(ray, &dda);
-	}
-	calculate_hit(data, ray, &dda);
-}
-
 t_ray_data	cast_ray(t_data *data, int x)
 {
+	t_dda_values	dda;
 	t_ray_data		ray;
 	const double	fov = M_PI / 2;
 	const double	camera_plane_x = fov * (x / (double) WIDTH) - fov / 2;
@@ -122,6 +107,14 @@ t_ray_data	cast_ray(t_data *data, int x)
 	ray.hit_y = 0;
 	ray.tile_hit = EMPTY;
 	ray.distance = 0;
-	dda(data, &ray);
+	dda = get_dda_values(&ray, data->player.x, data->player.y);
+	while (true)
+	{
+		ray.tile_hit = get_tile_type(&data->map, dda.map_x, dda.map_y);
+		if (ray.tile_hit == WALL)
+			break ;
+		go_to_next_intersection(&ray, &dda);
+	}
+	calculate_hit(data, &ray, &dda);
 	return (ray);
 }
