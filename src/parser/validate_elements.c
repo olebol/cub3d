@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.c                                           :+:      :+:    :+:   */
+/*   validate_elements.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/26 22:37:50 by opelser           #+#    #+#             */
-/*   Updated: 2024/05/24 16:05:07 by opelser          ###   ########.fr       */
+/*   Created: 2024/05/31 17:08:02 by opelser           #+#    #+#             */
+/*   Updated: 2024/06/03 17:39:19 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include "vector.h"
+#include "elements.h"
+#include "errors.h"
 
-t_vector	get_vector(double angle)
+void	validate_elements(t_elements *elements, size_t loops)
 {
-	t_vector	vector;
+	size_t		i;
 
-	vector.direction = angle;
-	vector.x = cos(angle);
-	vector.y = sin(angle);
-	return (vector);
+	if (loops < ELEMENTS_AMOUNT)
+		error(E_ELEM_MISSING);
+	i = 0;
+	while (i < TEXTURE_AMOUNT)
+	{
+		if (elements->textures[i] == NULL)
+			error(E_ELEM_MISSING);
+		i++;
+	}
+	if (elements->floor == 0x00000000 || elements->ceiling == 0x00000000)
+		error(E_ELEM_MISSING);
 }

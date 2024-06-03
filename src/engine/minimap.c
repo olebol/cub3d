@@ -13,7 +13,7 @@
 #include "cub3d.h"
 #include "utils.h"
 
-static void		draw_player_dot(t_data *data, int start_pos, int colour)
+static void	draw_player_dot(t_data *data, int start_pos, int colour)
 {
 	int		i;
 	int		j;
@@ -35,14 +35,11 @@ static void		draw_player_dot(t_data *data, int start_pos, int colour)
 }
 
 // Draw the player on the minimap
-static void		draw_player(t_data *data, int start_pos, int colour)
+static void	draw_player(t_data *data, int start_pos, int colour)
 {
 	int		i;
 
-	// Draw player dot
 	draw_player_dot(data, start_pos, colour);
-
-	// Draw player direction line
 	i = 0;
 	while (i < 10)
 	{
@@ -86,7 +83,6 @@ void	fill_map(t_data *data, int tile_size, \
 		{
 			map_x = map_offset_x + ((float) x / tile_size);
 			map_y = map_offset_y + ((float) y / tile_size);
-
 			tile = get_tile_type(&data->map, map_x, map_y);
 			draw_pixel(data, x, y, tile);
 			x++;
@@ -98,26 +94,18 @@ void	fill_map(t_data *data, int tile_size, \
 // Draw the map surrounding the player
 void	draw_minimap(t_data *data)
 {
-	// Minimap size in pixels
 	const int		minimap_size = data->minimap->width;
-
-	// Minimap tile size in pixels
 	static int		tile_size = 16;
+	const double	offset = (float) minimap_size / tile_size / 2;
+	const double	map_offset_x = data->player.x - offset;
+	const double	map_offset_y = data->player.y - offset;
 
 	if (mlx_is_key_down(data->mlx, MLX_KEY_MINUS))
 		tile_size -= 1;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_EQUAL))
 		tile_size += 1;
-
 	if (tile_size < 1)
 		tile_size = 1;
-
-	// Map offset pointing to the top left corner of the minimap
-	const double	offset = (float) minimap_size / tile_size / 2;
-	const double	map_offset_x = data->player.x - offset;
-	const double	map_offset_y = data->player.y - offset;
-
-	// Draw map and player
 	fill_map(data, tile_size, map_offset_x, map_offset_y);
 	draw_player(data, minimap_size / 2, 0xFF0000FF);
 }

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/28 15:23:40 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 17:37:09 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 
 # define MAP_EXTENSION ".cub"
 
+typedef struct s_ray_data	t_ray_data;
+
 /**
  * @brief		Structure to store the data needed for drawing
  * 
@@ -53,9 +55,9 @@ typedef struct s_draw_data
 	int				end;
 	
 	int				tex_x;
-	
+
 	double			step;
-	
+
 }			t_draw_data;
 
 /**
@@ -116,10 +118,10 @@ void		mouse_hook(double x, double y, void *dataPointer);
 void		door_hook(t_data *data);
 
 // Drawing world
+t_draw_data	set_draw_data(t_data *data, t_ray_data *ray);
 void		draw_world(t_data *data);
 
 // Parsing
 void		parse_file(t_data *data, const char *filename);
-
 
 #endif

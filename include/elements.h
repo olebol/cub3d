@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 21:46:05 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 16:43:54 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 17:32:14 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,16 @@ typedef struct s_elements
  * @param str 		string to parse the elements from
 */
 size_t		parse_elements(t_elements *elements, char *str);
+
+/**
+ * @brief Validates the elements
+ * 
+ * @param elements 	elements struct to validate
+ * @param loops 	amount of loops
+ * 
+ * @return true if the elements are valid, false otherwise
+*/
+void		validate_elements(t_elements *elements, size_t loops);
 
 /**
  * @brief Flips the color

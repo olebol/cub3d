@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:41:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/05/23 15:53:18 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 18:04:51 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,24 @@
 
 #include <math.h>
 
-// set the distance to the next horizontal intersection to the left and define the direction to take on the map
-void		set_distances_and_map_steps(t_dda_values *dda, \
-										t_ray_data *ray, double x, double y)
+void	set_distances_and_map_steps(t_dda_values *dda, t_ray_data *ray, \
+									double x, double y)
 {
-	// ray pointed left
 	if (ray->dir.x < 0)
 	{
 		dda->distance_x = dda->delta_x * (x - dda->map_x);
 		dda->map_step_x = -1;
 	}
-	// ray pointed right
 	else
 	{
 		dda->distance_x = dda->delta_x * (dda->map_x + 1 - x);
 		dda->map_step_x = 1;
 	}
-
-	// ray pointed upwards
 	if (ray->dir.y < 0)
 	{
 		dda->distance_y = dda->delta_y * (y - dda->map_y);
 		dda->map_step_y = -1;
 	}
-	// ray pointed downwards
 	else
 	{
 		dda->distance_y = dda->delta_y * (dda->map_y + 1 - y);
@@ -51,23 +45,17 @@ t_dda_values	get_dda_values(t_ray_data *ray, double x, double y)
 {
 	t_dda_values	dda;
 
-	// Set the distance between two intersections
-	if (ray->dir.x == 0) // parallel
+	if (ray->dir.x == 0)
 		dda.delta_x = INFINITY;
 	else
 		dda.delta_x = fabs(1 / ray->dir.x);
-	
-	if (ray->dir.y == 0) // parallel
+	if (ray->dir.y == 0)
 		dda.delta_y = INFINITY;
 	else
 		dda.delta_y = fabs(1 / ray->dir.y);
-
-	// Set the current map position to the player's position
 	dda.map_x = (int) x;
 	dda.map_y = (int) y;
-
 	set_distances_and_map_steps(&dda, ray, x, y);
-
 	return (dda);
 }
 

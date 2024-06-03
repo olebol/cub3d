@@ -1,4 +1,4 @@
-NAME			:= cub3d
+NAME			:= cub3D
 NICKNAME		:= CUB3D
 
 # Directories
@@ -65,11 +65,8 @@ endif
 SRC_FILES :=									\
 				main.c							\
 				init.c							\
-\
 				utils.c							\
-\
 				error.c							\
-\
 				vector.c						\
 \
 				parser/parser.c					\
@@ -77,12 +74,14 @@ SRC_FILES :=									\
 				parser/sprites.c				\
 				parser/validate_map.c			\
 				parser/elements.c				\
+				parser/validate_elements.c		\
 				parser/flip.c					\
 \
 				engine/casting.c				\
 				engine/sprites.c				\
-				engine/draw_world.c				\
 				engine/minimap.c				\
+				engine/draw_world.c				\
+				engine/set_draw_data.c			\
 				engine/hooks/hooks.c			\
 				engine/hooks/move.c				\
 				engine/hooks/view.c				\

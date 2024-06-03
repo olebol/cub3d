@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:42:50 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/27 17:52:01 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 17:40:37 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@
 #include <math.h>
 #include <fcntl.h>
 
-static void		set_player(t_player *player, int x, int y, char direction)
+static void	set_player(t_player *player, int x, int y, char direction)
 {
 	double		angle;
 
 	player->x = x + 0.5;
 	player->y = y + 0.5;
-
 	angle = 0;
 	if (direction == 'E')
 		angle = 0;
@@ -35,7 +34,6 @@ static void		set_player(t_player *player, int x, int y, char direction)
 		angle = M_PI;
 	else if (direction == 'N')
 		angle = M_PI * 1.5;
-
 	player->dir = get_vector(angle);
 	player->cam = get_vector(angle + (M_PI / 2));
 }
@@ -59,20 +57,17 @@ static bool	find_player(t_data *data, char **map)
 				if (player_found == true)
 					error(E_PLAYER_DUP);
 				player_found = true;
-
 				set_player(&data->player, x, y, map[y][x]);
-
 				map[y][x] = '0';
 			}
 			x++;
 		}
 		y++;
 	}
-
 	return (player_found);
 }
 
-static char		*read_file(const char *filename)
+static char	*read_file(const char *filename)
 {
 	const int	fd = open(filename, O_RDONLY, 0);
 	char		*filestr;
@@ -80,10 +75,8 @@ static char		*read_file(const char *filename)
 
 	if (is_valid_extension(filename, MAP_EXTENSION) == false)
 		error(E_FILE_EXTENSION);
-
 	if (fd < 0)
 		error(E_FILE);
-
 	filestr = NULL;
 	while (get_line(fd, &line) == GNL_SUCCESS)
 	{
@@ -99,15 +92,11 @@ void	parse_file(t_data *data, const char *filename)
 	size_t		map_start;
 
 	content = read_file(filename);
-
 	map_start = parse_elements(&data->elements, content);
 	parse_map(&data->map, content + map_start);
 	validate_map(&data->map);
-
 	if (find_player(data, data->map.map) == false)
 		error(E_PLAYER_NO);
-
 	find_sprites(&data->map, data);
-
 	free(content);
 }
