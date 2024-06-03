@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:49:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/06/03 18:51:16 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 19:38:49 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ static t_sprite	*create_sprite(t_data *data, double x, double y)
 	new_sprite->y = y;
 	new_sprite->distance_x = 0;
 	new_sprite->distance_y = 0;
+	new_sprite->width = 150;
+	new_sprite->frames = new_sprite->texture->width / new_sprite->width;
+	new_sprite->current_frame = 0;
 	new_sprite->next = NULL;
 	return (new_sprite);
 }

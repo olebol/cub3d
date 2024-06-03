@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:19:35 by opelser           #+#    #+#             */
-/*   Updated: 2024/06/03 18:43:21 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 19:38:58 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ struct s_sprite
 
 	double			distance_x;
 	double			distance_y;
+
+	int				width;
+	
+	int				frames;
+	int				current_frame;
 
 	t_sprite		*next;
 };

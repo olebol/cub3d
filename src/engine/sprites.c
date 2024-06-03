@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:18:28 by opelser           #+#    #+#             */
-/*   Updated: 2024/05/21 15:36:49 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 19:19:32 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,30 @@ void		sort_sprites(t_sprite **sprites)
 	}
 }
 
+void	update_sprites(t_sprite *sprites)
+{
+	t_sprite		*current;
+	static double		last_time = 0;
+	const double		current_time = mlx_get_time();
+
+	if (current_time - last_time < 0.1)
+		return ;
+
+	current = sprites;
+	while (current)
+	{
+		current->current_frame++;
+
+		if (current->current_frame >= current->frames)
+			current->current_frame = 0;
+
+		current = current->next;
+	}
+
+	last_time = current_time;
+}
+
+
 static void		draw_sprite(t_data *data, t_sprite *sprite, t_ray_data **rays, int spriteScreenX, double transformY)
 {
 	// Calculate scaled sprite height and width
@@ -79,9 +103,9 @@ static void		draw_sprite(t_data *data, t_sprite *sprite, t_ray_data **rays, int 
 		drawEndX = WIDTH - 1;
 
 	// Draw the sprite with texture
-	const uint32_t			*pixels = (uint32_t *) sprite->texture->pixels;
-	const double 			stepX = (float) sprite->texture->width  / spriteWidth;
-	const double			stepY = (float) sprite->texture->height / spriteHeight;
+	const uint32_t			*pixels = (uint32_t *) sprite->texture->pixels + sprite->current_frame * sprite->width;
+	const double 			stepX = (float) sprite->width / spriteWidth;
+	const double			stepY = (float) sprite->width / spriteHeight;
 
 	for (int x = drawStartX; x < drawEndX; x++)
 	{
@@ -156,4 +180,7 @@ void		sprites(t_data *data, t_ray_data **rays)
 
 		sprite = sprite->next;
 	}
+
+	// Update the sprites
+	update_sprites(data->sprites);
 }
