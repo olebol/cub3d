@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:21:48 by evalieve          #+#    #+#             */
-/*   Updated: 2024/06/03 17:30:17 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 18:40:19 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,10 @@ t_tile	get_tile_type(t_map *map, double x, double y)
 	return (map->map[(int) y][(int) x]);
 }
 
-void		set_tile_type(t_map *map, double x, double y, t_tile type)
+void	set_tile_type(t_map *map, double x, double y, t_tile type)
 {
 	if (x < 0 || y < 0 || x >= map->width || y >= map->height)
 		error(E_MAP_BOUNDS);
-
 	map->map[(int) y][(int) x] = type;
 }
 

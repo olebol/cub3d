@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:27 by opelser           #+#    #+#             */
-/*   Updated: 2024/06/03 17:42:01 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 18:39:53 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static bool	init_mlx(t_data *data)
 
 static void	init_fields(t_data *data)
 {
-	int 		i;
+	int			i;
 
 	i = 0;
 	while (i < TEXTURE_AMOUNT)

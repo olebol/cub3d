@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:49:25 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/28 17:24:36 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 18:51:16 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 #include "sprite.h"
 #include "errors.h"
 
-static void			add_sprite(t_data *data, t_sprite *new_sprite)
+static void	add_sprite(t_data *data, t_sprite *new_sprite)
 {
 	t_sprite	*current;
 
 	if (new_sprite == NULL)
 		return ;
-
 	if (data->sprites == NULL)
 	{
 		data->sprites = new_sprite;
@@ -33,23 +32,21 @@ static void			add_sprite(t_data *data, t_sprite *new_sprite)
 	current->next = new_sprite;
 }
 
-static t_sprite		*create_sprite(t_data *data, double x, double y)
+static t_sprite	*create_sprite(t_data *data, double x, double y)
 {
 	t_sprite	*new_sprite;
 
 	new_sprite = (t_sprite *) ft_malloc(sizeof(t_sprite));
-
 	new_sprite->texture = data->elements.textures[SPRITE];
 	new_sprite->x = x;
 	new_sprite->y = y;
 	new_sprite->distance_x = 0;
 	new_sprite->distance_y = 0;
 	new_sprite->next = NULL;
-
 	return (new_sprite);
 }
 
-void		find_sprites(t_map *map, t_data *data)
+void	find_sprites(t_map *map, t_data *data)
 {
 	int		x;
 	int		y;

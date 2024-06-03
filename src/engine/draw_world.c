@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:30:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/06/03 18:02:05 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 18:53:31 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	draw_wall(t_data *data, t_draw_data *draw, int x)
 		tex_y = (y - (data->mid - draw->length / 2)) * draw->step;
 		color = pixels[((int) tex_y * draw->texture->width) \
 						+ draw->tex_x];
-		if (color != 0x000000) 
+		if (color != 0x000000)
 			mlx_put_pixel(data->screen, x, y, color);
 		y++;
 	}
@@ -81,7 +81,6 @@ void	free_ray_data(t_ray_data **rays)
 	}
 }
 
-
 /**
  * @brief	Draw the world
  * 
@@ -99,7 +98,6 @@ void	draw_world(t_data *data)
 	while (x < WIDTH)
 	{
 		rays[x] = cast_ray(data, x, false);
-
 		current = rays[x];
 		while (current != NULL)
 		{
@@ -107,7 +105,6 @@ void	draw_world(t_data *data)
 			draw_wall(data, &draw_data, x);
 			current = current->next;
 		}
-
 		x++;
 	}
 	sprites(data, rays);

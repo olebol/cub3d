@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:19:35 by opelser           #+#    #+#             */
-/*   Updated: 2024/05/21 15:36:17 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 18:43:21 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define SPRITE_H
 
 // Forward declaration
-typedef struct s_ray_data t_ray_data;
-typedef struct s_map t_map;
-typedef struct s_data t_data;
+typedef struct s_ray_data		t_ray_data;
+typedef struct s_map			t_map;
+typedef struct s_data			t_data;
 
 /**
  * @brief Structure to store sprite data
@@ -31,15 +31,15 @@ typedef struct s_data t_data;
  * 
  * @param next 			Pointer to the next sprite
 */
-typedef struct	s_sprite t_sprite;
+typedef struct s_sprite			t_sprite;
 
 struct s_sprite
 {
-	mlx_texture_t		*texture;
+	mlx_texture_t	*texture;
 
 	double			x;
 	double			y;
-	
+
 	double			distance_x;
 	double			distance_y;
 

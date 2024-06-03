@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:46 by opelser           #+#    #+#             */
-/*   Updated: 2024/06/03 17:42:31 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 18:40:07 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	free_data(t_data *data)
 	int			i;
 
 	ft_free_str_arr(data->map.map);
-
 	sprite = data->sprites;
 	while (sprite)
 	{
@@ -28,7 +27,6 @@ static void	free_data(t_data *data)
 		free(sprite);
 		sprite = data->sprites;
 	}
-
 	i = 0;
 	while (i < TEXTURE_AMOUNT)
 	{

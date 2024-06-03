@@ -6,14 +6,14 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:40:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/06/03 17:36:40 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 18:41:50 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CASTING_H
 # define CASTING_H
 
-typedef struct s_data	t_data;
+typedef struct s_data		t_data;
 
 enum e_side
 {
@@ -59,7 +59,7 @@ typedef struct s_dda_values
  * @param	hit_y 			Y coordinate of the wall hit by the ray
  * @param	tile_hit 		Type of the tile hit by the ray
 */
-typedef struct s_ray_data t_ray_data;
+typedef struct s_ray_data	t_ray_data;
 struct s_ray_data
 {
 	t_vector		dir;

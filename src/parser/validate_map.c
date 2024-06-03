@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:41:54 by evalieve          #+#    #+#             */
-/*   Updated: 2024/06/03 18:13:05 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 18:43:42 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ static bool	contains_valid_symbols(t_map *map)
 		}
 		y++;
 	}
-
 	return (true);
 }
 

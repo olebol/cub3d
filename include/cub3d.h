@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:14:43 by opelser           #+#    #+#             */
-/*   Updated: 2024/06/03 17:37:09 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 18:41:06 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 # include "MLX42.h"
 # include "libft.h"
 
-#include "vector.h"
-#include "elements.h"
-#include "sprite.h"
-#include "map.h"
+# include "vector.h"
+# include "elements.h"
+# include "sprite.h"
+# include "map.h"
 
 # define GAME_NAME "cub3D"
 
@@ -53,7 +53,7 @@ typedef struct s_draw_data
 
 	int				start;
 	int				end;
-	
+
 	int				tex_x;
 
 	double			step;
