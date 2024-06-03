@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:19:35 by opelser           #+#    #+#             */
-/*   Updated: 2024/06/03 19:38:58 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/03 22:05:37 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,26 @@
 typedef struct s_ray_data		t_ray_data;
 typedef struct s_map			t_map;
 typedef struct s_data			t_data;
+
+typedef struct s_sprite_draw_data
+{
+	uint32_t	*pixels;
+
+	int			screen_x;
+
+	int			height;
+	int			width;
+
+	int			start_x;
+	int			end_x;
+
+	int			start_y;
+	int			end_y;
+
+	double		distance;
+
+	double		step;
+}			t_sprite_draw_data;
 
 /**
  * @brief Structure to store sprite data
@@ -50,6 +70,8 @@ struct s_sprite
 
 	t_sprite		*next;
 };
+
+void		draw_sprite(t_data *data, t_ray_data **rays, t_sprite *sprite, int spriteScreenX, double distance);
 
 void		sprites(t_data *data, t_ray_data **rays);
 

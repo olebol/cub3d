@@ -79,6 +79,7 @@ SRC_FILES :=									\
 \
 				engine/casting.c				\
 				engine/sprites.c				\
+				engine/draw_sprite.c			\
 				engine/minimap.c				\
 				engine/draw_world.c				\
 				engine/set_draw_data.c			\
