@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:18:28 by opelser           #+#    #+#             */
-/*   Updated: 2024/06/04 23:15:01 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/04 23:16:48 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,10 @@ void	transform_sprite_location(t_data *data, t_sprite *sprite, t_ray_data **rays
 	const double		transformX = -1 * ((player.y * distX) - (player.x * distY));
 	const double		transformY = -1 * (( -cam.y  * distX) + (  cam.x  * distY));
 
-	// Calculate sprite screen position
-	const int			spriteScreenX = (int) ((WIDTH / 2) * (1 + transformX / transformY));
-
-	sprite->screen_x = spriteScreenX;
 	sprite->distance = transformY;
+
+	// Calculate sprite screen position
+	sprite->screen_x = (int) ((WIDTH / 2) * (1 + transformX / transformY));
 
 	// Draw the sprite
 	draw_sprite(data, rays, sprite);
