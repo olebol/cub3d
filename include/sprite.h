@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:19:35 by opelser           #+#    #+#             */
-/*   Updated: 2024/06/03 22:05:37 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/04 23:13:26 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ struct s_sprite
 	double			distance_x;
 	double			distance_y;
 
+	int				screen_x;
+	double			distance;
+
 	int				width;
 	
 	int				frames;
@@ -71,7 +74,7 @@ struct s_sprite
 	t_sprite		*next;
 };
 
-void		draw_sprite(t_data *data, t_ray_data **rays, t_sprite *sprite, int spriteScreenX, double distance);
+void		draw_sprite(t_data *data, t_ray_data **rays, t_sprite *sprite);
 
 void		sprites(t_data *data, t_ray_data **rays);
 

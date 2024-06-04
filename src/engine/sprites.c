@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:18:28 by opelser           #+#    #+#             */
-/*   Updated: 2024/06/03 22:10:28 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/04 23:15:01 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static double	get_distance(t_sprite *sprite)
 	return (pow(sprite->distance_x, 2) + pow(sprite->distance_y, 2));
 }
 
-void		sort_sprites(t_sprite **sprites)
+void	sort_sprites(t_sprite **sprites)
 {
 	t_sprite	*current;
 	t_sprite	*prev;
@@ -57,7 +57,7 @@ void		sort_sprites(t_sprite **sprites)
 
 void	update_frames(t_sprite *sprites)
 {
-	t_sprite		*current;
+	t_sprite			*current;
 	static double		last_time = 0;
 	const double		current_time = mlx_get_time();
 
@@ -77,8 +77,6 @@ void	update_frames(t_sprite *sprites)
 
 	last_time = current_time;
 }
-
-#include <stdio.h>
 
 // Something is wrong with the calculations
 void	transform_sprite_location(t_data *data, t_sprite *sprite, t_ray_data **rays)
@@ -100,11 +98,14 @@ void	transform_sprite_location(t_data *data, t_sprite *sprite, t_ray_data **rays
 	// Calculate sprite screen position
 	const int			spriteScreenX = (int) ((WIDTH / 2) * (1 + transformX / transformY));
 
+	sprite->screen_x = spriteScreenX;
+	sprite->distance = transformY;
+
 	// Draw the sprite
-	draw_sprite(data, rays, sprite, spriteScreenX, transformY);
+	draw_sprite(data, rays, sprite);
 }
 
-void		sprites(t_data *data, t_ray_data **rays)
+void	sprites(t_data *data, t_ray_data **rays)
 {
 	t_sprite	*sprite;
 
