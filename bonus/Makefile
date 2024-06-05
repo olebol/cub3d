@@ -2,7 +2,6 @@ NAME			:= cub3D
 NICKNAME		:= CUB3D
 
 # Directories
-BONUS_DIR		:= bonus
 HDR_DIR			:= include
 LIB_DIR			:= lib
 SRC_DIR			:= src
@@ -44,6 +43,7 @@ HDR_FILES :=									\
 				utils.h							\
 				elements.h						\
 				errors.h						\
+				sprite.h						\
 
 ifeq (${shell uname}, Linux)
 	MLX_FLAGS	:= -L${MLX_DIR}/build -lmlx42 -lglfw -lm
@@ -71,18 +71,22 @@ SRC_FILES :=									\
 \
 				parser/parser.c					\
 				parser/parse_map.c				\
+				parser/sprites.c				\
 				parser/validate_map.c			\
 				parser/elements.c				\
 				parser/validate_elements.c		\
 				parser/flip.c					\
 \
 				engine/casting.c				\
-				engine/set_draw_data.c			\
-				engine/draw_world.c				\
+				engine/sprites.c				\
+				engine/draw_sprite.c			\
 				engine/minimap.c				\
+				engine/draw_world.c				\
+				engine/set_draw_data.c			\
 				engine/hooks/hooks.c			\
 				engine/hooks/move.c				\
 				engine/hooks/view.c				\
+				engine/hooks/doors.c			\
 
 
 SRC				:= ${addprefix ${SRC_DIR}/, ${SRC_FILES}}
@@ -126,19 +130,12 @@ $(MLX):
 open: $(NAME)
 	@ ./$(NAME) maps/valid_map.cub
 
-bonus:
-	@ make -C $(BONUS_DIR)
-	@ cd $(BONUS_DIR)/ && ./$(NAME) maps/valid_map.cub
-
 norm:
 	@ norminette $(HDR_DIR) $(SRC) | grep -v -e "Empty line in function" -e "Comment is invalid in this scope" -e "extra tabs before function name"
 
 clean:
 	@ echo "$(RED)$(BOLD)Cleaning LIBFT...$(RESET)"
 	@ make clean -C $(LIBFT_DIR)												> /dev/null
-
-	@ echo "$(RED)$(BOLD)Cleaning BONUS...$(RESET)"
-	@ make clean -C $(BONUS_DIR)												> /dev/null
 
 	@ echo "$(RED)$(BOLD)Cleaning $(NICKNAME)...$(RESET)"
 	@ rm -rf $(OBJ)
@@ -151,9 +148,6 @@ fclean:
 	@ echo "$(RED)$(BOLD)Fully cleaning MLX42...$(RESET)"
 	@ make clean -C $(MLX_DIR)/build											> /dev/null
 
-	@ echo "$(RED)$(BOLD)Fully cleaning BONUS...$(RESET)"
-	@ make fclean -C $(BONUS_DIR)												> /dev/null
-
 	@ echo "$(RED)$(BOLD)Fully cleaning $(NICKNAME)...$(RESET)"
 	@ rm -rf ${NAME}
 	@ rm -rf $(OBJ)
@@ -161,4 +155,4 @@ fclean:
 
 re: fclean $(NAME)
 
-.PHONY: all submodule norm clean fclean re submodule bonus
+.PHONY: all submodule norm clean fclean re submodule
