@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:19:35 by opelser           #+#    #+#             */
-/*   Updated: 2024/06/04 23:13:26 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/05 23:50:18 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ struct s_sprite
 	double			distance;
 
 	int				width;
-	
+
 	int				frames;
 	int				current_frame;
 
