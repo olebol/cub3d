@@ -78,6 +78,7 @@ SRC_FILES :=									\
 				parser/flip.c					\
 \
 				engine/casting.c				\
+				engine/casting_utils.c			\
 				engine/sprites.c				\
 				engine/draw_sprite.c			\
 				engine/minimap.c				\

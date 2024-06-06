@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:18:28 by opelser           #+#    #+#             */
-/*   Updated: 2024/06/05 23:50:37 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/06 22:30:12 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,11 @@ static double	get_distance(t_sprite *sprite)
 	return (pow(sprite->distance_x, 2) + pow(sprite->distance_y, 2));
 }
 
-static void	sort_sprites(t_sprite **sprites)
+static void	sort_sprites(t_sprite **sprites, t_sprite *current)
 {
-	t_sprite	*current;
 	t_sprite	*prev;
 	t_sprite	*next;
 
-	current = *sprites;
 	while (current)
 	{
 		prev = NULL;
@@ -40,17 +38,14 @@ static void	sort_sprites(t_sprite **sprites)
 					prev->next = next;
 				else
 					*sprites = next;
-
 				current->next = next->next;
 				next->next = current;
 				current = next;
 			}
-
 			prev = current;
 			current = next;
 			next = next->next;
 		}
-
 		current = current->next;
 	}
 }
@@ -100,7 +95,7 @@ void	sprites(t_data *data, t_ray_data **rays)
 		sprite->distance_y = sprite->y - data->player.y;
 		sprite = sprite->next;
 	}
-	sort_sprites(&data->sprites);
+	sort_sprites(&data->sprites, data->sprites);
 	update_frames(data->sprites);
 	sprite = data->sprites;
 	while (sprite)
