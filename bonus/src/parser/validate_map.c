@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:41:54 by evalieve          #+#    #+#             */
-/*   Updated: 2024/06/03 18:43:42 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/06 23:07:56 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,42 +95,12 @@ static bool	contains_valid_symbols(t_map *map)
 	return (true);
 }
 
-static bool	doors_are_valid(t_map *map)
-{
-	int			y;
-	int			x;
-
-	y = 0;
-	while (y < map->height)
-	{
-		x = 0;
-		while (x < map->width)
-		{
-			if (map->map[y][x] == CLOSED_DOOR \
-				|| map->map[y][x] == OPEN_DOOR)
-			{
-				if ((map->map[y][x + 1] != WALL || map->map[y][x - 1] != WALL) \
-					&& (map->map[y + 1][x] != WALL || map->map[y - 1][x] != WALL))
-					return (false);
-				if (map->map[y][x + 1] == OPEN_DOOR || map->map[y][x - 1] == OPEN_DOOR \
-					|| map->map[y + 1][x] == OPEN_DOOR || map->map[y - 1][x] == OPEN_DOOR \
-					|| map->map[y][x + 1] == CLOSED_DOOR || map->map[y][x - 1] == CLOSED_DOOR \
-					|| map->map[y + 1][x] == CLOSED_DOOR || map->map[y - 1][x] == CLOSED_DOOR)
-					return (false);
-			}
-			x++;
-		}
-		y++;
-	}
-	return (true);
-}
-
 void	validate_map(t_map *map)
 {
 	if (contains_valid_symbols(map) == false)
 		error(E_MAP_INVALID);
 	if (is_map_closed(map) == false)
 		error(E_MAP_UNCLOSED);
-	if (doors_are_valid(map) == false)
+	if (are_doors_valid(map) == false)
 		error(E_MAP_DOOR);
 }

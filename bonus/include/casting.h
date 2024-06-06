@@ -6,16 +6,16 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:40:41 by opelser           #+#    #+#             */
-/*   Updated: 2024/06/06 22:59:26 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/06 23:08:51 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CASTING_H
 # define CASTING_H
 
-#include "vector.h"
-#include "cub3d.h"
-#include <stdbool.h>
+# include "vector.h"
+# include "cub3d.h"
+# include <stdbool.h>
 
 typedef struct s_data		t_data;
 typedef struct s_vector		t_vector;
@@ -84,7 +84,6 @@ t_dda_values	get_dda_values(t_ray_data *ray, double x, double y);
 void			go_to_next_intersection(t_ray_data *ray, t_dda_values *dda);
 void			calculate_hit(t_data *data, t_ray_data *ray, t_dda_values *dda);
 t_ray_data		*copy_ray(t_ray_data *old);
-
 
 /**
  * @brief		Cast a ray and return the ray data

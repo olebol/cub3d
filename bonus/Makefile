@@ -71,6 +71,7 @@ SRC_FILES :=									\
 \
 				parser/parser.c					\
 				parser/parse_map.c				\
+				parser/validate_doors.c			\
 				parser/sprites.c				\
 				parser/validate_map.c			\
 				parser/elements.c				\

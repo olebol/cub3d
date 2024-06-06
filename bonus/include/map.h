@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:41:51 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/27 16:42:14 by opelser          ###   ########.fr       */
+/*   Updated: 2024/06/06 23:09:55 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MAP_H
 
 # define VALID_MAP_CHARS " 0123NSEW&"
+
+# include <stdbool.h>
 
 typedef enum map_tile_type
 {
@@ -46,5 +48,7 @@ typedef struct s_map
 void		parse_map(t_map *map, const char *content);
 
 void		validate_map(t_map *map);
+
+bool		are_doors_valid(t_map *map);
 
 #endif
