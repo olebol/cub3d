@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:08:10 by opelser           #+#    #+#             */
-/*   Updated: 2024/03/21 15:35:01 by opelser          ###   ########.fr       */
+/*   Updated: 2024/07/06 19:15:22 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef enum s_error
 	E_IMAGE_INIT,
 	E_FILE_EXTENSION,
 	E_FILE,
+	E_FILE_EMPTY,
 	E_ELEM_DUPLICATE,
 	E_ELEM_ID,
 	E_ELEM_MISSING,

@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:43:51 by evalieve          #+#    #+#             */
-/*   Updated: 2024/03/01 17:28:57 by opelser          ###   ########.fr       */
+/*   Updated: 2024/07/06 19:15:11 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ const char	*ft_strerror(t_error error)
 		[E_IMAGE_INIT]		= "Failed to initialize an image",
 		[E_FILE_EXTENSION]	= "Invalid file extension",
 		[E_FILE]			= "Failed to open file",
+		[E_FILE_EMPTY]		= "Empty map",
 		[E_ELEM_DUPLICATE]	= "Duplicate element found",
 		[E_ELEM_ID]			= "Invalid element identifier",
 		[E_ELEM_MISSING]	= "Missing element",
