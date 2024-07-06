@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   validate_map.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 17:41:54 by evalieve          #+#    #+#             */
-/*   Updated: 2024/06/06 23:07:56 by opelser          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   validate_map.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: opelser <opelser@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/22 17:41:54 by evalieve      #+#    #+#                 */
+/*   Updated: 2024/07/06 16:05:54 by evalieve      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,7 @@ static bool	contains_valid_symbols(t_map *map)
 		while (x < map->width)
 		{
 			if (ft_strchr(VALID_MAP_CHARS, map->map[y][x]) == NULL)
-			{
-				printf("Invalid symbol: %c\n", map->map[y][x]);
 				return (false);
-			}
 			x++;
 		}
 		y++;
