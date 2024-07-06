@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:42:50 by evalieve          #+#    #+#             */
-/*   Updated: 2024/05/24 16:10:45 by opelser          ###   ########.fr       */
+/*   Updated: 2024/07/06 17:58:06 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void	parse_file(t_data *data, const char *filename)
 	size_t		map_start;
 
 	content = read_file(filename);
+	if (content == NULL || content[0] == '\0')
+		error(E_FILE_EMPTY);
 	map_start = parse_elements(&data->elements, content);
 	parse_map(&data->map, content + map_start);
 	validate_map(&data->map);
