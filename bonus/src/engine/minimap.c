@@ -104,8 +104,8 @@ void	draw_minimap(t_data *data)
 		tile_size -= 1;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_EQUAL))
 		tile_size += 1;
-	if (tile_size < 1)
-		tile_size = 1;
+	if (tile_size < 5)
+		tile_size = 5;
 	fill_map(data, tile_size, map_offset_x, map_offset_y);
 	draw_player(data, minimap_size / 2, 0xFF0000FF);
 }
