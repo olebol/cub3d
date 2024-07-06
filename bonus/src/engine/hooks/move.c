@@ -6,7 +6,7 @@
 /*   By: opelser <opelser@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:45:52 by opelser           #+#    #+#             */
-/*   Updated: 2024/06/03 17:49:04 by opelser          ###   ########.fr       */
+/*   Updated: 2024/07/06 16:19:22 by opelser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,13 @@
 
 void	move_player(t_map *map, t_player *player, double move_x, double move_y)
 {
-	if (get_tile_type(map, move_x * 2 + player->x, player->y) == FLOOR)
+	t_tile		tile;
+
+	tile = get_tile_type(map, move_x * 2 + player->x, player->y);
+	if (tile == FLOOR || tile == OPEN_DOOR)
 		player->x += move_x;
-	if (get_tile_type(map, player->x, move_y * 3 + player->y) == FLOOR)
+	tile = get_tile_type(map, player->x, move_y * 3 + player->y);
+	if (tile == FLOOR || tile == OPEN_DOOR)
 		player->y += move_y;
 }
 
