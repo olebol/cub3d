@@ -38,7 +38,7 @@ static void		set_colour(uint32_t *colour, const char *value)
 		if (ft_err_atoi(rgb[i], &channel) != 0)
 			error(E_ELEM_RGB);
 
-		if (channel > 255)
+		if (channel < 0 || channel > 255)
 			error(E_ELEM_RGB);
 
 		// Add the current number to the colour
